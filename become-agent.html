@@ -75,7 +75,7 @@
     <div class="step-node" id="node-3">3</div>
   </div>
 
-  <!-- Step 1: Personal Details -->
+  <!-- Step 1: Personal Details[cite: 11] -->
   <div class="card" id="step-1">
     <div class="step-title">Step 1: Personal Details</div>
     <div class="step-sub">Provide your contact and identity details</div>
@@ -128,13 +128,13 @@
     </div>
   </div>
 
-  <!-- Step 2: Payment Gateways -->
+  <!-- Step 2: Payment Gateways[cite: 12] -->
   <div class="card hidden" id="step-2">
     <div class="step-title">Step 2: Payment Gateways</div>
-    <div class="step-sub">Select popular local methods or crypto for your country</div>
+    <div class="step-sub">Select popular local methods or crypto</div>
 
     <div class="form-group">
-      <label>Select Payment Gateway</label>
+      <label>Select Payment Gateway (6-8 Options)</label>
       <div class="gateway-grid" id="gatewayContainer"></div>
     </div>
 
@@ -149,19 +149,20 @@
     </div>
   </div>
 
-  <!-- Step 3: Identity & Verification -->
+  <!-- Step 3: Identity & Verification[cite: 13] -->
   <div class="card hidden" id="step-3">
     <div class="step-title">Step 3: Identity & Verification</div>
     <div class="step-sub">Upload document and state your experience</div>
 
     <div class="form-group">
       <label>Previous Agent / Payment Experience</label>
-      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P">
+      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P Exchange">
     </div>
 
     <div class="form-group">
       <label>Identity Document Type</label>
       <select class="form-control">
+        <option>NID / Passport / Trade License</option>
         <option>NID Card / National ID</option>
         <option>Passport</option>
         <option>Trade License</option>
@@ -193,7 +194,7 @@
     </div>
   </div>
 
-  <!-- Success Screen -->
+  <!-- Success Screen[cite: 14] -->
   <div class="card hidden" id="step-success" style="text-align: center;">
     <div style="font-size: 50px; color: var(--accent-green); margin-bottom: 10px;">&#10004;</div>
     <div class="step-title">Application Submitted!</div>
@@ -204,14 +205,14 @@
       <div style="font-size: 18px; font-weight: bold; color: var(--accent-blue);">#PGA-883920</div>
     </div>
 
-    <button class="btn btn-primary" onclick="Telegram.WebApp.close()">Close App</button>
+    <button class="btn btn-primary" onclick="Telegram.WebApp.close()">Back to Dashboard</button>
   </div>
 
   <div class="powered">Powered by PayGaid</div>
 </div>
 
 <script>
-  // 12 Countries Gateways (6 Local + Bank/Crypto)
+  // 12 Countries Gateways
   const gateways = {
     IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Mobikwik', 'Freecharge', '🏦 Indian Bank Transfer', '🪙 Crypto (USDT)'],
     PK: ['Easypaisa', 'JazzCash', 'SadaPay', 'NayaPay', 'UPaisa', 'PayMax', '🏦 Pakistani Bank Transfer', '🪙 Crypto (USDT)'],
@@ -262,7 +263,6 @@
     document.getElementById('step-success').classList.remove('hidden');
   }
 
-  // Initialize
   updateGateways();
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
