@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PayGaid - Become an Agent</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { color-scheme: light !important; }
+        * {
+            box-sizing: border-box; margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+            padding: 20px 18px; position: relative; min-height: 100vh;
+        }
+        
+        .back-btn {
+            background: none; border: none; color: #0066ff; font-size: 15px; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+        }
+
+        .page-header { text-align: center; margin-bottom: 20px; }
+        .page-header h1 { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+        .page-header p { font-size: 13px; color: #64748b; }
+
+        .step-progress { display: flex; justify-content: space-between; margin-bottom: 24px; position: relative; padding: 0 10px; }
+        .step-progress::before {
+            content: ''; position: absolute; top: 50%; left: 20px; right: 20px; height: 2px;
+            background: #e2e8f0; z-index: 0; transform: translateY(-50%);
+        }
+        .step-circle {
+            width: 34px; height: 34px; border-radius: 50%; background: #ffffff;
+            border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700; color: #64748b; z-index: 1; position: relative;
+        }
+        .step-circle.active { border-color: #0066ff; background: #0066ff; color: #ffffff; }
+
+        .content-card {
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;
+            padding: 20px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+        }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1;
+            border-radius: 10px; font-size: 14px; outline: none; background: #fff;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: #0066ff; box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1); }
+        
+        .gateway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }
+        .gateway-card {
+            border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 10px; text-align: center;
+            cursor: pointer; transition: all 0.2s; background: #fafafa; font-size: 13px; font-weight: 600;
+        }
+        .gateway-card.selected { border-color: #0066ff; background: #eff6ff; color: #0066ff; font-weight: 700; }
+        .gateway-card i { font-size: 20px; margin-bottom: 6px; display: block; }
+
+        .upload-box {
+            border: 2px dashed #cbd5e1; border-radius: 12px; padding: 20px; text-align: center;
+            background: #f8fafc; cursor: pointer; color: #64748b; font-size: 13px;
+        }
+        .upload-box i { font-size: 28px; color: #0066ff; margin-bottom: 8px; display: block; }
+
+        .btn-submit {
+            width: 100%; background: #0066ff; color: #ffffff; border: none;
+            border-radius: 12px; padding: 14px; font-size: 15px; font-weight: 700;
+            cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+        .btn-submit:active { background: #0052cc; }
+
+        .footer-divider { display: flex; align-items: center; justify-content: center; margin-top: 32px; margin-bottom: 16px; gap: 10px; }
+        .footer-line { height: 1px; background-color: #e2e8f0; flex: 1; max-width: 80px; }
+        .footer-text { font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 1.2px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <button class="back-btn" onclick="window.location.href='index.html'">
+        <i class="fa-solid fa-arrow-left"></i> <span>পিছনে যান</span>
+    </button>
+    
+    <div class="page-header">
+        <h1>এজেন্ট হন</h1>
+        <p>PayGaid নেটওয়ার্কে যুক্ত হতে আবেদন ফর্মটি পূরণ করুন</p>
+    </div>
+
+    <div class="step-progress">
+        <div class="step-circle active" id="st-1">১</div>
+        <div class="step-circle" id="st-2">২</div>
+        <div class="step-circle" id="st-3">৩</div>
+    </div>
+
+    <div class="content-card">
+        <!-- ধাপ ১: ব্যক্তিগত তথ্য -->
+        <div id="step-1">
+            <h3 style="margin-bottom: 14px; font-size: 16px; color:#0f172a;">ধাপ ১: ব্যক্তিগত ও ব্যবসায়ের তথ্য</h3>
+            <div class="form-group">
+                <label>আপনার নাম</label>
+                <input type="text" id="ag_name" placeholder="পুরো নাম লিখুন">
+            </div>
+            <div class="form-group">
+                <label>ফোন / হোয়াটসঅ্যাপ নম্বর</label>
+                <input type="tel" id="ag_phone" placeholder="+8801700000000">
+            </div>
+            <div class="form-group">
+                <label>ব্যবসা বা দোকানের নাম</label>
+                <input type="text" id="ag_business" placeholder="প্রতিষ্ঠানের নাম লিখুন">
+            </div>
+            <button class="btn-submit" onclick="goToStep(2)">পরবর্তী: পেমেন্ট মেথড নির্বাচন <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- ধাপ ২: পেমেন্ট গেটওয়ে -->
+        <div id="step-2" style="display: none;">
+            <h3 style="margin-bottom: 4px; font-size: 16px; color:#0f172a;">ধাপ ২: লোকাল পেমেন্ট গেটওয়ে</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 14px;">নির্বাচিত দেশ: <b id="current-country">বাংলাদেশ</b></p>
+            
+            <div class="gateway-grid" id="gateway-list"></div>
+
+            <div class="form-group" style="margin-top: 16px;">
+                <label>সিলেক্ট করা ওয়ালেট / একাউন্ট নম্বর</label>
+                <input type="text" id="ag_wallet" placeholder="যেমন: 01700000000">
+            </div>
+
+            <div class="form-group">
+                <label>+ কাস্টম গেটওয়ে বা ব্যাংক যুক্ত করুন (ঐচ্ছিক)</label>
+                <input type="text" id="ag_custom_gw" placeholder="ব্যাংকের নাম ও একাউন্ট নম্বর">
+            </div>
+
+            <button class="btn-submit" onclick="goToStep(3)">পরবর্তী: আইডি ভেরিফিকেশন (KYC) <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- ধাপ ৩: ভেরিফিকেশন -->
+        <div id="step-3" style="display: none;">
+            <h3 style="margin-bottom: 14px; font-size: 16px; color:#0f172a;">ধাপ ৩: পরিচয়পত্র ভেরিফিকেশন (KYC)</h3>
+            <div class="form-group">
+                <label>ডকুমেন্টের ধরন</label>
+                <select id="ag_doc_type">
+                    <option>জাতীয় পরিচয়পত্র (NID)</option>
+                    <option>পাসপোর্ট (Passport)</option>
+                    <option>ড্রাইভিং লাইসেন্স</option>
+                    <option>ট্রেড লাইসেন্স</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>আইডি কার্ডের ছবি আপলোড করুন</label>
+                <div class="upload-box" onclick="document.getElementById('doc-file').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p id="upload-label">ছবি নির্বাচন করতে এখানে ক্লিক করুন</p>
+                    <input type="file" id="doc-file" style="display:none;" onchange="updateFileName(this)">
+                </div>
+            </div>
+
+            <button class="btn-submit" onclick="submitApplication()">আবেদন সাবমিট করুন</button>
+        </div>
+    </div>
+
+    <div class="footer-divider">
+        <div class="footer-line"></div>
+        <div class="footer-text">POWERED BY PAYGAID</div>
+        <div class="footer-line"></div>
+    </div>
+
+    <script>
+        let selectedCountry = localStorage.getItem('paygaid_country') || "Bangladesh";
+        let selectedGateway = "";
+
+        const gateways = {
+            "Bangladesh": [
+                { name: "bKash", icon: "fa-solid fa-mobile-screen" },
+                { name: "Nagad", icon: "fa-solid fa-wallet" },
+                { name: "Rocket", icon: "fa-solid fa-building-columns" },
+                { name: "Upay", icon: "fa-solid fa-money-bill-transfer" }
+            ],
+            "India": [
+                { name: "UPI / GPay", icon: "fa-solid fa-qrcode" },
+                { name: "Paytm", icon: "fa-solid fa-wallet" },
+                { name: "PhonePe", icon: "fa-solid fa-mobile" }
+            ],
+            "Pakistan": [
+                { name: "Easypaisa", icon: "fa-solid fa-mobile-button" },
+                { name: "JazzCash", icon: "fa-solid fa-wallet" }
+            ]
+        };
+
+        function renderGateways() {
+            document.getElementById('current-country').innerText = selectedCountry;
+            let container = document.getElementById('gateway-list');
+            container.innerHTML = "";
+            let list = gateways[selectedCountry] || gateways["Bangladesh"];
+
+            list.forEach((gw, idx) => {
+                let card = document.createElement('div');
+                card.className = `gateway-card ${idx === 0 ? 'selected' : ''}`;
+                if(idx === 0) selectedGateway = gw.name;
+                card.onclick = () => {
+                    document.querySelectorAll('.gateway-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedGateway = gw.name;
+                };
+                card.innerHTML = `<i class="${gw.icon}"></i> ${gw.name}`;
+                container.appendChild(card);
+            });
+        }
+
+        function goToStep(step) {
+            document.getElementById('step-1').style.display = step === 1 ? 'block' : 'none';
+            document.getElementById('step-2').style.display = step === 2 ? 'block' : 'none';
+            document.getElementById('step-3').style.display = step === 3 ? 'block' : 'none';
+
+            for(let i=1; i<=3; i++) {
+                let st = document.getElementById(`st-${i}`);
+                if(i <= step) st.classList.add('active');
+                else st.classList.remove('active');
+            }
+        }
+
+        function updateFileName(input) {
+            if(input.files && input.files[0]) {
+                document.getElementById('upload-label').innerText = "সিলেক্ট করা ফাইল: " + input.files[0].name;
+            }
+        }
+
+        function submitApplication() {
+            let name = document.getElementById('ag_name').value;
+            let phone = document.getElementById('ag_phone').value;
+            if(!name || !phone) {
+                alert("সবগুলো প্রয়োজনীয় তথ্য পূরণ করুন।");
+                return;
+            }
+            alert("আপনার এজেন্ট আবেদনটি সফলভাবে জমা হয়েছে!");
+            window.location.href = 'index.html';
+        }
+
+        renderGateways();
+    </script>
+</body>
+</html>

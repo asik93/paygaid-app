@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PayGaid Agent Portal</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Force light theme overriding Telegram defaults */
+        :root {
+            color-scheme: light !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+            padding: 20px 18px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        
+        /* Globe Vector Overlay */
+        .dashboard-bg-globe {
+            position: absolute;
+            top: -10px;
+            right: -50px;
+            width: 280px;
+            height: 280px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Center Titles */
+        .page-title-center {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .page-title-center h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .page-title-center p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Options List */
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .option-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .option-item:active {
+            background-color: #f1f5f9;
+        }
+        .flag-icon {
+            font-size: 20px;
+        }
+
+        /* Header UI */
+        .header {
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .logo-svg {
+            width: 36px;
+            height: 36px;
+        }
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0066ff;
+            letter-spacing: -0.5px;
+        }
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .welcome-sub {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.45;
+            font-weight: 400;
+        }
+
+        /* Menu Items */
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .menu-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+            cursor: pointer;
+        }
+        .menu-item:active {
+            background-color: #f8fafc;
+        }
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background-color: #eff6ff;
+            color: #0066ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+        .menu-text h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+        .menu-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 400;
+        }
+        .arrow-icon {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        
+        .content-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 14px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #334155;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #0066ff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer Divider */
+        .footer-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            gap: 10px;
+        }
+        .footer-line {
+            height: 1px;
+            background-color: #e2e8f0;
+            flex: 1;
+            max-width: 80px;
+        }
+        .footer-text {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Country Selection Screen -->
+    <div id="page-country" class="page active">
+        <div class="page-title-center">
+            <h1>Welcome</h1>
+            <p>Select your Country</p>
+        </div>
+        <div class="option-list">
+            <div class="option-item" onclick="selectCountry('India', '🇮🇳', 'हिंदी', 'hi')">
+                <span class="flag-icon">🇮🇳</span> India
+            </div>
+            <div class="option-item" onclick="selectCountry('Pakistan', '🇵🇰', 'اردو', 'ur')">
+                <span class="flag-icon">🇵🇰</span> Pakistan
+            </div>
+            <div class="option-item" onclick="selectCountry('UAE', '🇦🇪', 'العربية', 'ar')">
+                <span class="flag-icon">🇦🇪</span> UAE
+            </div>
+            <div class="option-item" onclick="selectCountry('Saudi Arabia', '🇸🇦', 'العربية', 'ar')">
+                <span class="flag-icon">🇸🇦</span> Saudi Arabia
+            </div>
+            <!-- Bangladesh -->
+            <div class="option-item" onclick="selectCountry('Bangladesh', '🇧🇩', 'বাংলা', 'bn')">
+                <span class="flag-icon">🇧🇩</span> Bangladesh
+            </div>
+            <div class="option-item" onclick="selectCountry('Nepal', '🇳🇵', 'नेपाली (Nepali)', 'ne')">
+                <span class="flag-icon">🇳🇵</span> Nepal
+            </div>
+            <div class="option-item" onclick="selectCountry('Philippines', '🇵🇭', 'Filipino', 'fil')">
+                <span class="flag-icon">🇵🇭</span> Philippines
+            </div>
+            <div class="option-item" onclick="selectCountry('Vietnam', '🇻🇳', 'Tiếng Việt', 'vi')">
+                <span class="flag-icon">🇻🇳</span> Vietnam
+            </div>
+            <div class="option-item" onclick="selectCountry('Thailand', '🇹🇭', 'ไทย', 'th')">
+                <span class="flag-icon">🇹🇭</span> Thailand
+            </div>
+            <div class="option-item" onclick="selectCountry('Malaysia', '🇲🇾', 'Bahasa Melayu', 'ms')">
+                <span class="flag-icon">🇲🇾</span> Malaysia
+            </div>
+            <div class="option-item" onclick="selectCountry('Indonesia', '🇮🇩', 'Bahasa Indonesia', 'id')">
+                <span class="flag-icon">🇮🇩</span> Indonesia
+            </div>
+            <div class="option-item" onclick="selectCountry('Qatar', '🇶🇦', 'العربية', 'ar')">
+                <span class="flag-icon">🇶🇦</span> Qatar
+            </div>
+        </div>
+        <div class="footer-divider">
+            <div class="footer-line"></div>
+            <div class="footer-text">POWERED BY PAYGAID</div>
+            <div class="footer-line"></div>
+        </div>
+    </div>
+
+    <!-- 2. Language Selection Screen -->
+    <div id="page-lang" class="page">
+        <button class="back-btn" onclick="goPage('page-country')">
+            <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
+        </button>
+        <div class="page-title-center">
+            <h1>Select Language</h1>
+            <p>Choose your preferred language</p>
+        </div>
+        <div class="option-list">
+            <div class="option-item" onclick="setLanguage('en')">
+                <span class="flag-icon">🌐</span> English
+            </div>
+            <div class="option-item" onclick="setLanguage('local')">
+                <span class="flag-icon" id="local-flag">🇧🇩</span> <span id="local-lang-name">Local Language</span>
+            </div>
+        </div>
+        <div class="footer-divider">
+            <div class="footer-line"></div>
+            <div class="footer-text">POWERED BY PAYGAID</div>
+            <div class="footer-line"></div>
+        </div>
+    </div>
+
+    <!-- 3. Main Dashboard Screen -->
+    <div id="page-dashboard" class="page">
+        <!-- SVG Globe Graphic Vector -->
+        <svg class="dashboard-bg-globe" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="350" cy="150" r="200" fill="#3b82f6" opacity="0.12"/>
+            <path d="M250,50 A180,180 0 0,0 120,280 C150,260 210,230 250,220 C290,210 320,170 360,160 C400,150 420,120 440,90 A180,180 0 0,0 250,50 Z" fill="#60a5fa" opacity="0.35"/>
+            <path d="M150,330 C190,340 240,320 280,310 C320,300 370,330 400,310 A180,180 0 0,0 425,220 C380,240 330,220 280,240 C230,260 180,310 150,330 Z" fill="#60a5fa" opacity="0.35"/>
+        </svg>
+
+        <div class="header">
+            <div class="logo-box">
+                <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 20 H55 C70 20 80 30 80 45 C80 60 70 70 55 70 H40 V90 H20 V20 Z M40 38 V52 H52 C58 52 62 48 62 45 C62 41 58 38 52 38 H40 Z" fill="#0066FF"/>
+                    <path d="M20 20 C20 20 45 15 65 30 C50 35 35 35 20 20 Z" fill="#00C2FF"/>
+                </svg>
+                <span class="logo-text">PayGaid</span>
+            </div>
+
+            <h1 class="welcome-title" id="txt-welcome">Welcome</h1>
+            <p class="welcome-sub" id="txt-sub1">Your trusted Payment Gateway &<br>E-Wallet Agent Platform.</p>
+            <p class="welcome-sub" id="txt-sub2" style="margin-top: 8px;">Explore our program, check requirements,<br>or submit your application.</p>
+        </div>
+
+        <div class="menu-container">
+            <div class="menu-item" onclick="showSubPage('m1')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-regular fa-user"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m1-title">Become an Agent</h3>
+                        <p id="m1-sub">Learn more and submit your application.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="showSubPage('m2')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m2-title">Agent Login</h3>
+                        <p id="m2-sub">Access your agent panel.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="showSubPage('m3')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-regular fa-file-lines"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m3-title">Program Overview</h3>
+                        <p id="m3-sub">Discover how the PayGaid Agent Program works.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="showSubPage('m4')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-regular fa-shield-check"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m4-title">Eligibility Criteria</h3>
+                        <p id="m4-sub">Review eligibility and required information.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="showSubPage('m5')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-regular fa-file-lines"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m5-title">Terms & Conditions</h3>
+                        <p id="m5-sub">Read the program terms and conditions.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="showSubPage('m6')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-regular fa-circle-question"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m6-title">Frequently Asked Questions</h3>
+                        <p id="m6-sub">Find answers to common questions.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="showSubPage('m7')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m7-title">Contact Support</h3>
+                        <p id="m7-sub">Get help from our support team.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="menu-item" onclick="goPage('page-country')">
+                <div class="menu-left">
+                    <div class="icon-box"><i class="fa-solid fa-globe"></i></div>
+                    <div class="menu-text">
+                        <h3 id="m8-title">Change Language</h3>
+                        <p id="m8-sub">Select your preferred language.</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </div>
+        </div>
+
+        <div class="footer-divider">
+            <div class="footer-line"></div>
+            <div class="footer-text">POWERED BY PAYGAID</div>
+            <div class="footer-line"></div>
+        </div>
+    </div>
+
+    <!-- 4. Inner Detail Page -->
+    <div id="page-detail" class="page">
+        <button class="back-btn" onclick="goPage('page-dashboard')">
+            <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
+        </button>
+        <h2 id="detail-title" style="margin-bottom: 12px; font-size: 20px;">Title</h2>
+        <div class="content-card" id="detail-content">
+            Content goes here.
+        </div>
+        <div class="footer-divider">
+            <div class="footer-line"></div>
+            <div class="footer-text">POWERED BY PAYGAID</div>
+            <div class="footer-line"></div>
+        </div>
+    </div>
+
+    <script>
+        if (window.Telegram && window.Telegram.WebApp) {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+        }
+
+        let currentCountry = "Bangladesh";
+        let currentLocalLangName = "";
+        let currentLangCode = "en";
+        let activeLang = "en";
+
+        const translations = {
+            en: {
+                back: "Back",
+                welcome: "Welcome",
+                sub1: "Your trusted Payment Gateway &<br>E-Wallet Agent Platform.",
+                sub2: "Explore our program, check requirements,<br>or submit your application.",
+                m1_title: "Become an Agent", m1_sub: "Learn more and submit your application.",
+                m2_title: "Agent Login", m2_sub: "Access your agent panel.",
+                m3_title: "Program Overview", m3_sub: "Discover how the PayGaid Agent Program works.",
+                m4_title: "Eligibility Criteria", m4_sub: "Review eligibility and required information.",
+                m5_title: "Terms & Conditions", m5_sub: "Read the program terms and conditions.",
+                m6_title: "Frequently Asked Questions", m6_sub: "Find answers to common questions.",
+                m7_title: "Contact Support", m7_sub: "Get help from our support team.",
+                m8_title: "Change Language", m8_sub: "Select your preferred language.",
+                m2_content: "Enter your registered credentials to log in to your Agent Dashboard.",
+                m3_content: "PayGaid allows you to operate as an official payment agent with reliable instant transactions and high commission rates.",
+                m4_content: "Requirements: Valid Government NID/Passport, Active Mobile Number, and Business Verification.",
+                m5_content: "All terms and conditions apply according to international payment processing rules and financial security standards.",
+                m6_content: "Q: How long does approval take?<br>A: Approval usually takes 24-48 business hours.",
+                m7_content: "Need assistance? Contact our official support 24/7 via Telegram Support or Email: support@paygaid.com"
+            },
+            bn: {
+                back: "ফিরে যান",
+                welcome: "স্বাগতম",
+                sub1: "আপনার বিশ্বাসযোগ্য পেমেন্ট গেটওয়ে এবং<br>ই-ওয়ালেট এজেন্ট প্ল্যাটফর্ম।",
+                sub2: "আমাদের প্রোগ্রাম জানুন, শর্তাবলী দেখুন,<br>বা আবেদন ফর্ম জমা দিন।",
+                m1_title: "এজেন্ট হন", m1_sub: "বিস্তারিত জানুন এবং আপনার আবেদন জমা দিন।",
+                m2_title: "এজেন্ট লগইন", m2_sub: "আপনার এজেন্ট প্যানেলে প্রবেশ করুন।",
+                m3_title: "প্রোগ্রাম ওভারভিউ", m3_sub: "পেগেড এজেন্ট প্রোগ্রাম কিভাবে কাজ করে জানুন।",
+                m4_title: "যোগ্যতার মানদণ্ড", m4_sub: "প্রয়োজনীয় যোগ্যতা ও তথ্য পর্যালোচনা করুন।",
+                m5_title: "শর্তাবলী ও নিয়মাবলী", m5_sub: "প্রোগ্রামের শর্তাবলী ও নিয়মাবলী পড়ুন।",
+                m6_title: "সচরাচর জিজ্ঞাসিত প্রশ্নাবলী", m6_sub: "সাধারণ প্রশ্নগুলোর উত্তর খুঁজুন।",
+                m7_title: "সাপোর্ট যোগাযোগ", m7_sub: "আমাদের সাপোর্ট টিমের সাহায্য নিন।",
+                m8_title: "ভাষা পরিবর্তন করুন", m8_sub: "আপনার পছন্দসই ভাষা নির্বাচন করুন।",
+                m2_content: "আপনার এজেন্ট ড্যাশবোর্ডে প্রবেশের জন্য নিবন্ধিত ইউজারনেম ও পাসওয়ার্ড প্রদান করুন।",
+                m3_content: "পেগেড আপনাকে সর্বোচ্চ কমিশন এবং দ্রুততম পেমেন্ট সিস্টেমের সাথে একজন অফিসিয়াল এজেন্ট হিসেবে কাজ করার সুযোগ প্রদান করে।",
+                m4_content: "প্রয়োজনীয় ডকুমেন্টস: জাতীয় পরিচয়পত্র/পাসপোর্ট, সক্রিয় মোবাইল নম্বর এবং ব্যবসায়িক পরিচিতি।",
+                m5_content: "আন্তর্জাতিক পেমেন্ট প্রসেসিং আইন ও আর্থিক নিরাপত্তা বিধি অনুযায়ী সকল শর্তাবলী প্রযোজ্য।",
+                m6_content: "প্রশ্ন: অ্যাকাউন্ট অনুমোদন হতে কত সময় লাগে?<br>উত্তর: সাধারণত ২৪ থেকে ৪৮ কর্মঘণ্টার মধ্যে অনুমোদন সম্পন্ন হয়।",
+                m7_content: "সহায়তা প্রয়োজন? আমাদের সাপোর্ট টিমের সাথে ২৪/৭ যোগাযোগ করুন: support@paygaid.com"
+            },
+            hi: {
+                back: "वापस", welcome: "स्वागत है",
+                sub1: "आपका विश्वसनीय भुगतान गेटवे और<br>ई-वॉलेट एजेंट प्लेटफॉर्म।",
+                sub2: "हमारे कार्यक्रम को समझें, आवश्यकताएं देखें,<br>या अपना आवेदन जमा करें।",
+                m1_title: "एजेंट बनें", m1_sub: "अधिक जानें और अपना आवेदन जमा करें।",
+                m2_title: "एजेंट लॉगिन", m2_sub: "अपने एजेंट पैनल तक पहुंचें।",
+                m3_title: "कार्यक्रम अवलोकन", m3_sub: "जानें कि पेगेड एजेंट प्रोग्राम कैसे काम करता है।",
+                m4_title: "पात्रता मापदंड", m4_sub: "पात्रता और आवश्यक जानकारी की समीक्षा करें।",
+                m5_title: "नियम एवं शर्तें", m5_sub: "कार्यक्रम के नियम और शर्तें पढ़ें।",
+                m6_title: "अक्सर पूछे जाने वाले प्रश्न", m6_sub: "सामान्य प्रश्नों के उत्तर पाएं।",
+                m7_title: "सहायता संपर्क", m7_sub: "हमारी सहायता टीम से मदद लें।",
+                m8_title: "भाषा बदलें", m8_sub: "अपनी पसंदीदा भाषा चुनें।",
+                m2_content: "अपने एजेंट डैशबोर्ड तक पहुँचने के लिए अपने क्रेडेंशियल दर्ज करें।",
+                m3_content: "पेगेड आपको उच्च कमीशन दरों और सुरक्षित लेनदेन के साथ एक आधिकारिक एजेंट के रूप में काम करने की अनुमति देता है।",
+                m4_content: "आवश्यकताएं: मान्य सरकारी पहचान पत्र/पासपोर्ट, सक्रिय मोबाइल नंबर और व्यावसायिक विवरण।",
+                m5_content: "अंतरराष्ट्रीय भुगतान नियमों के अनुसार सभी नियम और शर्तें लागू होती हैं।",
+                m6_content: "प्रश्न: स्वीकृति में कितना समय लगता है?<br>उत्तर: आमतौर पर 24-48 कार्य घंटे लगते हैं।",
+                m7_content: "सहायता चाहिए? हमारी सहायता टीम से 24/7 संपर्क करें: support@paygaid.com"
+            },
+            ur: {
+                back: "واپس", welcome: "خوش آمدید",
+                sub1: "آپ کا قابل اعتماد پیمنٹ گیٹ وے اور<br>ای والٹ ایجنٹ پلیٹ فارم۔",
+                sub2: "ہمارے پروگرام کو دیکھیں، ضروریات چیک کریں،<br>یا اپنی درخواست جمع کروائیں۔",
+                m1_title: "ایجنٹ بنیں", m1_sub: "مزید جانیں اور اپنی درخواست جمع کروائیں۔",
+                m2_title: "ایجنٹ لاگ ان", m2_sub: "اپنے ایجنٹ پینل تک رسائی حاصل کریں۔",
+                m3_title: "پروگرام کا جائزہ", m3_sub: "جانیے کہ پے گیڈ ایجنٹ پروگرام کیسے کام کرتا ہے۔",
+                m4_title: "اہلیت کا معیار", m4_sub: "اہلیت اور مطلوبہ معلومات کا جائزہ لیں۔",
+                m5_title: "شرائط و ضوابط", m5_sub: "پروگرام کی شرائط و ضوابط پڑھیں۔",
+                m6_title: "باقاعدگی سے پوچھے گئے سوالات", m6_sub: "عام سوالات کے جوابات حاصل کریں۔",
+                m7_title: "سپورٹ سے رابطہ کریں", m7_sub: "ہماری سپورٹ ٹیم سے مدد حاصل کریں۔",
+                m8_title: "زبان تبدیل کریں", m8_sub: "اپنی پسندیدہ زبان منتخب کریں۔",
+                m2_content: "اپنے ڈیش بورڈ میں لاگ ان کرنے کے لیے اپنی معلومات درج کریں۔",
+                m3_content: "پے گیڈ آپ کو بہترین کمیشن اور محفوظ ترین نظام کے ساتھ کام کرنے کا موقع فراہم کرتا ہے۔",
+                m4_content: "ضروریات: شناختی کارڈ یا پاسپورٹ، فعال موبائل نمبر اور کاروباری تفصیلات۔",
+                m5_content: "تمام شرائط و ضوابط بین الاقوامی مالیاتی قوانین کے مطابق لاگو ہوتے ہیں۔",
+                m6_content: "سوال: منظوری میں کتنا وقت لگتا ہے؟<br>جواب: معمول کے مطابق 24 سے 48 گھنٹے۔",
+                m7_content: "مدد کی ضرورت ہے؟ ہماری ٹیم سے رابطہ کریں: support@paygaid.com"
+            },
+            ne: {
+                back: "फर्कनुहोस्", welcome: "स्वागत छ",
+                sub1: "तपाईंको भरपर्दो भुक्तानी गेटवे र<br>ई-वालेट एजेन्ट प्लेटफर्म।",
+                sub2: "हाम्रो कार्यक्रम हेर्नुहोस्, आवश्यकताहरू जाँच गर्नुहोस्,<br>वा आवेदन दिनुहोस्।",
+                m1_title: "एजेन्ट बन्नुहोस्", m1_sub: "थप जान्नुहोस् र आवेदन दिनुहोस्।",
+                m2_title: "एजेन्ट लगइन", m2_sub: "तपाईंको एजेन्ट प्यानलमा जानुहोस्।",
+                m3_title: "कार्यक्रम अवलोकन", m3_sub: "PayGaid एजेन्ट प्रोग्राम कसरी काम गर्छ हेर्नुहोस्।",
+                m4_title: "योग्यता मापदण्ड", m4_sub: "योग्यता र आवश्यक जानकारी समीक्षा गर्नुहोस्।",
+                m5_title: "नियम र सर्तहरू", m5_sub: "कार्यक्रमका नियम र सर्तहरू पढ्नुहोस्।",
+                m6_title: "प्रायः सोधिने प्रश्नहरू", m6_sub: "सामान्य प्रश्नहरूको उत्तर पाउनुहोस्।",
+                m7_title: "सम्पर्क सहायता", m7_sub: "हाम्रो सहयोग टोलीबाट मद्दत लिनुहोस्।",
+                m8_title: "भाषा परिवर्तन गर्नुहोस्", m8_sub: "आफ्नो मनपर्ने भाषा चयन गर्नुहोस्।",
+                m2_content: "तपाईंको एजेन्ट ड्यासबोर्डमा लगइन गर्न आफ्नो विवरण प्रविष्ट गर्नुहोस्।",
+                m3_content: "PayGaid ले तपाईंलाई उच्च कमिसन र सुरक्षित प्रणालीको साथ आधिकारिक एजेन्ट बन्ने अवसर दिन्छ।",
+                m4_content: "आवश्यकताहरू: मान्य परिचयपत्र/राहदानी, सक्रिय मोबाइल नम्बर, र व्यावसायिक विवरण।",
+                m5_content: "सबै नियम र सर्तहरू अन्तर्राष्ट्रिय भुक्तानी नियम अनुसार लागू हुनेछन्।",
+                m6_content: "प्रश्न: स्वीकृति पाउन कति समय लाग्छ?<br>उत्तर: साधारणतया २४-४८ घण्टा लाग्छ।",
+                m7_content: "सहयोग चाहिन्छ? हाम्रो टोलीसँग सम्पर्क गर्नुहोस्: support@paygaid.com"
+            },
+            fil: {
+                back: "Bumalik", welcome: "Maligayang Pagdating",
+                sub1: "Ang iyong maaasahang Payment Gateway &<br>E-Wallet Agent Platform.",
+                sub2: "Tingnan ang aming programa, suriin ang mga kinakailangan,<br>o isumite ang iyong aplikasyon.",
+                m1_title: "Maging isang Agent", m1_sub: "Alamin ang higit pa at mag-apply.",
+                m2_title: "Agent Login", m2_sub: "I-access ang iyong agent panel.",
+                m3_title: "Pangkalahatang-ideya ng Programa", m3_sub: "Tingnan kung paano gumagana ang PayGaid Agent Program.",
+                m4_title: "Pamantayan sa Pagiging Stuwado", m4_sub: "Suriin ang pagiging kwalipikado at impormasyon.",
+                m5_title: "Mga Tuntunin at Kundisyon", m5_sub: "Basahin ang mga tuntunin at kundisyon.",
+                m6_title: "Mga Madalas Itanong (FAQ)", m6_sub: "Maghanap ng mga sagot sa karaniwang tanong.",
+                m7_title: "Makipag-ugnayan sa Support", m7_sub: "Humingi ng tulong sa aming support team.",
+                m8_title: "Baguhin ang Wika", m8_sub: "Piliin ang iyong gustong wika.",
+                m2_content: "Ipasok ang iyong mga kredensyal upang mag-log in sa iyong Agent Dashboard.",
+                m3_content: "Pinapayagan ka ng PayGaid na magtrabaho bilang isang opisyal na agent na may mataas na komisyon.",
+                m4_content: "Mga Kinakailangan: Valib ID/Passport, Aktibong Mobile Number, at Impormasyon sa Negosyo.",
+                m5_content: "Lahat ng mga tuntunin ay nag-aapply ayon sa mga panuntunan sa internasyonal na pagbabayad.",
+                m6_content: "Tanong: Gaano katagal ang pag-apruba?<br>Sagot: Karaniwang tumatagal ng 24-48 oras.",
+                m7_content: "Kailangan ng tulong? Makipag-ugnayan sa aming team: support@paygaid.com"
+            },
+            vi: {
+                back: "Quay lại", welcome: "Xin chào",
+                sub1: "Cổng thanh toán & Nền tảng đại lý<br>Ví điện tử đáng tin cậy của bạn.",
+                sub2: "Khám phá chương trình, kiểm tra yêu cầu,<br>hoặc gửi đơn đăng ký của bạn.",
+                m1_title: "Trở thành Đại lý", m1_sub: "Tìm hiểu thêm và nộp đơn đăng ký.",
+                m2_title: "Đăng nhập Đại lý", m2_sub: "Truy cập bảng điều khiển đại lý.",
+                m3_title: "Tổng quan Chương trình", m3_sub: "Khám phá cách hoạt động của PayGaid.",
+                m4_title: "Tiêu chuẩn Tham gia", m4_sub: "Xem xét điều kiện và thông tin cần thiết.",
+                m5_title: "Điều khoản & Điều kiện", m5_sub: "Đọc các điều khoản và điều kiện.",
+                m6_title: "Câu hỏi Thường gặp", m6_sub: "Tìm câu trả lời cho các câu hỏi phổ biến.",
+                m7_title: "Liên hệ Hỗ trợ", m7_sub: "Nhận trợ giúp từ đội ngũ hỗ trợ.",
+                m8_title: "Đổi Ngôn ngữ", m8_sub: "Chọn ngôn ngữ ưu tiên của bạn.",
+                m2_content: "Nhập thông tin đăng nhập của bạn để truy cập Bảng điều khiển Đại lý.",
+                m3_content: "PayGaid cho phép bạn hoạt động như một đại lý thanh toán chính thức với hoa hồng cao.",
+                m4_content: "Yêu cầu: CCCD/Hộ chiếu hợp lệ, Số điện thoại hoạt động và Xác minh kinh doanh.",
+                m5_content: "Tất cả các điều khoản áp dụng theo quy định thanh toán quốc tế và an toàn tài chính.",
+                m6_content: "Hỏi: Thời gian phê duyệt là bao lâu?<br>Đáp: Thường mất từ 24-48 giờ làm việc.",
+                m7_content: "Cần hỗ trợ? Liên hệ đội ngũ của chúng tôi: support@paygaid.com"
+            },
+            th: {
+                back: "ย้อนกลับ", welcome: "ยินดีต้อนรับ",
+                sub1: "ช่องทางการชำระเงินและแพลตฟอร์มตัวแทน<br>กระเป๋าเงินอิเล็กทรอนิกส์ที่คุณไว้วางใจ",
+                sub2: "สำรวจโปรแกรมของเรา ตรวจสอบข้อกำหนด<br>หรือส่งใบสมัครของคุณ",
+                m1_title: "สมัครเป็นตัวแทน", m1_sub: "เรียนรู้เพิ่มเติมและส่งใบสมัครของคุณ",
+                m2_title: "เข้าสู่ระบบตัวแทน", m2_sub: "เข้าสู่แผงควบคุมตัวแทนของคุณ",
+                m3_title: "ภาพรวมโปรแกรม", m3_sub: "ค้นพบวิธีการทำงานของ PayGaid",
+                m4_title: "เกณฑ์คุณสมบัติ", m4_sub: "ตรวจสอบคุณสมบัติและข้อมูลที่จำเป็น",
+                m5_title: "ข้อกำหนดและเงื่อนไข", m5_sub: "อ่านข้อกำหนดและเงื่อนไขของโปรแกรม",
+                m6_title: "คำถามที่พบบ่อย", m6_sub: "ค้นหาคำตอบสำหรับคำถามทั่วไป",
+                m7_title: "ติดต่อฝ่ายสนับสนุน", m7_sub: "รับความช่วยเหลือจากทีมสนับสนุน",
+                m8_title: "เปลี่ยนภาษา", m8_sub: "เลือกภาษาที่คุณต้องการ",
+                m2_content: "กรอกข้อมูลประจำตัวของคุณเพื่อเข้าสู่ระบบแผงควบคุมตัวแทน",
+                m3_content: "PayGaid ช่วยให้คุณทำงานเป็นตัวแทนชำระเงินอย่างเป็นทางการพร้อมค่าคอมมิชชั่นสูง",
+                m4_content: "ข้อกำหนด: บัตรประชาชน/พาสปอร์ต, เบอร์โทรศัพท์ที่ใช้งานได้ และเอกสารธุรกิจ",
+                m5_content: "ข้อกำหนดทั้งหมดเป็นไปตามกฎระเบียบการชำระเงินระหว่างประเทศ",
+                m6_content: "ถาม: การอนุมัติใช้เวลานานแค่ไหน?<br>ตอบ: ปกติใช้เวลา 24-48 ชั่วโมงทำการ",
+                m7_content: "ต้องการความช่วยเหลือ? ติดต่อทีมงานของเรา: support@paygaid.com"
+            },
+            ms: {
+                back: "Kembali", welcome: "Selamat Datang",
+                sub1: "Gerbang Pembayaran & Platform E-Wallet<br>Ejen yang boleh anda percayai.",
+                sub2: "Terokai program kami, semak syarat,<br>atau hantar permohonan anda.",
+                m1_title: "Mendaftar Sebagai Ejen", m1_sub: "Ketahui lebih lanjut dan hantar permohonan.",
+                m2_title: "Log Masuk Ejen", m2_sub: "Akses panel ejen anda.",
+                m3_title: "Gambaran Keseluruhan", m3_sub: "Ketahui cara Program Ejen PayGaid berfungsi.",
+                m4_title: "Kriteria Kelayakan", m4_sub: "Semak kelayakan dan maklumat yang diperlukan.",
+                m5_title: "Terma & Syarat", m5_sub: "Baca terma dan syarat program.",
+                m6_title: "Soalan Lazim (FAQ)", m6_sub: "Cari jawapan kepada soalan biasa.",
+                m7_title: "Hubungi Sokongan", m7_sub: "Dapatkan bantuan daripada pasukan sokongan.",
+                m8_title: "Tukar Bahasa", m8_sub: "Pilih bahasa pilihan anda.",
+                m2_content: "Masukkan maklumat anda untuk log masuk ke Papan Pemuka Ejen.",
+                m3_content: "PayGaid membolehkan anda beroperasi sebagai ejen pembayaran rasmi dengan komisen tinggi.",
+                m4_content: "Keperluan: Kad Pengenalan/Pasport Sah, Nombor Telefon Aktif, dan Maklumat Perniagaan.",
+                m5_content: "Semua terma terpakai mengikut undang-undang pemprosesan pembayaran antarabangsa.",
+                m6_content: "Soalan: Berapa lama masa kelulusan?<br>Jawapan: Biasa mengambil masa 24-48 jam bekerja.",
+                m7_content: "Perlukan bantuan? Hubungi pasukan sokongan kami: support@paygaid.com"
+            },
+            id: {
+                back: "Kembali", welcome: "Selamat Datang",
+                sub1: "Payment Gateway & Platform Agen<br>E-Wallet terpercaya Anda.",
+                sub2: "Jelajahi program kami, cek persyaratan,<br>atau kirimkan aplikasi Anda.",
+                m1_title: "Menjadi Agen", m1_sub: "Pelajari lebih lanjut dan ajukan pendaftaran.",
+                m2_title: "Login Agen", m2_sub: "Akses panel agen Anda.",
+                m3_title: "Ikhtisar Program", m3_sub: "Pelajari cara kerja Program Agen PayGaid.",
+                m4_title: "Kriteria Kelayakan", m4_sub: "Tinjau kelayakan dan informasi yang diperlukan.",
+                m5_title: "Syarat & Ketentuan", m5_sub: "Baca syarat dan ketentuan program.",
+                m6_title: "Pertanyaan Umum (FAQ)", m6_sub: "Temukan jawaban untuk pertanyaan umum.",
+                m7_title: "Hubungi Dukungan", m7_sub: "Dapatkan bantuan dari tim dukungan kami.",
+                m8_title: "Ubah Bahasa", m8_sub: "Pilih bahasa pilihan Anda.",
+                m2_content: "Masukkan kredensial Anda untuk masuk ke Dashboard Agen Anda.",
+                m3_content: "PayGaid memungkinkan Anda beroperasi sebagai agen pembayaran resmi dengan komisi tinggi.",
+                m4_content: "Persyaratan: KTP/Paspor Sah, Nomor Telepon Aktif, dan Verifikasi Usaha.",
+                m5_content: "Semua syarat berlaku sesuai dengan standar keamanan pemprosesan pembayaran internasional.",
+                m6_content: "T: Berapa lama proses persetujuan?<br>J: Biasanya memakan waktu 24-48 jam kerja.",
+                m7_content: "Butuh bantuan? Hubungi tim dukungan kami: support@paygaid.com"
+            },
+            ar: {
+                back: "رجوع", welcome: "أهلاً بك",
+                sub1: "بوابتك الموثوقة للدفع منصة<br>وكلاء المحفظة الإلكترونية.",
+                sub2: "استكشف برنامجنا، تحقق من الشروط،<br>أو قدم طلبك الآن.",
+                m1_title: "كن وكيلًا", m1_sub: "تعرف على المزيد وقدم طلبك.",
+                m2_title: "تسجيل دخول الوكيل", m2_sub: "الدخول إلى لوحة الوكيل الخاص بك.",
+                m3_title: "نظرة عامة على البرنامج", m3_sub: "اكتشف كيف يعمل برنامج وكلاء PayGaid.",
+                m4_title: "معايير التأهل", m4_sub: "مراجعة متطلبات الشروط والمعلومات.",
+                m5_title: "الشروط والأحكام", m5_sub: "اقرأ شروط وأحكام البرنامج.",
+                m6_title: "الأسئلة الشائعة", m6_sub: "الإجابات على الأسئلة الشائعة.",
+                m7_title: "الدعم الفني", m7_sub: "احصل على المساعدة من فريق الدعم.",
+                m8_title: "تغيير اللغة", m8_sub: "اختر لغتك المفضلة.",
+                m2_content: "أدخل بيانات الاعتماد الخاصة بك لتسجيل الدخول إلى لوحة التحكم.",
+                m3_content: "تتيح لك PayGaid العمل كوكيل رسمي مع معاملات فورية ونسب عمولة عالية.",
+                m4_content: "المتطلبات: هوية حكومية سارية أو جواز سفر، رقم هاتف نشط، والتحقق من النشاط التجاري.",
+                m5_content: "تطبق جميع الشروط والأحكام وفقًا لقواعد المعاملات المالية الدولية.",
+                m6_content: "سؤال: كم يستغرق وقت الموافقة؟<br>جواب: يستغرق الأمر عادةً من 24 إلى 48 ساعة عمل.",
+                m7_content: "هل تحتاج إلى مساعدة؟ تواصل مع فريق الدعم لدينا: support@paygaid.com"
+            }
+        };
+
+        function goPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function selectCountry(country, flag, langName, langCode) {
+            currentCountry = country;
+            currentLocalLangName = langName;
+            currentLangCode = langCode;
+            
+            // Save selected country to localStorage for become-agent.html
+            localStorage.setItem('paygaid_country', country);
+            
+            document.getElementById('local-flag').innerText = flag;
+            document.getElementById('local-lang-name').innerText = langName;
+            
+            goPage('page-lang');
+        }
+
+        function setLanguage(type) {
+            activeLang = (type === 'en') ? 'en' : currentLangCode;
+            let langData = translations[activeLang] || translations['en'];
+
+            document.querySelectorAll('.btn-back-txt').forEach(el => el.innerText = langData.back);
+
+            document.getElementById('txt-welcome').innerHTML = langData.welcome;
+            document.getElementById('txt-sub1').innerHTML = langData.sub1;
+            document.getElementById('txt-sub2').innerHTML = langData.sub2;
+
+            document.getElementById('m1-title').innerText = langData.m1_title;
+            document.getElementById('m1-sub').innerText = langData.m1_sub;
+
+            document.getElementById('m2-title').innerText = langData.m2_title;
+            document.getElementById('m2-sub').innerText = langData.m2_sub;
+
+            document.getElementById('m3-title').innerText = langData.m3_title;
+            document.getElementById('m3-sub').innerText = langData.m3_sub;
+
+            document.getElementById('m4-title').innerText = langData.m4_title;
+            document.getElementById('m4-sub').innerText = langData.m4_sub;
+
+            document.getElementById('m5-title').innerText = langData.m5_title;
+            document.getElementById('m5-sub').innerText = langData.m5_sub;
+
+            document.getElementById('m6-title').innerText = langData.m6_title;
+            document.getElementById('m6-sub').innerText = langData.m6_sub;
+
+            document.getElementById('m7-title').innerText = langData.m7_title;
+            document.getElementById('m7-sub').innerText = langData.m7_sub;
+
+            document.getElementById('m8-title').innerText = langData.m8_title;
+            document.getElementById('m8-sub').innerText = langData.m8_sub;
+
+            goPage('page-dashboard');
+        }
+
+        function showSubPage(key) {
+            // Redirect directly to become-agent.html when Become an Agent (m1) is clicked
+            if (key === 'm1') {
+                window.location.href = 'become-agent.html';
+                return;
+            }
+
+            let langData = translations[activeLang] || translations['en'];
+            
+            document.getElementById('detail-title').innerText = langData[key + '_title'] || "Information";
+            document.getElementById('detail-content').innerHTML = langData[key + '_content'] || "Details will be updated soon.";
+            
+            goPage('page-detail');
+        }
+    </script>
+</body>
+</html>
