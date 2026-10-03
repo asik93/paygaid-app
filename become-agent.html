@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,9 +21,9 @@
     body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
     .container { width: 100%; max-width: 480px; }
     
-    /* Top Bar with Language Selector */
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-    .top-bar h2 { font-size: 20px; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+    /* Top Bar with Back & Language Selector */
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .back-btn { color: var(--text-main); text-decoration: none; font-size: 16px; display: flex; align-items: center; gap: 5px; }
     .lang-select { background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 6px; font-size: 13px; outline: none; }
 
     /* Stepper */
@@ -35,7 +35,7 @@
 
     /* Card Layout */
     .card { background: var(--card-bg); border-radius: 12px; padding: 18px; border: 1px solid var(--border-color); }
-    .step-title { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+    .step-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
     .step-sub { font-size: 12px; color: var(--text-sub); margin-bottom: 16px; }
 
     .form-group { margin-bottom: 14px; }
@@ -43,7 +43,7 @@
     .form-control { width: 100%; padding: 10px 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
     .form-control:focus { border-color: var(--accent-blue); }
 
-    /* Dynamic Payment Gateway Grid (2 Columns for 6-8 items) */
+    /* Dynamic Payment Gateway Grid (2 Columns) */
     .gateway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
     .gateway-btn { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.2s; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .gateway-btn.selected { border-color: var(--accent-blue); background: rgba(37, 99, 235, 0.2); font-weight: bold; color: #60a5fa; }
@@ -63,55 +63,55 @@
 <body>
 
 <div class="container">
-  <!-- Top Navigation & Language Switcher -->
+  <!-- Top Bar -->
   <div class="top-bar">
-    <h2 id="app-title">এজেন্ট হন <span style="color:var(--accent-green);">&#10004;</span></h2>
+    <a href="#" class="back-btn">&#8592; Become an Agent <span style="color:var(--accent-green);">&#10004;</span></a>
     <select class="lang-select" id="langSelect" onchange="changeLanguage()">
-      <option value="BN" selected>🇧🇩 বাংলা</option>
-      <option value="EN">🇺🇸 English</option>
+      <option value="EN" selected>🇺🇸 English</option>
+      <option value="BN">🇧🇩 বাংলা</option>
       <option value="HI">🇮🇳 हिन्दी</option>
     </select>
   </div>
 
   <!-- Stepper Header -->
   <div class="stepper">
-    <div class="step-node active" id="node-1">১</div>
-    <div class="step-node" id="node-2">২</div>
-    <div class="step-node" id="node-3">৩</div>
+    <div class="step-node active" id="node-1">1</div>
+    <div class="step-node" id="node-2">2</div>
+    <div class="step-node" id="node-3">3</div>
   </div>
 
-  <!-- Step 1: Personal Details (Updated with your design) -->
+  <!-- Step 1: Personal Details -->
   <div class="card" id="step-1">
-    <div class="step-title" id="s1-title">ধাপ ১: ব্যক্তিগত বিবরণ</div>
-    <div class="step-sub" id="s1-sub">আপনার যোগাযোগের এবং পরিচয়ের বিস্তারিত প্রদান করুন</div>
+    <div class="step-title" id="s1-title">Step 1: Personal Details</div>
+    <div class="step-sub" id="s1-sub">Provide your contact and identity details</div>
 
     <div class="form-group">
-      <label id="lbl-fullname">পুরো নাম</label>
-      <input type="text" class="form-control" id="ph-fullname" placeholder="যেমন: John Doe">
+      <label id="lbl-fullname">Full Name</label>
+      <input type="text" class="form-control" id="ph-fullname" placeholder="e.g. John Doe">
     </div>
 
     <div class="form-group">
-      <label id="lbl-email">ইমেইল ঠিকানা</label>
+      <label id="lbl-email">Email Address</label>
       <input type="email" class="form-control" id="ph-email" placeholder="example@mail.com">
     </div>
 
     <div class="form-group">
-      <label id="lbl-mobile">মোবাইল নম্বর</label>
+      <label id="lbl-mobile">Mobile Number</label>
       <input type="text" class="form-control" value="+880 1700-000000">
     </div>
 
     <div class="form-group">
-      <label id="lbl-whatsapp">হোয়াটসঅ্যাপ নম্বর</label>
+      <label id="lbl-whatsapp">WhatsApp Number</label>
       <input type="text" class="form-control" value="+880 1700-000000">
     </div>
 
     <div class="form-group">
-      <label id="lbl-telegram">টেলিগ্রাম ইউজারনেম</label>
+      <label id="lbl-telegram">Telegram Username</label>
       <input type="text" class="form-control" placeholder="@username">
     </div>
 
     <div class="form-group">
-      <label id="lbl-country">দেশ নির্বাচন করুন</label>
+      <label id="lbl-country">Country</label>
       <select class="form-control" id="countrySelect" onchange="updateGateways()">
         <option value="BD" selected>🇧🇩 Bangladesh</option>
         <option value="IN">🇮🇳 India</option>
@@ -121,101 +121,98 @@
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-primary" id="btn-next1" onclick="goToStep(2)">পরবর্তী: ওয়ালেট বিবরণ &rarr;</button>
+      <button class="btn btn-primary" id="btn-next1" onclick="goToStep(2)">Next: Wallet Details &rarr;</button>
     </div>
   </div>
 
-  <!-- Step 2: Wallet & Payment Gateways (Unchanged & Kept as it is) -->
+  <!-- Step 2: Wallet & Payment Gateways -->
   <div class="card hidden" id="step-2">
-    <div class="step-title" id="s2-title">ধাপ ২: লোকাল ও গ্লোবাল পেমেন্ট গেটওয়ে</div>
-    <div class="step-sub" id="s2-sub">আপনার দেশের সকল পপুলার মেথড ও ব্যাংক সিলেক্ট করুন</div>
+    <div class="step-title" id="s2-title">Step 2: Local & Global Payment Gateways</div>
+    <div class="step-sub" id="s2-sub">Select popular payment methods or bank for your country</div>
 
     <div class="form-group">
-      <label id="lbl-select-gw">পেমেন্ট গেটওয়ে নির্বাচন করুন (৬-৮টি অপশন)</label>
-      <div class="gateway-grid" id="gatewayContainer">
-        <!-- JS dynamically populates 6-8 country-specific gateways -->
-      </div>
+      <label id="lbl-select-gw">Select Payment Gateway (6-8 Options)</label>
+      <div class="gateway-grid" id="gatewayContainer"></div>
     </div>
 
     <div class="form-group">
-      <label id="lbl-acc-num">সিলেক্ট করা ওয়ালেট / একাউন্ট নম্বর</label>
-      <input type="text" class="form-control" id="ph-acc-num" placeholder="যেমন: 01700000000 বা Bank Acc No">
+      <label id="lbl-acc-num">Selected Wallet / Account Number</label>
+      <input type="text" class="form-control" id="ph-acc-num" placeholder="e.g. Account or Wallet Number">
     </div>
 
     <div class="form-group">
-      <label id="lbl-bank-custom">+ কাস্টম গেটওয়ে বা ব্যাংক বিবরণ (ঐচ্ছিক)</label>
-      <input type="text" class="form-control" id="ph-bank-custom" placeholder="ব্যাংকের নাম ও একাউন্ট নম্বর">
+      <label id="lbl-bank-custom">+ Custom Gateway or Bank Details (Optional)</label>
+      <input type="text" class="form-control" id="ph-bank-custom" placeholder="Bank Name & Account Number">
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-secondary" id="btn-back1" onclick="goToStep(1)">&larr; পিছনে যান</button>
-      <button class="btn btn-primary" id="btn-next2" onclick="goToStep(3)">পরবর্তী: আইডি ভেরিফিকেশন (KYC) &rarr;</button>
+      <button class="btn btn-secondary" id="btn-back1" onclick="goToStep(1)">&larr; Back</button>
+      <button class="btn btn-primary" id="btn-next2" onclick="goToStep(3)">Next: Identity Verification (KYC) &rarr;</button>
     </div>
   </div>
 
-  <!-- Step 3: Identity & Verification (Updated with your design) -->
+  <!-- Step 3: Identity & Verification -->
   <div class="card hidden" id="step-3">
-    <div class="step-title" id="s3-title">ধাপ ৩: আইডি ও কেওয়াইসি ভেরিফিকেশন</div>
-    <div class="step-sub" id="s3-sub">ডকুমেন্ট আপলোড করুন এবং আপনার অভিজ্ঞতা জানান</div>
+    <div class="step-title" id="s3-title">Step 3: Identity & Verification</div>
+    <div class="step-sub" id="s3-sub">Upload document and state your experience</div>
 
     <div class="form-group">
-      <label id="lbl-experience">পূর্ববর্তী এজেন্ট / পেমেন্ট অভিজ্ঞতা</label>
-      <input type="text" class="form-control" placeholder="যেমন: ২ বছর মোবাইল ব্যাংকিং / P2P এক্সচেঞ্জে">
+      <label id="lbl-experience">Previous Agent / Payment Experience</label>
+      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P Exchange">
     </div>
 
     <div class="form-group">
-      <label id="lbl-doc-type">আইডি ডকুমেন্ট এর ধরন</label>
+      <label id="lbl-doc-type">Identity Document Type</label>
       <select class="form-control">
         <option value="">NID / Passport / Trade License</option>
-        <option>NID Card / জাতীয় পরিচয়পত্র</option>
-        <option>Passport / পাসপোর্ট</option>
-        <option>Trade License / ট্রেড লাইসেন্স</option>
+        <option>NID Card / National ID</option>
+        <option>Passport</option>
+        <option>Trade License</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label id="lbl-doc-num">ডকুমেন্ট নম্বর</label>
-      <input type="text" class="form-control" id="ph-doc-num" placeholder="আইডি / পাসপোর্ট নম্বর দিন">
+      <label id="lbl-doc-num">Document Number</label>
+      <input type="text" class="form-control" id="ph-doc-num" placeholder="Enter ID / Passport Number">
     </div>
 
     <div class="form-group">
-      <label id="lbl-upload">ডকুমেন্টের ছবি আপলোড করুন</label>
+      <label id="lbl-upload">Upload Document Image</label>
       <div class="upload-box" onclick="document.getElementById('fileInput').click()">
         <span style="font-size: 24px;">&#8679;</span><br>
-        <span id="txt-upload-box">ফ্রন্ট সাইডের স্পষ্ট ছবি আপলোড করুন (JPG/PNG)</span>
+        <span id="txt-upload-box">Tap to upload Front Side of Document (JPG/PNG)</span>
         <input type="file" id="fileInput" class="hidden">
       </div>
     </div>
 
-    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+    <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
       <input type="checkbox" id="terms" style="width: 16px; height: 16px;">
-      <label for="terms" style="font-size: 13px; color: var(--text-main); margin-bottom: 0;">PayGaid Agent শর্তাবলীতে সম্মত আছি</label>
+      <label for="terms" id="lbl-terms" style="font-size: 13px; color: var(--text-main); margin-bottom: 0;">I agree to PayGaid Agent Terms & Conditions</label>
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-secondary" id="btn-back2" onclick="goToStep(2)">&larr; পিছনে যান</button>
-      <button class="btn btn-success" id="btn-submit" onclick="submitForm()">আবেদন জমা দিন &#10004;</button>
+      <button class="btn btn-secondary" id="btn-back2" onclick="goToStep(2)">&larr; Back</button>
+      <button class="btn btn-success" id="btn-submit" onclick="submitForm()">Submit Application &#10004;</button>
     </div>
   </div>
 
   <!-- Success Screen -->
   <div class="card hidden" id="step-success" style="text-align: center;">
     <div style="font-size: 50px; color: var(--accent-green); margin-bottom: 10px;">&#10004;</div>
-    <div class="step-title" id="suc-title">আবেদন সফলভাবে জমা হয়েছে!</div>
-    <div class="step-sub" id="suc-sub">PayGaid Agent প্রোগ্রামে আবেদন করার জন্য ধন্যবাদ।</div>
+    <div class="step-title" id="suc-title">Application Submitted!</div>
+    <div class="step-sub" id="suc-sub">Thank you for applying to PayGaid Agent Program.</div>
 
     <div style="background: var(--input-bg); padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
       <div style="font-size: 12px; color: var(--text-sub);">Application Reference ID</div>
       <div style="font-size: 18px; font-weight: bold; color: var(--accent-blue);">#PGA-883920</div>
     </div>
 
-    <button class="btn btn-primary" onclick="Telegram.WebApp.close()">অ্যাপ বন্ধ করুন</button>
+    <button class="btn btn-primary" onclick="Telegram.WebApp.close()">Close App</button>
   </div>
 
 </div>
 
 <script>
-  // Dynamic Gateways per country
   const gateways = {
     BD: ['bKash', 'Nagad', 'Rocket', 'Upay', 'CellFin', 'Tap', '🏦 Local Bank Transfer', '🪙 Crypto (USDT)'],
     IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Freecharge', 'Mobikwik', '🏦 Bank Account (IMPS/NEFT)', '🪙 Crypto (USDT)'],
@@ -223,47 +220,11 @@
     GLOBAL: ['Perfect Money', 'Payeer', 'Skrill', 'Neteller', 'WebMoney', '🏦 Int. Wire Transfer', '🪙 USDT (TRC20/BEP20)', '🪙 Crypto (BTC/ETH)']
   };
 
-  // Translations Dict
   const translations = {
-    BN: {
-      appTitle: 'এজেন্ট হন',
-      s1Title: 'ধাপ ১: ব্যক্তিগত বিবরণ',
-      s1Sub: 'আপনার যোগাযোগের এবং পরিচয়ের বিস্তারিত প্রদান করুন',
-      lblFullname: 'পুরো নাম',
-      phFullname: 'যেমন: John Doe',
-      lblEmail: 'ইমেইল ঠিকানা',
-      lblMobile: 'মোবাইল নম্বর',
-      lblWhatsapp: 'হোয়াটসঅ্যাপ নম্বর',
-      lblTelegram: 'টেলিগ্রাম ইউজারনেম',
-      lblCountry: 'দেশ নির্বাচন করুন',
-      btnNext1: 'পরবর্তী: ওয়ালেট বিবরণ &rarr;',
-      s2Title: 'ধাপ ২: লোকাল ও গ্লোবাল পেমেন্ট গেটওয়ে',
-      s2Sub: 'আপনার দেশের সকল পপুলার মেথড ও ব্যাংক সিলেক্ট করুন',
-      lblSelectGw: 'পেমেন্ট গেটওয়ে নির্বাচন করুন (৬-৮টি অপশন)',
-      lblAccNum: 'সিলেক্ট করা ওয়ালেট / একাউন্ট নম্বর',
-      phAccNum: 'যেমন: 01700000000 বা Bank Acc No',
-      lblBankCustom: '+ কাস্টম গেটওয়ে বা ব্যাংক বিবরণ (ঐচ্ছিক)',
-      phBankCustom: 'ব্যাংকের নাম ও একাউন্ট নম্বর',
-      btnBack: '&larr; পিছনে যান',
-      btnNext2: 'পরবর্তী: আইডি ভেরিফিকেশন (KYC) &rarr;',
-      s3Title: 'ধাপ ৩: আইডি ও কেওয়াইসি ভেরিফিকেশন',
-      s3Sub: 'ডকুমেন্ট আপলোড করুন এবং আপনার অভিজ্ঞতা জানান',
-      lblExperience: 'পূর্ববর্তী এজেন্ট / পেমেন্ট অভিজ্ঞতা',
-      lblDocType: 'আইডি ডকুমেন্ট এর ধরন',
-      lblDocNum: 'ডকুমেন্ট নম্বর',
-      phDocNum: 'আইডি / পাসপোর্ট নম্বর দিন',
-      lblUpload: 'ডকুমেন্টের ছবি আপলোড করুন',
-      txtUploadBox: 'ফ্রন্ট সাইডের স্পষ্ট ছবি আপলোড করুন (JPG/PNG)',
-      btnSubmit: 'আবেদন জমা দিন &#10004;',
-      sucTitle: 'আবেদন সফলভাবে জমা হয়েছে!',
-      sucSub: 'PayGaid Agent প্রোগ্রামে আবেদন করার জন্য ধন্যবাদ।'
-    },
     EN: {
-      appTitle: 'Become an Agent',
       s1Title: 'Step 1: Personal Details',
       s1Sub: 'Provide your contact and identity details',
       lblFullname: 'Full Name',
-      phFullname: 'e.g. John Doe',
       lblEmail: 'Email Address',
       lblMobile: 'Mobile Number',
       lblWhatsapp: 'WhatsApp Number',
@@ -274,9 +235,7 @@
       s2Sub: 'Select popular payment methods or bank for your country',
       lblSelectGw: 'Select Payment Gateway (6-8 Options)',
       lblAccNum: 'Selected Wallet / Account Number',
-      phAccNum: 'e.g. Account or Wallet Number',
       lblBankCustom: '+ Custom Gateway or Bank Details (Optional)',
-      phBankCustom: 'Bank Name & Account Number',
       btnBack: '&larr; Back',
       btnNext2: 'Next: Identity Verification (KYC) &rarr;',
       s3Title: 'Step 3: Identity & Verification',
@@ -284,19 +243,46 @@
       lblExperience: 'Previous Agent / Payment Experience',
       lblDocType: 'Identity Document Type',
       lblDocNum: 'Document Number',
-      phDocNum: 'Enter ID / Passport Number',
       lblUpload: 'Upload Document Image',
       txtUploadBox: 'Tap to upload Front Side of Document (JPG/PNG)',
+      lblTerms: 'I agree to PayGaid Agent Terms & Conditions',
       btnSubmit: 'Submit Application &#10004;',
       sucTitle: 'Application Submitted!',
       sucSub: 'Thank you for applying to PayGaid Agent Program.'
     },
+    BN: {
+      s1Title: 'ধাপ ১: ব্যক্তিগত বিবরণ',
+      s1Sub: 'আপনার যোগাযোগের এবং পরিচয়ের বিস্তারিত প্রদান করুন',
+      lblFullname: 'পুরো নাম',
+      lblEmail: 'ইমেইল ঠিকানা',
+      lblMobile: 'মোবাইল নম্বর',
+      lblWhatsapp: 'হোয়াটসঅ্যাপ নম্বর',
+      lblTelegram: 'টেলিগ্রাম ইউজারনেম',
+      lblCountry: 'দেশ নির্বাচন করুন',
+      btnNext1: 'পরবর্তী: ওয়ালেট বিবরণ &rarr;',
+      s2Title: 'ধাপ ২: লোকাল ও গ্লোবাল পেমেন্ট গেটওয়ে',
+      s2Sub: 'আপনার দেশের সকল পপুলার মেথড ও ব্যাংক সিলেক্ট করুন',
+      lblSelectGw: 'পেমেন্ট গেটওয়ে নির্বাচন করুন (৬-৮টি অপশন)',
+      lblAccNum: 'সিলেক্ট করা ওয়ালেট / একাউন্ট নম্বর',
+      lblBankCustom: '+ কাস্টম গেটওয়ে বা ব্যাংক বিবরণ (ঐচ্ছিক)',
+      btnBack: '&larr; পিছনে যান',
+      btnNext2: 'পরবর্তী: আইডি ভেরিফিকেশন (KYC) &rarr;',
+      s3Title: 'ধাপ ৩: আইডি ও কেওয়াইসি ভেরিফিকেশন',
+      s3Sub: 'ডকুমেন্ট আপলোড করুন এবং আপনার অভিজ্ঞতা জানান',
+      lblExperience: 'পূর্ববর্তী এজেন্ট / পেমেন্ট অভিজ্ঞতা',
+      lblDocType: 'আইডি ডকুমেন্ট এর ধরন',
+      lblDocNum: 'ডকুমেন্ট নম্বর',
+      lblUpload: 'ডকুমেন্টের ছবি আপলোড করুন',
+      txtUploadBox: 'ফ্রন্ট সাইডের স্পষ্ট ছবি আপলোড করুন (JPG/PNG)',
+      lblTerms: 'PayGaid Agent শর্তাবলীতে সম্মত আছি',
+      btnSubmit: 'আবেদন জমা দিন &#10004;',
+      sucTitle: 'আবেদন সফলভাবে জমা হয়েছে!',
+      sucSub: 'PayGaid Agent প্রোগ্রামে আবেদন করার জন্য ধন্যবাদ।'
+    },
     HI: {
-      appTitle: 'एजेंट बनें',
       s1Title: 'चरण 1: व्यक्तिगत विवरण',
       s1Sub: 'अपने संपर्क और पहचान का विवरण प्रदान करें',
       lblFullname: 'पूरा नाम',
-      phFullname: 'उदा. John Doe',
       lblEmail: 'ईमेल पता',
       lblMobile: 'मोबाइल नंबर',
       lblWhatsapp: 'व्हाट्सएप नंबर',
@@ -307,9 +293,7 @@
       s2Sub: 'अपने देश के लोकप्रिय तरीके और बैंक चुनें',
       lblSelectGw: 'भुगतान गेटवे चुनें (6-8 विकल्प)',
       lblAccNum: 'चयनित वॉलेट / खाता संख्या',
-      phAccNum: 'उदा. खाता या वॉलेट नंबर',
       lblBankCustom: '+ कस्टम गेटवे या बैंक विवरण (वैकल्पिक)',
-      phBankCustom: 'बैंक का नाम और खाता संख्या',
       btnBack: '&larr; पीछे जाएं',
       btnNext2: 'अगला: पहचान सत्यापन (KYC) &rarr;',
       s3Title: 'चरण 3: पहचान और सत्यापन',
@@ -317,9 +301,9 @@
       lblExperience: 'पिछला एजेंट / भुगतान अनुभव',
       lblDocType: 'पहचान दस्तावेज़ का प्रकार',
       lblDocNum: 'दस्तावेज़ संख्या',
-      phDocNum: 'आईडी / पासपोर्ट नंबर दर्ज करें',
       lblUpload: 'दस्तावेज़ छवि अपलोड करें',
       txtUploadBox: 'सामने की स्पष्ट छवि अपलोड करें (JPG/PNG)',
+      lblTerms: 'PayGaid Agent नियमों और शर्तों से सहमत हूँ',
       btnSubmit: 'आवेदन जमा करें &#10004;',
       sucTitle: 'आवेदन सफलतापूर्वक प्रस्तुत किया गया!',
       sucSub: 'PayGaid Agent कार्यक्रम में आवेदन करने के लिए धन्यवाद।'
@@ -330,11 +314,9 @@
     const lang = document.getElementById('langSelect').value;
     const t = translations[lang];
 
-    document.getElementById('app-title').innerHTML = `${t.appTitle} <span style="color:var(--accent-green);">&#10004;</span>`;
     document.getElementById('s1-title').innerText = t.s1Title;
     document.getElementById('s1-sub').innerText = t.s1Sub;
     document.getElementById('lbl-fullname').innerText = t.lblFullname;
-    document.getElementById('ph-fullname').placeholder = t.phFullname;
     document.getElementById('lbl-email').innerText = t.lblEmail;
     document.getElementById('lbl-mobile').innerText = t.lblMobile;
     document.getElementById('lbl-whatsapp').innerText = t.lblWhatsapp;
@@ -346,9 +328,7 @@
     document.getElementById('s2-sub').innerText = t.s2Sub;
     document.getElementById('lbl-select-gw').innerText = t.lblSelectGw;
     document.getElementById('lbl-acc-num').innerText = t.lblAccNum;
-    document.getElementById('ph-acc-num').placeholder = t.phAccNum;
     document.getElementById('lbl-bank-custom').innerText = t.lblBankCustom;
-    document.getElementById('ph-bank-custom').placeholder = t.phBankCustom;
     document.getElementById('btn-back1').innerHTML = t.btnBack;
     document.getElementById('btn-next2').innerHTML = t.btnNext2;
 
@@ -357,9 +337,9 @@
     document.getElementById('lbl-experience').innerText = t.lblExperience;
     document.getElementById('lbl-doc-type').innerText = t.lblDocType;
     document.getElementById('lbl-doc-num').innerText = t.lblDocNum;
-    document.getElementById('ph-doc-num').placeholder = t.phDocNum;
     document.getElementById('lbl-upload').innerText = t.lblUpload;
     document.getElementById('txt-upload-box').innerText = t.txtUploadBox;
+    document.getElementById('lbl-terms').innerText = t.lblTerms;
     document.getElementById('btn-back2').innerHTML = t.btnBack;
     document.getElementById('btn-submit').innerHTML = t.btnSubmit;
 
@@ -412,7 +392,6 @@
     document.getElementById('step-success').classList.remove('hidden');
   }
 
-  // Init
   updateGateways();
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
