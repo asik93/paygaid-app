@@ -7,56 +7,55 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --accent-blue: #2563eb;
-      --accent-green: #10b981;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --border-color: #334155;
-      --input-bg: #0f172a;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --accent-blue: #0052ff;
+      --accent-green: #00c853;
+      --text-main: #0f172a;
+      --text-sub: #64748b;
+      --border-color: #cbd5e1;
+      --input-bg: #ffffff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
     .container { width: 100%; max-width: 480px; }
     
-    /* Top Bar with Back & Language Selector */
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .back-btn { color: var(--text-main); text-decoration: none; font-size: 16px; display: flex; align-items: center; gap: 5px; }
-    .lang-select { background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 6px; font-size: 13px; outline: none; }
+    /* Top Bar */
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .back-btn { color: var(--accent-blue); text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
 
     /* Stepper */
-    .stepper { display: flex; justify-content: space-between; align-items: center; position: relative; margin-bottom: 20px; padding: 0 20px; }
-    .stepper::before { content: ''; position: absolute; top: 50%; left: 40px; right: 40px; height: 2px; background: var(--border-color); z-index: 1; }
-    .step-node { width: 32px; height: 32px; border-radius: 50%; background: var(--card-bg); border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; position: relative; z-index: 2; color: var(--text-sub); }
+    .stepper { display: flex; justify-content: space-between; align-items: center; position: relative; margin-bottom: 20px; padding: 0 30px; }
+    .stepper::before { content: ''; position: absolute; top: 50%; left: 50px; right: 50px; height: 2px; background: var(--border-color); z-index: 1; }
+    .step-node { width: 32px; height: 32px; border-radius: 50%; background: #e2e8f0; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; position: relative; z-index: 2; color: var(--text-sub); }
     .step-node.active { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
     .step-node.completed { background: var(--accent-green); border-color: var(--accent-green); color: #fff; }
 
     /* Card Layout */
-    .card { background: var(--card-bg); border-radius: 12px; padding: 18px; border: 1px solid var(--border-color); }
-    .step-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
-    .step-sub { font-size: 12px; color: var(--text-sub); margin-bottom: 16px; }
+    .card { background: var(--card-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .step-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+    .step-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 18px; }
 
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 6px; }
-    .form-control { width: 100%; padding: 10px 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
-    .form-control:focus { border-color: var(--accent-blue); }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
+    .form-control { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 14px; outline: none; }
+    .form-control:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(0,82,255,0.1); }
 
-    /* Dynamic Payment Gateway Grid (2 Columns) */
+    /* Gateway Grid */
     .gateway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-    .gateway-btn { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.2s; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .gateway-btn.selected { border-color: var(--accent-blue); background: rgba(37, 99, 235, 0.2); font-weight: bold; color: #60a5fa; }
+    .gateway-btn { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.2s; color: var(--text-main); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .gateway-btn.selected { border-color: var(--accent-blue); background: rgba(0,82,255,0.05); font-weight: bold; color: var(--accent-blue); }
 
     /* Buttons */
-    .btn-group { display: flex; gap: 10px; margin-top: 18px; }
-    .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
+    .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+    .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; }
     .btn-primary { background: var(--accent-blue); color: white; }
     .btn-success { background: var(--accent-green); color: white; }
-    .btn-secondary { background: var(--border-color); color: var(--text-sub); }
+    .btn-secondary { background: #e2e8f0; color: var(--text-sub); }
 
-    .upload-box { border: 2px dashed var(--border-color); border-radius: 8px; padding: 20px; text-align: center; color: var(--text-sub); cursor: pointer; background: var(--input-bg); font-size: 13px; }
-
+    .upload-box { border: 2px dashed var(--border-color); border-radius: 10px; padding: 20px; text-align: center; color: var(--text-sub); cursor: pointer; background: var(--input-bg); font-size: 13px; }
+    .powered { text-align: center; font-size: 11px; color: var(--text-sub); margin-top: 25px; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid var(--border-color); padding-top: 15px; }
     .hidden { display: none; }
   </style>
 </head>
@@ -66,11 +65,7 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <a href="#" class="back-btn">&#8592; Become an Agent <span style="color:var(--accent-green);">&#10004;</span></a>
-    <select class="lang-select" id="langSelect" onchange="changeLanguage()">
-      <option value="EN" selected>🇺🇸 English</option>
-      <option value="BN">🇧🇩 বাংলা</option>
-      <option value="HI">🇮🇳 हिन्दी</option>
-    </select>
+    <div style="font-size: 13px; font-weight: 600; color: var(--text-sub);">PayGaid</div>
   </div>
 
   <!-- Stepper Header -->
@@ -82,89 +77,91 @@
 
   <!-- Step 1: Personal Details -->
   <div class="card" id="step-1">
-    <div class="step-title" id="s1-title">Step 1: Personal Details</div>
-    <div class="step-sub" id="s1-sub">Provide your contact and identity details</div>
+    <div class="step-title">Step 1: Personal Details</div>
+    <div class="step-sub">Provide your contact and identity details</div>
 
     <div class="form-group">
-      <label id="lbl-fullname">Full Name</label>
-      <input type="text" class="form-control" id="ph-fullname" placeholder="e.g. John Doe">
+      <label>Full Name</label>
+      <input type="text" class="form-control" placeholder="e.g. John Doe">
     </div>
 
     <div class="form-group">
-      <label id="lbl-email">Email Address</label>
-      <input type="email" class="form-control" id="ph-email" placeholder="example@mail.com">
+      <label>Email Address</label>
+      <input type="email" class="form-control" placeholder="example@mail.com">
     </div>
 
     <div class="form-group">
-      <label id="lbl-mobile">Mobile Number</label>
+      <label>Mobile Number</label>
       <input type="text" class="form-control" value="+880 1700-000000">
     </div>
 
     <div class="form-group">
-      <label id="lbl-whatsapp">WhatsApp Number</label>
+      <label>WhatsApp Number</label>
       <input type="text" class="form-control" value="+880 1700-000000">
     </div>
 
     <div class="form-group">
-      <label id="lbl-telegram">Telegram Username</label>
+      <label>Telegram Username</label>
       <input type="text" class="form-control" placeholder="@username">
     </div>
 
     <div class="form-group">
-      <label id="lbl-country">Country</label>
+      <label>Country</label>
       <select class="form-control" id="countrySelect" onchange="updateGateways()">
-        <option value="BD" selected>🇧🇩 Bangladesh</option>
         <option value="IN">🇮🇳 India</option>
         <option value="PK">🇵🇰 Pakistan</option>
-        <option value="GLOBAL">🌐 Global / Other Country</option>
+        <option value="UAE">🇦🇪 UAE</option>
+        <option value="SA">🇸🇦 Saudi Arabia</option>
+        <option value="BD" selected>🇧🇩 Bangladesh</option>
+        <option value="NP">🇳🇵 Nepal</option>
+        <option value="PH">🇵🇭 Philippines</option>
+        <option value="VN">🇻🇳 Vietnam</option>
+        <option value="TH">🇹🇭 Thailand</option>
+        <option value="MY">🇲🇾 Malaysia</option>
+        <option value="ID">🇮🇩 Indonesia</option>
+        <option value="GLOBAL">🌐 Global / Other</option>
       </select>
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-primary" id="btn-next1" onclick="goToStep(2)">Next: Wallet Details &rarr;</button>
+      <button class="btn btn-primary" onclick="goToStep(2)">Next: Wallet Details &rarr;</button>
     </div>
   </div>
 
-  <!-- Step 2: Wallet & Payment Gateways -->
+  <!-- Step 2: Payment Gateways -->
   <div class="card hidden" id="step-2">
-    <div class="step-title" id="s2-title">Step 2: Local & Global Payment Gateways</div>
-    <div class="step-sub" id="s2-sub">Select popular payment methods or bank for your country</div>
+    <div class="step-title">Step 2: Payment Gateways</div>
+    <div class="step-sub">Select popular local methods or crypto for your country</div>
 
     <div class="form-group">
-      <label id="lbl-select-gw">Select Payment Gateway (6-8 Options)</label>
+      <label>Select Payment Gateway</label>
       <div class="gateway-grid" id="gatewayContainer"></div>
     </div>
 
     <div class="form-group">
-      <label id="lbl-acc-num">Selected Wallet / Account Number</label>
-      <input type="text" class="form-control" id="ph-acc-num" placeholder="e.g. Account or Wallet Number">
-    </div>
-
-    <div class="form-group">
-      <label id="lbl-bank-custom">+ Custom Gateway or Bank Details (Optional)</label>
-      <input type="text" class="form-control" id="ph-bank-custom" placeholder="Bank Name & Account Number">
+      <label>Selected Account / Wallet Number</label>
+      <input type="text" class="form-control" placeholder="Account Number or Wallet Address">
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-secondary" id="btn-back1" onclick="goToStep(1)">&larr; Back</button>
-      <button class="btn btn-primary" id="btn-next2" onclick="goToStep(3)">Next: Identity Verification (KYC) &rarr;</button>
+      <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="goToStep(3)">Next: Verification &rarr;</button>
     </div>
   </div>
 
   <!-- Step 3: Identity & Verification -->
   <div class="card hidden" id="step-3">
-    <div class="step-title" id="s3-title">Step 3: Identity & Verification</div>
-    <div class="step-sub" id="s3-sub">Upload document and state your experience</div>
+    <div class="step-title">Step 3: Identity & Verification</div>
+    <div class="step-sub">Upload document and state your experience</div>
 
     <div class="form-group">
-      <label id="lbl-experience">Previous Agent / Payment Experience</label>
-      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P Exchange">
+      <label>Previous Agent / Payment Experience</label>
+      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P">
     </div>
 
     <div class="form-group">
-      <label id="lbl-doc-type">Identity Document Type</label>
+      <label>Identity Document Type</label>
       <select class="form-control">
-        <option value="">NID / Passport / Trade License</option>
         <option>NID Card / National ID</option>
         <option>Passport</option>
         <option>Trade License</option>
@@ -172,37 +169,37 @@
     </div>
 
     <div class="form-group">
-      <label id="lbl-doc-num">Document Number</label>
-      <input type="text" class="form-control" id="ph-doc-num" placeholder="Enter ID / Passport Number">
+      <label>Document Number</label>
+      <input type="text" class="form-control" placeholder="Enter ID / Passport Number">
     </div>
 
     <div class="form-group">
-      <label id="lbl-upload">Upload Document Image</label>
+      <label>Upload Document Image</label>
       <div class="upload-box" onclick="document.getElementById('fileInput').click()">
         <span style="font-size: 24px;">&#8679;</span><br>
-        <span id="txt-upload-box">Tap to upload Front Side of Document (JPG/PNG)</span>
+        <span>Tap to upload Front Side of Document (JPG/PNG)</span>
         <input type="file" id="fileInput" class="hidden">
       </div>
     </div>
 
     <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
       <input type="checkbox" id="terms" style="width: 16px; height: 16px;">
-      <label for="terms" id="lbl-terms" style="font-size: 13px; color: var(--text-main); margin-bottom: 0;">I agree to PayGaid Agent Terms & Conditions</label>
+      <label for="terms" style="font-size: 13px; color: var(--text-main); margin-bottom: 0;">I agree to PayGaid Agent Terms & Conditions</label>
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-secondary" id="btn-back2" onclick="goToStep(2)">&larr; Back</button>
-      <button class="btn btn-success" id="btn-submit" onclick="submitForm()">Submit Application &#10004;</button>
+      <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
+      <button class="btn btn-success" onclick="submitForm()">Submit Application &#10004;</button>
     </div>
   </div>
 
   <!-- Success Screen -->
   <div class="card hidden" id="step-success" style="text-align: center;">
     <div style="font-size: 50px; color: var(--accent-green); margin-bottom: 10px;">&#10004;</div>
-    <div class="step-title" id="suc-title">Application Submitted!</div>
-    <div class="step-sub" id="suc-sub">Thank you for applying to PayGaid Agent Program.</div>
+    <div class="step-title">Application Submitted!</div>
+    <div class="step-sub">Thank you for applying to PayGaid Agent Program.</div>
 
-    <div style="background: var(--input-bg); padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+    <div style="background: #f1f5f9; padding: 15px; border-radius: 10px; margin: 15px 0; text-align: left;">
       <div style="font-size: 12px; color: var(--text-sub);">Application Reference ID</div>
       <div style="font-size: 18px; font-weight: bold; color: var(--accent-blue);">#PGA-883920</div>
     </div>
@@ -210,152 +207,25 @@
     <button class="btn btn-primary" onclick="Telegram.WebApp.close()">Close App</button>
   </div>
 
+  <div class="powered">Powered by PayGaid</div>
 </div>
 
 <script>
+  // 12 Countries Gateways (6 Local + Bank/Crypto)
   const gateways = {
+    IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Mobikwik', 'Freecharge', '🏦 Indian Bank Transfer', '🪙 Crypto (USDT)'],
+    PK: ['Easypaisa', 'JazzCash', 'SadaPay', 'NayaPay', 'UPaisa', 'PayMax', '🏦 Pakistani Bank Transfer', '🪙 Crypto (USDT)'],
+    UAE: ['PayTabs', 'Noqoody', 'Telr', 'FilsPay', 'Checkout.com', 'Pyy', '🏦 UAE Bank Wire', '🪙 Crypto (USDT)'],
+    SA: ['STC Pay', 'UrPay', 'Tabby', 'Tamara', 'Mada Pay', 'Halalah', '🏦 Saudi Bank Transfer', '🪙 Crypto (USDT)'],
     BD: ['bKash', 'Nagad', 'Rocket', 'Upay', 'CellFin', 'Tap', '🏦 Local Bank Transfer', '🪙 Crypto (USDT)'],
-    IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Freecharge', 'Mobikwik', '🏦 Bank Account (IMPS/NEFT)', '🪙 Crypto (USDT)'],
-    PK: ['Easypaisa', 'JazzCash', 'SadaPay', 'NayaPay', 'UPaisa', '🏦 Bank Transfer', '🪙 Crypto (USDT)'],
-    GLOBAL: ['Perfect Money', 'Payeer', 'Skrill', 'Neteller', 'WebMoney', '🏦 Int. Wire Transfer', '🪙 USDT (TRC20/BEP20)', '🪙 Crypto (BTC/ETH)']
+    NP: ['eSewa', 'Khalti', 'IME Pay', 'Prabhu Pay', 'ConnectIPS', 'FonePay', '🏦 Nepalese Bank Wire', '🪙 Crypto (USDT)'],
+    PH: ['GCash', 'Maya', 'GrabPay', 'ShopeePay', 'Coins.ph', 'PalawanPay', '🏦 Philippine Bank Wire', '🪙 Crypto (USDT)'],
+    VN: ['MoMo', 'ZaloPay', 'ViettelPay', 'VNPay', 'ShopeePayM', 'Moca', '🏦 Vietnamese Bank Wire', '🪙 Crypto (USDT)'],
+    TH: ['PromptPay', 'TrueMoney', 'Rabbit LinePay', 'AirPay', 'Krungsri Pay', 'SCB Easy', '🏦 Thai Bank Wire', '🪙 Crypto (USDT)'],
+    MY: ['Touch \'n Go', 'GrabPay', 'Boost', 'ShopeePayMY', 'DuitNow', 'BigPay', '🏦 Malaysian Bank Wire', '🪙 Crypto (USDT)'],
+    ID: ['GoPay', 'OVO', 'DANA', 'LinkAja', 'ShopeePayID', 'BCA Mobile', '🏦 Indonesian Bank Wire', '🪙 Crypto (USDT)'],
+    GLOBAL: ['Perfect Money', 'Payeer', 'Skrill', 'Neteller', 'WebMoney', 'Advcash', '🏦 Int. Wire Transfer', '🪙 Crypto (USDT)']
   };
-
-  const translations = {
-    EN: {
-      s1Title: 'Step 1: Personal Details',
-      s1Sub: 'Provide your contact and identity details',
-      lblFullname: 'Full Name',
-      lblEmail: 'Email Address',
-      lblMobile: 'Mobile Number',
-      lblWhatsapp: 'WhatsApp Number',
-      lblTelegram: 'Telegram Username',
-      lblCountry: 'Country',
-      btnNext1: 'Next: Wallet Details &rarr;',
-      s2Title: 'Step 2: Local & Global Payment Gateways',
-      s2Sub: 'Select popular payment methods or bank for your country',
-      lblSelectGw: 'Select Payment Gateway (6-8 Options)',
-      lblAccNum: 'Selected Wallet / Account Number',
-      lblBankCustom: '+ Custom Gateway or Bank Details (Optional)',
-      btnBack: '&larr; Back',
-      btnNext2: 'Next: Identity Verification (KYC) &rarr;',
-      s3Title: 'Step 3: Identity & Verification',
-      s3Sub: 'Upload document and state your experience',
-      lblExperience: 'Previous Agent / Payment Experience',
-      lblDocType: 'Identity Document Type',
-      lblDocNum: 'Document Number',
-      lblUpload: 'Upload Document Image',
-      txtUploadBox: 'Tap to upload Front Side of Document (JPG/PNG)',
-      lblTerms: 'I agree to PayGaid Agent Terms & Conditions',
-      btnSubmit: 'Submit Application &#10004;',
-      sucTitle: 'Application Submitted!',
-      sucSub: 'Thank you for applying to PayGaid Agent Program.'
-    },
-    BN: {
-      s1Title: 'ধাপ ১: ব্যক্তিগত বিবরণ',
-      s1Sub: 'আপনার যোগাযোগের এবং পরিচয়ের বিস্তারিত প্রদান করুন',
-      lblFullname: 'পুরো নাম',
-      lblEmail: 'ইমেইল ঠিকানা',
-      lblMobile: 'মোবাইল নম্বর',
-      lblWhatsapp: 'হোয়াটসঅ্যাপ নম্বর',
-      lblTelegram: 'টেলিগ্রাম ইউজারনেম',
-      lblCountry: 'দেশ নির্বাচন করুন',
-      btnNext1: 'পরবর্তী: ওয়ালেট বিবরণ &rarr;',
-      s2Title: 'ধাপ ২: লোকাল ও গ্লোবাল পেমেন্ট গেটওয়ে',
-      s2Sub: 'আপনার দেশের সকল পপুলার মেথড ও ব্যাংক সিলেক্ট করুন',
-      lblSelectGw: 'পেমেন্ট গেটওয়ে নির্বাচন করুন (৬-৮টি অপশন)',
-      lblAccNum: 'সিলেক্ট করা ওয়ালেট / একাউন্ট নম্বর',
-      lblBankCustom: '+ কাস্টম গেটওয়ে বা ব্যাংক বিবরণ (ঐচ্ছিক)',
-      btnBack: '&larr; পিছনে যান',
-      btnNext2: 'পরবর্তী: আইডি ভেরিফিকেশন (KYC) &rarr;',
-      s3Title: 'ধাপ ৩: আইডি ও কেওয়াইসি ভেরিফিকেশন',
-      s3Sub: 'ডকুমেন্ট আপলোড করুন এবং আপনার অভিজ্ঞতা জানান',
-      lblExperience: 'পূর্ববর্তী এজেন্ট / পেমেন্ট অভিজ্ঞতা',
-      lblDocType: 'আইডি ডকুমেন্ট এর ধরন',
-      lblDocNum: 'ডকুমেন্ট নম্বর',
-      lblUpload: 'ডকুমেন্টের ছবি আপলোড করুন',
-      txtUploadBox: 'ফ্রন্ট সাইডের স্পষ্ট ছবি আপলোড করুন (JPG/PNG)',
-      lblTerms: 'PayGaid Agent শর্তাবলীতে সম্মত আছি',
-      btnSubmit: 'আবেদন জমা দিন &#10004;',
-      sucTitle: 'আবেদন সফলভাবে জমা হয়েছে!',
-      sucSub: 'PayGaid Agent প্রোগ্রামে আবেদন করার জন্য ধন্যবাদ।'
-    },
-    HI: {
-      s1Title: 'चरण 1: व्यक्तिगत विवरण',
-      s1Sub: 'अपने संपर्क और पहचान का विवरण प्रदान करें',
-      lblFullname: 'पूरा नाम',
-      lblEmail: 'ईमेल पता',
-      lblMobile: 'मोबाइल नंबर',
-      lblWhatsapp: 'व्हाट्सएप नंबर',
-      lblTelegram: 'telegram यूजरनेम',
-      lblCountry: 'देश चुनें',
-      btnNext1: 'अगला: वॉलेट विवरण &rarr;',
-      s2Title: 'चरण 2: स्थानीय और वैश्विक भुगतान गेटवे',
-      s2Sub: 'अपने देश के लोकप्रिय तरीके और बैंक चुनें',
-      lblSelectGw: 'भुगतान गेटवे चुनें (6-8 विकल्प)',
-      lblAccNum: 'चयनित वॉलेट / खाता संख्या',
-      lblBankCustom: '+ कस्टम गेटवे या बैंक विवरण (वैकल्पिक)',
-      btnBack: '&larr; पीछे जाएं',
-      btnNext2: 'अगला: पहचान सत्यापन (KYC) &rarr;',
-      s3Title: 'चरण 3: पहचान और सत्यापन',
-      s3Sub: 'दस्तावेज़ अपलोड करें और अपने अनुभव का उल्लेख करें',
-      lblExperience: 'पिछला एजेंट / भुगतान अनुभव',
-      lblDocType: 'पहचान दस्तावेज़ का प्रकार',
-      lblDocNum: 'दस्तावेज़ संख्या',
-      lblUpload: 'दस्तावेज़ छवि अपलोड करें',
-      txtUploadBox: 'सामने की स्पष्ट छवि अपलोड करें (JPG/PNG)',
-      lblTerms: 'PayGaid Agent नियमों और शर्तों से सहमत हूँ',
-      btnSubmit: 'आवेदन जमा करें &#10004;',
-      sucTitle: 'आवेदन सफलतापूर्वक प्रस्तुत किया गया!',
-      sucSub: 'PayGaid Agent कार्यक्रम में आवेदन करने के लिए धन्यवाद।'
-    }
-  };
-
-  function changeLanguage() {
-    const lang = document.getElementById('langSelect').value;
-    const t = translations[lang];
-
-    document.getElementById('s1-title').innerText = t.s1Title;
-    document.getElementById('s1-sub').innerText = t.s1Sub;
-    document.getElementById('lbl-fullname').innerText = t.lblFullname;
-    document.getElementById('lbl-email').innerText = t.lblEmail;
-    document.getElementById('lbl-mobile').innerText = t.lblMobile;
-    document.getElementById('lbl-whatsapp').innerText = t.lblWhatsapp;
-    document.getElementById('lbl-telegram').innerText = t.lblTelegram;
-    document.getElementById('lbl-country').innerText = t.lblCountry;
-    document.getElementById('btn-next1').innerHTML = t.btnNext1;
-
-    document.getElementById('s2-title').innerText = t.s2Title;
-    document.getElementById('s2-sub').innerText = t.s2Sub;
-    document.getElementById('lbl-select-gw').innerText = t.lblSelectGw;
-    document.getElementById('lbl-acc-num').innerText = t.lblAccNum;
-    document.getElementById('lbl-bank-custom').innerText = t.lblBankCustom;
-    document.getElementById('btn-back1').innerHTML = t.btnBack;
-    document.getElementById('btn-next2').innerHTML = t.btnNext2;
-
-    document.getElementById('s3-title').innerText = t.s3Title;
-    document.getElementById('s3-sub').innerText = t.s3Sub;
-    document.getElementById('lbl-experience').innerText = t.lblExperience;
-    document.getElementById('lbl-doc-type').innerText = t.lblDocType;
-    document.getElementById('lbl-doc-num').innerText = t.lblDocNum;
-    document.getElementById('lbl-upload').innerText = t.lblUpload;
-    document.getElementById('txt-upload-box').innerText = t.txtUploadBox;
-    document.getElementById('lbl-terms').innerText = t.lblTerms;
-    document.getElementById('btn-back2').innerHTML = t.btnBack;
-    document.getElementById('btn-submit').innerHTML = t.btnSubmit;
-
-    document.getElementById('suc-title').innerText = t.sucTitle;
-    document.getElementById('suc-sub').innerText = t.sucSub;
-
-    if(lang === 'BN') {
-      document.getElementById('node-1').innerText = '১';
-      document.getElementById('node-2').innerText = '২';
-      document.getElementById('node-3').innerText = '৩';
-    } else {
-      document.getElementById('node-1').innerText = '1';
-      document.getElementById('node-2').innerText = '2';
-      document.getElementById('node-3').innerText = '3';
-    }
-  }
 
   function updateGateways() {
     const country = document.getElementById('countrySelect').value;
@@ -392,6 +262,7 @@
     document.getElementById('step-success').classList.remove('hidden');
   }
 
+  // Initialize
   updateGateways();
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
