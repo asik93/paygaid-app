@@ -49,12 +49,11 @@
 
     /* Buttons */
     .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-    .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; }
+    .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 5px; }
     .btn-primary { background: var(--accent-blue); color: white; }
     .btn-success { background: var(--accent-green); color: white; }
     .btn-secondary { background: #e2e8f0; color: var(--text-sub); }
 
-    .upload-box { border: 2px dashed var(--border-color); border-radius: 10px; padding: 20px; text-align: center; color: var(--text-sub); cursor: pointer; background: var(--input-bg); font-size: 13px; }
     .powered { text-align: center; font-size: 11px; color: var(--text-sub); margin-top: 25px; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid var(--border-color); padding-top: 15px; }
     .hidden { display: none; }
   </style>
@@ -64,9 +63,12 @@
 <div class="container">
   <!-- Top Bar -->
   <div class="top-bar">
-    <a href="#" class="back-btn">&#8592; Become an Agent <span style="color:var(--accent-green);">&#10004;</span></a>
-    <div style="font-size: 13px; font-weight: 600; color: var(--text-sub);">PayGaid</div>
+    <a href="#" class="back-btn">&#8592; Back</a>
+    <div style="font-size: 15px; font-weight: 700; color: var(--text-main);">PayGaid Agent</div>
+    <div style="width: 24px;"></div>
   </div>
+
+  <div style="font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">Agent Registration</div>
 
   <!-- Stepper Header -->
   <div class="stepper">
@@ -75,36 +77,27 @@
     <div class="step-node" id="node-3">3</div>
   </div>
 
-  <!-- Step 1: Personal Details[cite: 11] -->
+  <!-- Step 1: Personal & Business Details -->
   <div class="card" id="step-1">
-    <div class="step-title">Step 1: Personal Details</div>
-    <div class="step-sub">Provide your contact and identity details</div>
+    <div class="step-title">Step 1: Personal & Business Details</div>
+    <div class="step-sub">Provide contact and shop details</div>
 
     <div class="form-group">
       <label>Full Name</label>
-      <input type="text" class="form-control" placeholder="e.g. John Doe">
+      <input type="text" class="form-control" placeholder="Enter full name">
     </div>
 
     <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" class="form-control" placeholder="example@mail.com">
-    </div>
-
-    <div class="form-group">
-      <label>Mobile Number</label>
+      <label>Mobile / WhatsApp Number</label>
       <input type="text" class="form-control" value="+880 1700-000000">
     </div>
 
     <div class="form-group">
-      <label>WhatsApp Number</label>
-      <input type="text" class="form-control" value="+880 1700-000000">
+      <label>Business / Shop Name</label>
+      <input type="text" class="form-control" placeholder="Enter business name">
     </div>
 
-    <div class="form-group">
-      <label>Telegram Username</label>
-      <input type="text" class="form-control" placeholder="@username">
-    </div>
-
+    <!-- Country selection for internal gateway logic -->
     <div class="form-group">
       <label>Country</label>
       <select class="form-control" id="countrySelect" onchange="updateGateways()">
@@ -124,11 +117,11 @@
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="goToStep(2)">Next: Wallet Details &rarr;</button>
+      <button class="btn btn-primary" onclick="goToStep(2)" style="width: 100%;">Next: Payment Gateways &rarr;</button>
     </div>
   </div>
 
-  <!-- Step 2: Payment Gateways[cite: 12] -->
+  <!-- Step 2: Payment Gateways -->
   <div class="card hidden" id="step-2">
     <div class="step-title">Step 2: Payment Gateways</div>
     <div class="step-sub">Select popular local methods or crypto</div>
@@ -149,43 +142,14 @@
     </div>
   </div>
 
-  <!-- Step 3: Identity & Verification[cite: 13] -->
+  <!-- Step 3: Identity & Verification (Matching final screenshot) -->
   <div class="card hidden" id="step-3">
     <div class="step-title">Step 3: Identity & Verification</div>
-    <div class="step-sub">Upload document and state your experience</div>
+    <div class="step-sub">Provide your NID or Passport number</div>
 
     <div class="form-group">
-      <label>Previous Agent / Payment Experience</label>
-      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P Exchange">
-    </div>
-
-    <div class="form-group">
-      <label>Identity Document Type</label>
-      <select class="form-control">
-        <option>NID / Passport / Trade License</option>
-        <option>NID Card / National ID</option>
-        <option>Passport</option>
-        <option>Trade License</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Document Number</label>
-      <input type="text" class="form-control" placeholder="Enter ID / Passport Number">
-    </div>
-
-    <div class="form-group">
-      <label>Upload Document Image</label>
-      <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-        <span style="font-size: 24px;">&#8679;</span><br>
-        <span>Tap to upload Front Side of Document (JPG/PNG)</span>
-        <input type="file" id="fileInput" class="hidden">
-      </div>
-    </div>
-
-    <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
-      <input type="checkbox" id="terms" style="width: 16px; height: 16px;">
-      <label for="terms" style="font-size: 13px; color: var(--text-main); margin-bottom: 0;">I agree to PayGaid Agent Terms & Conditions</label>
+      <label>Document Number (NID / Passport)</label>
+      <input type="text" class="form-control" placeholder="Enter Document Number">
     </div>
 
     <div class="btn-group">
@@ -194,7 +158,7 @@
     </div>
   </div>
 
-  <!-- Success Screen[cite: 14] -->
+  <!-- Success Screen -->
   <div class="card hidden" id="step-success" style="text-align: center;">
     <div style="font-size: 50px; color: var(--accent-green); margin-bottom: 10px;">&#10004;</div>
     <div class="step-title">Application Submitted!</div>
@@ -205,14 +169,14 @@
       <div style="font-size: 18px; font-weight: bold; color: var(--accent-blue);">#PGA-883920</div>
     </div>
 
-    <button class="btn btn-primary" onclick="Telegram.WebApp.close()">Back to Dashboard</button>
+    <button class="btn btn-primary" onclick="Telegram.WebApp.close()" style="width: 100%;">Back to Dashboard</button>
   </div>
 
   <div class="powered">Powered by PayGaid</div>
 </div>
 
 <script>
-  // 12 Countries Gateways
+  // 12 Countries Gateways (6-8 local options + crypto/bank)
   const gateways = {
     IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Mobikwik', 'Freecharge', '🏦 Indian Bank Transfer', '🪙 Crypto (USDT)'],
     PK: ['Easypaisa', 'JazzCash', 'SadaPay', 'NayaPay', 'UPaisa', 'PayMax', '🏦 Pakistani Bank Transfer', '🪙 Crypto (USDT)'],
