@@ -80,24 +80,34 @@
     <div class="step-node" id="node-3">৩</div>
   </div>
 
-  <!-- Step 1: Personal Details -->
+  <!-- Step 1: Personal Details (Updated with your design) -->
   <div class="card" id="step-1">
-    <div class="step-title" id="s1-title">ধাপ ১: ব্যক্তিগত ও ব্যবসায়িক তথ্য</div>
-    <div class="step-sub" id="s1-sub">PayGaid নেটওয়ার্কে যুক্ত হতে আবেদন ফর্মটি পূরণ করুন</div>
+    <div class="step-title" id="s1-title">ধাপ ১: ব্যক্তিগত বিবরণ</div>
+    <div class="step-sub" id="s1-sub">আপনার যোগাযোগের এবং পরিচয়ের বিস্তারিত প্রদান করুন</div>
 
     <div class="form-group">
-      <label id="lbl-fullname">আপনার নাম</label>
-      <input type="text" class="form-control" id="ph-fullname" placeholder="পুরো নাম লিখুন">
+      <label id="lbl-fullname">পুরো নাম</label>
+      <input type="text" class="form-control" id="ph-fullname" placeholder="যেমন: John Doe">
     </div>
 
     <div class="form-group">
-      <label id="lbl-phone">ফোন / হোয়াটসঅ্যাপ নম্বর</label>
-      <input type="text" class="form-control" placeholder="+8801700000000">
+      <label id="lbl-email">ইমেইল ঠিকানা</label>
+      <input type="email" class="form-control" id="ph-email" placeholder="example@mail.com">
     </div>
 
     <div class="form-group">
-      <label id="lbl-business">ব্যবসা বা দোকানের নাম</label>
-      <input type="text" class="form-control" id="ph-business" placeholder="প্রতিষ্ঠানের নাম লিখুন">
+      <label id="lbl-mobile">মোবাইল নম্বর</label>
+      <input type="text" class="form-control" value="+880 1700-000000">
+    </div>
+
+    <div class="form-group">
+      <label id="lbl-whatsapp">হোয়াটসঅ্যাপ নম্বর</label>
+      <input type="text" class="form-control" value="+880 1700-000000">
+    </div>
+
+    <div class="form-group">
+      <label id="lbl-telegram">টেলিগ্রাম ইউজারনেম</label>
+      <input type="text" class="form-control" placeholder="@username">
     </div>
 
     <div class="form-group">
@@ -111,11 +121,11 @@
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-primary" id="btn-next1" onclick="goToStep(2)">পরবর্তী: পেমেন্ট মেথড নির্বাচন &rarr;</button>
+      <button class="btn btn-primary" id="btn-next1" onclick="goToStep(2)">পরবর্তী: ওয়ালেট বিবরণ &rarr;</button>
     </div>
   </div>
 
-  <!-- Step 2: Wallet & Payment Gateways -->
+  <!-- Step 2: Wallet & Payment Gateways (Unchanged & Kept as it is) -->
   <div class="card hidden" id="step-2">
     <div class="step-title" id="s2-title">ধাপ ২: লোকাল ও গ্লোবাল পেমেন্ট গেটওয়ে</div>
     <div class="step-sub" id="s2-sub">আপনার দেশের সকল পপুলার মেথড ও ব্যাংক সিলেক্ট করুন</div>
@@ -143,15 +153,21 @@
     </div>
   </div>
 
-  <!-- Step 3: Identity & Verification -->
+  <!-- Step 3: Identity & Verification (Updated with your design) -->
   <div class="card hidden" id="step-3">
     <div class="step-title" id="s3-title">ধাপ ৩: আইডি ও কেওয়াইসি ভেরিফিকেশন</div>
-    <div class="step-sub" id="s3-sub">আপনার জাতীয় পরিচয়পত্র বা পাসপোর্ট আপলোড করুন</div>
+    <div class="step-sub" id="s3-sub">ডকুমেন্ট আপলোড করুন এবং আপনার অভিজ্ঞতা জানান</div>
+
+    <div class="form-group">
+      <label id="lbl-experience">পূর্ববর্তী এজেন্ট / পেমেন্ট অভিজ্ঞতা</label>
+      <input type="text" class="form-control" placeholder="যেমন: ২ বছর মোবাইল ব্যাংকিং / P2P এক্সচেঞ্জে">
+    </div>
 
     <div class="form-group">
       <label id="lbl-doc-type">আইডি ডকুমেন্ট এর ধরন</label>
       <select class="form-control">
-        <option>NID / জাতীয় পরিচয়পত্র</option>
+        <option value="">NID / Passport / Trade License</option>
+        <option>NID Card / জাতীয় পরিচয়পত্র</option>
         <option>Passport / পাসপোর্ট</option>
         <option>Trade License / ট্রেড লাইসেন্স</option>
       </select>
@@ -169,6 +185,11 @@
         <span id="txt-upload-box">ফ্রন্ট সাইডের স্পষ্ট ছবি আপলোড করুন (JPG/PNG)</span>
         <input type="file" id="fileInput" class="hidden">
       </div>
+    </div>
+
+    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+      <input type="checkbox" id="terms" style="width: 16px; height: 16px;">
+      <label for="terms" style="font-size: 13px; color: var(--text-main); margin-bottom: 0;">PayGaid Agent শর্তাবলীতে সম্মত আছি</label>
     </div>
 
     <div class="btn-group">
@@ -194,7 +215,7 @@
 </div>
 
 <script>
-  // Dynamic Gateways per country (Minimum 6 to 8 popular options + Bank + Crypto)
+  // Dynamic Gateways per country
   const gateways = {
     BD: ['bKash', 'Nagad', 'Rocket', 'Upay', 'CellFin', 'Tap', '🏦 Local Bank Transfer', '🪙 Crypto (USDT)'],
     IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Freecharge', 'Mobikwik', '🏦 Bank Account (IMPS/NEFT)', '🪙 Crypto (USDT)'],
@@ -202,19 +223,20 @@
     GLOBAL: ['Perfect Money', 'Payeer', 'Skrill', 'Neteller', 'WebMoney', '🏦 Int. Wire Transfer', '🪙 USDT (TRC20/BEP20)', '🪙 Crypto (BTC/ETH)']
   };
 
-  // Translations Dict for Dynamic Language Switch
+  // Translations Dict
   const translations = {
     BN: {
       appTitle: 'এজেন্ট হন',
-      s1Title: 'ধাপ ১: ব্যক্তিগত ও ব্যবসায়িক তথ্য',
-      s1Sub: 'PayGaid নেটওয়ার্কে যুক্ত হতে আবেদন ফর্মটি পূরণ করুন',
-      lblFullname: 'আপনার নাম',
-      phFullname: 'পুরো নাম লিখুন',
-      lblPhone: 'ফোন / হোয়াটসঅ্যাপ নম্বর',
-      lblBusiness: 'ব্যবসা বা দোকানের নাম',
-      phBusiness: 'প্রতিষ্ঠানের নাম লিখুন',
+      s1Title: 'ধাপ ১: ব্যক্তিগত বিবরণ',
+      s1Sub: 'আপনার যোগাযোগের এবং পরিচয়ের বিস্তারিত প্রদান করুন',
+      lblFullname: 'পুরো নাম',
+      phFullname: 'যেমন: John Doe',
+      lblEmail: 'ইমেইল ঠিকানা',
+      lblMobile: 'মোবাইল নম্বর',
+      lblWhatsapp: 'হোয়াটসঅ্যাপ নম্বর',
+      lblTelegram: 'টেলিগ্রাম ইউজারনেম',
       lblCountry: 'দেশ নির্বাচন করুন',
-      btnNext1: 'পরবর্তী: পেমেন্ট মেথড নির্বাচন &rarr;',
+      btnNext1: 'পরবর্তী: ওয়ালেট বিবরণ &rarr;',
       s2Title: 'ধাপ ২: লোকাল ও গ্লোবাল পেমেন্ট গেটওয়ে',
       s2Sub: 'আপনার দেশের সকল পপুলার মেথড ও ব্যাংক সিলেক্ট করুন',
       lblSelectGw: 'পেমেন্ট গেটওয়ে নির্বাচন করুন (৬-৮টি অপশন)',
@@ -225,7 +247,8 @@
       btnBack: '&larr; পিছনে যান',
       btnNext2: 'পরবর্তী: আইডি ভেরিফিকেশন (KYC) &rarr;',
       s3Title: 'ধাপ ৩: আইডি ও কেওয়াইসি ভেরিফিকেশন',
-      s3Sub: 'আপনার জাতীয় পরিচয়পত্র বা পাসপোর্ট আপলোড করুন',
+      s3Sub: 'ডকুমেন্ট আপলোড করুন এবং আপনার অভিজ্ঞতা জানান',
+      lblExperience: 'পূর্ববর্তী এজেন্ট / পেমেন্ট অভিজ্ঞতা',
       lblDocType: 'আইডি ডকুমেন্ট এর ধরন',
       lblDocNum: 'ডকুমেন্ট নম্বর',
       phDocNum: 'আইডি / পাসপোর্ট নম্বর দিন',
@@ -237,15 +260,16 @@
     },
     EN: {
       appTitle: 'Become an Agent',
-      s1Title: 'Step 1: Personal & Business Details',
-      s1Sub: 'Fill in the form to join PayGaid Agent Network',
+      s1Title: 'Step 1: Personal Details',
+      s1Sub: 'Provide your contact and identity details',
       lblFullname: 'Full Name',
-      phFullname: 'Enter full name',
-      lblPhone: 'Phone / WhatsApp Number',
-      lblBusiness: 'Business / Shop Name',
-      phBusiness: 'Enter business name',
-      lblCountry: 'Select Country',
-      btnNext1: 'Next: Payment Gateways &rarr;',
+      phFullname: 'e.g. John Doe',
+      lblEmail: 'Email Address',
+      lblMobile: 'Mobile Number',
+      lblWhatsapp: 'WhatsApp Number',
+      lblTelegram: 'Telegram Username',
+      lblCountry: 'Country',
+      btnNext1: 'Next: Wallet Details &rarr;',
       s2Title: 'Step 2: Local & Global Payment Gateways',
       s2Sub: 'Select popular payment methods or bank for your country',
       lblSelectGw: 'Select Payment Gateway (6-8 Options)',
@@ -255,28 +279,30 @@
       phBankCustom: 'Bank Name & Account Number',
       btnBack: '&larr; Back',
       btnNext2: 'Next: Identity Verification (KYC) &rarr;',
-      s3Title: 'Step 3: Identity & KYC Verification',
-      s3Sub: 'Upload your NID, Passport, or Business document',
+      s3Title: 'Step 3: Identity & Verification',
+      s3Sub: 'Upload document and state your experience',
+      lblExperience: 'Previous Agent / Payment Experience',
       lblDocType: 'Identity Document Type',
       lblDocNum: 'Document Number',
-      phDocNum: 'Enter NID / Passport Number',
+      phDocNum: 'Enter ID / Passport Number',
       lblUpload: 'Upload Document Image',
-      txtUploadBox: 'Tap to upload Front Side image (JPG/PNG)',
+      txtUploadBox: 'Tap to upload Front Side of Document (JPG/PNG)',
       btnSubmit: 'Submit Application &#10004;',
       sucTitle: 'Application Submitted!',
       sucSub: 'Thank you for applying to PayGaid Agent Program.'
     },
     HI: {
       appTitle: 'एजेंट बनें',
-      s1Title: 'चरण 1: व्यक्तिगत और व्यावसायिक विवरण',
-      s1Sub: 'PayGaid नेटवर्क में शामिल होने के लिए फॉर्म भरें',
-      lblFullname: 'आपका पूरा नाम',
-      phFullname: 'पूरा नाम दर्ज करें',
-      lblPhone: 'फ़ोन / व्हाट्सएप नंबर',
-      lblBusiness: 'व्यवसाय या दुकान का नाम',
-      phBusiness: 'व्यवसाय का नाम दर्ज करें',
+      s1Title: 'चरण 1: व्यक्तिगत विवरण',
+      s1Sub: 'अपने संपर्क और पहचान का विवरण प्रदान करें',
+      lblFullname: 'पूरा नाम',
+      phFullname: 'उदा. John Doe',
+      lblEmail: 'ईमेल पता',
+      lblMobile: 'मोबाइल नंबर',
+      lblWhatsapp: 'व्हाट्सएप नंबर',
+      lblTelegram: 'telegram यूजरनेम',
       lblCountry: 'देश चुनें',
-      btnNext1: 'अगला: भुगतान विधियां &rarr;',
+      btnNext1: 'अगला: वॉलेट विवरण &rarr;',
       s2Title: 'चरण 2: स्थानीय और वैश्विक भुगतान गेटवे',
       s2Sub: 'अपने देश के लोकप्रिय तरीके और बैंक चुनें',
       lblSelectGw: 'भुगतान गेटवे चुनें (6-8 विकल्प)',
@@ -286,8 +312,9 @@
       phBankCustom: 'बैंक का नाम और खाता संख्या',
       btnBack: '&larr; पीछे जाएं',
       btnNext2: 'अगला: पहचान सत्यापन (KYC) &rarr;',
-      s3Title: 'चरण 3: पहचान और केवाईसी सत्यापन',
-      s3Sub: 'अपना राष्ट्रीय पहचान पत्र या पासपोर्ट अपलोड करें',
+      s3Title: 'चरण 3: पहचान और सत्यापन',
+      s3Sub: 'दस्तावेज़ अपलोड करें और अपने अनुभव का उल्लेख करें',
+      lblExperience: 'पिछला एजेंट / भुगतान अनुभव',
       lblDocType: 'पहचान दस्तावेज़ का प्रकार',
       lblDocNum: 'दस्तावेज़ संख्या',
       phDocNum: 'आईडी / पासपोर्ट नंबर दर्ज करें',
@@ -308,9 +335,10 @@
     document.getElementById('s1-sub').innerText = t.s1Sub;
     document.getElementById('lbl-fullname').innerText = t.lblFullname;
     document.getElementById('ph-fullname').placeholder = t.phFullname;
-    document.getElementById('lbl-phone').innerText = t.lblPhone;
-    document.getElementById('lbl-business').innerText = t.lblBusiness;
-    document.getElementById('ph-business').placeholder = t.phBusiness;
+    document.getElementById('lbl-email').innerText = t.lblEmail;
+    document.getElementById('lbl-mobile').innerText = t.lblMobile;
+    document.getElementById('lbl-whatsapp').innerText = t.lblWhatsapp;
+    document.getElementById('lbl-telegram').innerText = t.lblTelegram;
     document.getElementById('lbl-country').innerText = t.lblCountry;
     document.getElementById('btn-next1').innerHTML = t.btnNext1;
 
@@ -326,6 +354,7 @@
 
     document.getElementById('s3-title').innerText = t.s3Title;
     document.getElementById('s3-sub').innerText = t.s3Sub;
+    document.getElementById('lbl-experience').innerText = t.lblExperience;
     document.getElementById('lbl-doc-type').innerText = t.lblDocType;
     document.getElementById('lbl-doc-num').innerText = t.lblDocNum;
     document.getElementById('ph-doc-num').placeholder = t.phDocNum;
@@ -337,7 +366,6 @@
     document.getElementById('suc-title').innerText = t.sucTitle;
     document.getElementById('suc-sub').innerText = t.sucSub;
 
-    // Convert Numbers on Stepper Nodes
     if(lang === 'BN') {
       document.getElementById('node-1').innerText = '১';
       document.getElementById('node-2').innerText = '২';
