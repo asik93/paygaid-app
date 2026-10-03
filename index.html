@@ -11,10 +11,6 @@
             color-scheme: light !important;
             --accent-blue: #0066ff;
             --accent-green: #10b981;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --text-dark: #0f172a;
-            --text-sub: #64748b;
         }
         * {
             box-sizing: border-box;
@@ -25,14 +21,18 @@
         }
         body {
             background-color: #f8fafc !important;
-            color: var(--text-dark) !important;
+            color: #0f172a !important;
             padding: 20px 18px;
             position: relative;
             min-height: 100vh;
             overflow-x: hidden;
         }
-        .page { display: none; }
-        .page.active { display: block; }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
         
         /* Globe Vector Overlay */
         .dashboard-bg-globe {
@@ -45,11 +45,31 @@
             pointer-events: none;
         }
 
-        .page-title-center { text-align: center; margin-top: 20px; margin-bottom: 20px; }
-        .page-title-center h1 { font-size: 26px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
-        .page-title-center p { font-size: 13px; color: #64748b; }
+        /* Center Titles */
+        .page-title-center {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .page-title-center h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .page-title-center p {
+            font-size: 13px;
+            color: #64748b;
+        }
 
-        .option-list { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+        /* Options List */
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
         .option-item {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -64,17 +84,58 @@
             cursor: pointer;
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
-        .option-item:active { background-color: #f1f5f9; }
-        .flag-icon { font-size: 20px; }
+        .option-item:active {
+            background-color: #f1f5f9;
+        }
+        .flag-icon {
+            font-size: 20px;
+        }
 
-        .header { margin-bottom: 24px; position: relative; z-index: 1; }
-        .logo-box { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-        .logo-svg { width: 36px; height: 36px; }
-        .logo-text { font-size: 26px; font-weight: 800; color: #0066ff; letter-spacing: -0.5px; }
-        .welcome-title { font-size: 32px; font-weight: 800; color: #0f172a; margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.5px; }
-        .welcome-sub { font-size: 14px; color: #475569; line-height: 1.45; font-weight: 400; }
+        /* Header UI */
+        .header {
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .logo-svg {
+            width: 36px;
+            height: 36px;
+        }
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0066ff;
+            letter-spacing: -0.5px;
+        }
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .welcome-sub {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.45;
+            font-weight: 400;
+        }
 
-        .menu-container { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+        /* Menu Items */
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
         .menu-item {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -83,34 +144,71 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            text-decoration: none;
             color: inherit;
             box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
             cursor: pointer;
         }
-        .menu-item:active { background-color: #f8fafc; }
-        .menu-left { display: flex; align-items: center; gap: 12px; }
-        .icon-box {
-            width: 42px; height: 42px; border-radius: 12px;
-            background-color: #eff6ff; color: #0066ff;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 17px; flex-shrink: 0;
+        .menu-item:active {
+            background-color: #f8fafc;
         }
-        .menu-text h3 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
-        .menu-text p { font-size: 12px; color: #64748b; font-weight: 400; }
-        .arrow-icon { color: #94a3b8; font-size: 12px; }
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background-color: #eff6ff;
+            color: #0066ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+        .menu-text h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+        .menu-text p {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 400;
+        }
+        .arrow-icon {
+            color: #94a3b8;
+            font-size: 12px;
+        }
         
         .content-card {
-            background: #ffffff; border: 1px solid #e2e8f0;
-            border-radius: 14px; padding: 18px; margin-top: 14px;
-            line-height: 1.6; font-size: 14px; color: #334155;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 14px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #334155;
         }
         .back-btn {
-            background: none; border: none; color: #0066ff;
-            font-size: 15px; font-weight: 700; cursor: pointer;
-            display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+            background: none;
+            border: none;
+            color: #0066ff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
         }
 
-        /* Become Agent 3-Step Form Styles */
+        /* Stepper & 3-Step Agent Form UI */
         .stepper { display: flex; justify-content: space-between; align-items: center; position: relative; margin: 15px 0 20px 0; padding: 0 10px; }
         .stepper::before { content: ''; position: absolute; top: 50%; left: 30px; right: 30px; height: 2px; background: #e2e8f0; z-index: 1; }
         .step-node { width: 30px; height: 30px; border-radius: 50%; background: #ffffff; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; position: relative; z-index: 2; color: #64748b; }
@@ -131,9 +229,28 @@
         .btn-success { background: #10b981; color: white; }
         .btn-secondary { background: #e2e8f0; color: #475569; }
 
-        .footer-divider { display: flex; align-items: center; justify-content: center; margin-top: 32px; margin-bottom: 16px; gap: 10px; }
-        .footer-line { height: 1px; background-color: #e2e8f0; flex: 1; max-width: 80px; }
-        .footer-text { font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 1.2px; text-transform: uppercase; }
+        /* Footer Divider */
+        .footer-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            gap: 10px;
+        }
+        .footer-line {
+            height: 1px;
+            background-color: #e2e8f0;
+            flex: 1;
+            max-width: 80px;
+        }
+        .footer-text {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
         .hidden { display: none; }
     </style>
 </head>
@@ -158,6 +275,7 @@
             <div class="option-item" onclick="selectCountry('Saudi Arabia', '🇸🇦', 'العربية', 'ar', 'GLOBAL')">
                 <span class="flag-icon">🇸🇦</span> Saudi Arabia
             </div>
+            <!-- Bangladesh at 5th Position -->
             <div class="option-item" onclick="selectCountry('Bangladesh', '🇧🇩', 'বাংলা', 'bn', 'BD')">
                 <span class="flag-icon">🇧🇩</span> Bangladesh
             </div>
@@ -216,6 +334,7 @@
 
     <!-- 3. Main Dashboard Screen -->
     <div id="page-dashboard" class="page">
+        <!-- SVG Globe Graphic Vector -->
         <svg class="dashboard-bg-globe" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="350" cy="150" r="200" fill="#3b82f6" opacity="0.12"/>
             <path d="M250,50 A180,180 0 0,0 120,280 C150,260 210,230 250,220 C290,210 320,170 360,160 C400,150 420,120 440,90 A180,180 0 0,0 250,50 Z" fill="#60a5fa" opacity="0.35"/>
@@ -237,7 +356,8 @@
         </div>
 
         <div class="menu-container">
-            <div class="menu-item" onclick="openBecomeAgentForm()">
+            <!-- Dynamic 3-Step Registration Modal Launcher -->
+            <div class="menu-item" onclick="openAgentRegistrationForm()">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-regular fa-user"></i></div>
                     <div class="menu-text">
@@ -349,22 +469,21 @@
         </div>
     </div>
 
-    <!-- 5. Become an Agent 3-Step Registration Form Page -->
+    <!-- 5. Become an Agent 3-Step Registration Form Screen -->
     <div id="page-agent-form" class="page">
         <button class="back-btn" onclick="goPage('page-dashboard')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
         </button>
-        
-        <h2 id="form-main-head" style="font-size: 20px; font-weight: 800; margin-bottom: 5px;">Agent Registration</h2>
-        
-        <!-- Stepper -->
+        <h2 id="form-main-head" style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">Agent Registration</h2>
+
+        <!-- Stepper Node Header -->
         <div class="stepper">
             <div class="step-node active" id="node-1">1</div>
             <div class="step-node" id="node-2">2</div>
             <div class="step-node" id="node-3">3</div>
         </div>
 
-        <!-- Step 1: Personal Info -->
+        <!-- Step 1: Personal Details -->
         <div class="content-card" id="form-step-1">
             <h3 id="form-s1-title" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">Step 1: Personal Details</h3>
             <p id="form-s1-sub" style="font-size: 12px; color: #64748b; margin-bottom: 15px;">Provide contact and shop info</p>
@@ -382,11 +501,11 @@
                 <input type="text" class="form-control" id="ph-business" placeholder="Enter business name">
             </div>
             <div class="btn-flex">
-                <button class="btn-action btn-primary" onclick="goFormStep(2)" id="btn-next1">Next: Wallet Details &rarr;</button>
+                <button class="btn-action btn-primary" onclick="goFormStep(2)" id="btn-next1">Next: Payment Gateways &rarr;</button>
             </div>
         </div>
 
-        <!-- Step 2: Gateways & Wallet -->
+        <!-- Step 2: Payment Gateways Grid -->
         <div class="content-card hidden" id="form-step-2">
             <h3 id="form-s2-title" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">Step 2: Payment Gateways</h3>
             <p id="form-s2-sub" style="font-size: 12px; color: #64748b; margin-bottom: 15px;">Select popular local methods or crypto</p>
@@ -405,10 +524,10 @@
             </div>
         </div>
 
-        <!-- Step 3: Verification -->
+        <!-- Step 3: Identity Verification -->
         <div class="content-card hidden" id="form-step-3">
             <h3 id="form-s3-title" style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">Step 3: Identity & Verification</h3>
-            <p id="form-s3-sub" style="font-size: 12px; color: #64748b; margin-bottom: 15px;">Upload document or enter NID/Passport number</p>
+            <p id="form-s3-sub" style="font-size: 12px; color: #64748b; margin-bottom: 15px;">Provide your NID or Passport number</p>
 
             <div class="form-group">
                 <label id="lbl-doc-num">Document Number (NID / Passport)</label>
@@ -458,7 +577,8 @@
 
         const translations = {
             en: {
-                back: "Back", welcome: "Welcome",
+                back: "Back",
+                welcome: "Welcome",
                 sub1: "Your trusted Payment Gateway &<br>E-Wallet Agent Platform.",
                 sub2: "Explore our program, check requirements,<br>or submit your application.",
                 m1_title: "Become an Agent", m1_sub: "Learn more and submit your application.",
@@ -476,7 +596,6 @@
                 m6_content: "Q: How long does approval take?<br>A: Approval usually takes 24-48 business hours.",
                 m7_content: "Need assistance? Contact our official support 24/7 via Telegram Support or Email: support@paygaid.com",
                 
-                // Form Translations
                 formHead: "Agent Registration",
                 formS1Title: "Step 1: Personal & Business Details", formS1Sub: "Provide contact and shop details",
                 lblFullname: "Full Name", phFullname: "Enter full name",
@@ -491,7 +610,8 @@
                 sucTitle: "Application Submitted!", sucSub: "Thank you for applying to PayGaid Agent Program."
             },
             bn: {
-                back: "ফিরে যান", welcome: "স্বাগতম",
+                back: "ফিরে যান",
+                welcome: "স্বাগতম",
                 sub1: "আপনার বিশ্বাসযোগ্য পেমেন্ট গেটওয়ে এবং<br>ই-ওয়ালেট এজেন্ট প্ল্যাটফর্ম।",
                 sub2: "আমাদের প্রোগ্রাম জানুন, শর্তাবলী দেখুন,<br>বা আবেদন ফর্ম জমা দিন।",
                 m1_title: "এজেন্ট হন", m1_sub: "বিস্তারিত জানুন এবং আপনার আবেদন জমা দিন।",
@@ -509,7 +629,6 @@
                 m6_content: "প্রশ্ন: অ্যাকাউন্ট অনুমোদন হতে কত সময় লাগে?<br>উত্তর: সাধারণত ২৪ থেকে ৪৮ কর্মঘণ্টার মধ্যে অনুমোদন সম্পন্ন হয়।",
                 m7_content: "সহায়তা প্রয়োজন? আমাদের সাপোর্ট টিমের সাথে ২৪/৭ যোগাযোগ করুন: support@paygaid.com",
 
-                // Form Translations
                 formHead: "এজেন্ট রেজিস্ট্রেশন",
                 formS1Title: "ধাপ ১: ব্যক্তিগত ও ব্যবসায়িক তথ্য", formS1Sub: "যোগাযোগ ও প্রতিষ্ঠানের তথ্য প্রদান করুন",
                 lblFullname: "আপনার নাম", phFullname: "পুরো নাম লিখুন",
@@ -524,7 +643,8 @@
                 sucTitle: "আবেদন সফলভাবে জমা হয়েছে!", sucSub: "PayGaid Agent প্রোগ্রামে আবেদন করার জন্য ধন্যবাদ।"
             },
             hi: {
-                back: "वापस", welcome: "स्वागत है",
+                back: "वापस",
+                welcome: "स्वागत है",
                 sub1: "आपका विश्वसनीय भुगतान गेटवे और<br>ई-वॉलेट एजेंट प्लेटफॉर्म।",
                 sub2: "हमारे कार्यक्रम को समझें, आवश्यकताएं देखें,<br>या अपना आवेदन जमा करें।",
                 m1_title: "एजेंट बनें", m1_sub: "अधिक जानें और अपना आवेदन जमा करें।",
@@ -542,7 +662,6 @@
                 m6_content: "प्रश्न: स्वीकृति में कितना समय लगता है?<br>उत्तर: आमतौर पर 24-48 कार्य घंटे लगते हैं।",
                 m7_content: "सहायता चाहिए? हमारी सहायता टीम से 24/7 संपर्क करें: support@paygaid.com",
 
-                // Form Translations
                 formHead: "एजेंट पंजीकरण",
                 formS1Title: "चरण 1: व्यक्तिगत विवरण", formS1Sub: "संपर्क और दुकान का विवरण प्रदान करें",
                 lblFullname: "पूरा नाम", phFullname: "पूरा नाम दर्ज करें",
@@ -610,7 +729,6 @@
             document.getElementById('m8-title').innerText = langData.m8_title;
             document.getElementById('m8-sub').innerText = langData.m8_sub;
 
-            // Update Form Language
             applyFormTranslations(langData);
 
             goPage('page-dashboard');
@@ -618,35 +736,35 @@
 
         function applyFormTranslations(langData) {
             document.getElementById('form-main-head').innerText = langData.formHead || "Agent Registration";
-            document.getElementById('form-s1-title').innerText = langData.formS1Title;
-            document.getElementById('form-s1-sub').innerText = langData.formS1Sub;
-            document.getElementById('lbl-fullname').innerText = langData.lblFullname;
-            document.getElementById('ph-fullname').placeholder = langData.phFullname;
-            document.getElementById('lbl-phone').innerText = langData.lblPhone;
-            document.getElementById('lbl-business').innerText = langData.lblBusiness;
-            document.getElementById('ph-business').placeholder = langData.phBusiness;
-            document.getElementById('btn-next1').innerText = langData.btnNext1;
+            document.getElementById('form-s1-title').innerText = langData.formS1Title || "Step 1: Personal Details";
+            document.getElementById('form-s1-sub').innerText = langData.formS1Sub || "Provide contact and shop details";
+            document.getElementById('lbl-fullname').innerText = langData.lblFullname || "Full Name";
+            document.getElementById('ph-fullname').placeholder = langData.phFullname || "Enter full name";
+            document.getElementById('lbl-phone').innerText = langData.lblPhone || "Mobile / WhatsApp Number";
+            document.getElementById('lbl-business').innerText = langData.lblBusiness || "Business / Shop Name";
+            document.getElementById('ph-business').placeholder = langData.phBusiness || "Enter business name";
+            document.getElementById('btn-next1').innerText = langData.btnNext1 || "Next";
 
-            document.getElementById('form-s2-title').innerText = langData.formS2Title;
-            document.getElementById('form-s2-sub').innerText = langData.formS2Sub;
-            document.getElementById('lbl-select-gw').innerText = langData.lblSelectGw;
-            document.getElementById('lbl-acc-num').innerText = langData.lblAccNum;
-            document.getElementById('ph-acc-num').placeholder = langData.phAccNum;
-            document.getElementById('btn-back1').innerText = langData.btnBack;
-            document.getElementById('btn-next2').innerText = langData.btnNext2;
+            document.getElementById('form-s2-title').innerText = langData.formS2Title || "Step 2: Payment Gateways";
+            document.getElementById('form-s2-sub').innerText = langData.formS2Sub || "Select popular local methods";
+            document.getElementById('lbl-select-gw').innerText = langData.lblSelectGw || "Select Payment Gateway";
+            document.getElementById('lbl-acc-num').innerText = langData.lblAccNum || "Selected Account / Wallet Number";
+            document.getElementById('ph-acc-num').placeholder = langData.phAccNum || "Account Number";
+            document.getElementById('btn-back1').innerText = langData.btnBack || "Back";
+            document.getElementById('btn-next2').innerText = langData.btnNext2 || "Next";
 
-            document.getElementById('form-s3-title').innerText = langData.formS3Title;
-            document.getElementById('form-s3-sub').innerText = langData.formS3Sub;
-            document.getElementById('lbl-doc-num').innerText = langData.lblDocNum;
-            document.getElementById('ph-doc-num').placeholder = langData.phDocNum;
-            document.getElementById('btn-back2').innerText = langData.btnBack;
-            document.getElementById('btn-submit').innerText = langData.btnSubmit;
+            document.getElementById('form-s3-title').innerText = langData.formS3Title || "Step 3: Identity Verification";
+            document.getElementById('form-s3-sub').innerText = langData.formS3Sub || "Provide document details";
+            document.getElementById('lbl-doc-num').innerText = langData.lblDocNum || "Document Number";
+            document.getElementById('ph-doc-num').placeholder = langData.phDocNum || "Enter Document Number";
+            document.getElementById('btn-back2').innerText = langData.btnBack || "Back";
+            document.getElementById('btn-submit').innerText = langData.btnSubmit || "Submit";
 
-            document.getElementById('suc-title').innerText = langData.sucTitle;
-            document.getElementById('suc-sub').innerText = langData.sucSub;
+            document.getElementById('suc-title').innerText = langData.sucTitle || "Application Submitted!";
+            document.getElementById('suc-sub').innerText = langData.sucSub || "Thank you for applying.";
         }
 
-        function openBecomeAgentForm() {
+        function openAgentRegistrationForm() {
             renderGateways();
             goFormStep(1);
             goPage('page-agent-form');
