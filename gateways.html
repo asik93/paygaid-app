@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Gateway Management - PayGaid Portal</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .back-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            background: #1e293b;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+        .back-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #38bdf8;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        .add-wallet-btn {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .form-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 5px;
+            display: block;
+            text-transform: uppercase;
+        }
+        .form-control {
+            width: 100%;
+            background: #0e1217;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            border-color: #38bdf8;
+        }
+        .row-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .section-header {
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wallet-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            position: relative;
+            transition: 0.2s;
+        }
+        .wallet-card.inactive {
+            opacity: 0.6;
+            border-color: #475569;
+        }
+        .wallet-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .wallet-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #ffffff;
+            padding: 2px;
+        }
+        .wallet-badge {
+            font-size: 10px;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .wallet-details {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .wallet-details strong {
+            color: #e2e8f0;
+        }
+        .wallet-limits {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.05);
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px dashed rgba(74, 222, 128, 0.2);
+        }
+        .commission-box {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px dashed rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+        }
+        .commission-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: #f59e0b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .commission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            text-align: center;
+        }
+        .comm-item {
+            background: rgba(14, 18, 23, 0.5);
+            padding: 4px;
+            border-radius: 6px;
+        }
+        .comm-label {
+            font-size: 9px;
+            color: #94a3b8;
+            display: block;
+        }
+        .comm-val {
+            font-size: 11px;
+            font-weight: 700;
+            color: #f59e0b;
+        }
+        .wallet-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #334155;
+            padding-top: 10px;
+        }
+        .action-group-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn-delete {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            color: #f87171;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-delete:hover {
+            background: #f87171;
+            color: white;
+        }
+        .toggle-switch {
+            width: 36px;
+            height: 20px;
+            background: #334155;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+        }
+        .toggle-switch.active {
+            background: #16a34a;
+        }
+        .toggle-thumb {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+        .toggle-switch.active .toggle-thumb {
+            transform: translateX(16px);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(14, 18, 23, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .modal-header h3 {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #16a34a;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Bar -->
+        <div class="back-bar">
+            <div class="back-left">
+                <button class="back-btn" onclick="window.location.href='agent-dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="page-title">Gateway Management</div>
+            </div>
+            <button class="add-wallet-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add New</button>
+        </div>
+
+        <!-- Targeted Country Region Filter (Bangladesh & Global) -->
+        <div class="form-card" style="padding: 12px 16px; margin-bottom: 14px;">
+            <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" style="font-size: 10px;">Targeted Region Country</label>
+                <select class="form-control" id="regionSelect">
+                    <option value="BD">Bangladesh</option>
+                    <option value="Global">Global</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Active Wallets List Header -->
+        <div class="section-header">
+            <span>Configured Wallets & Gateways</span>
+            <span style="font-size: 11px; color: #38bdf8;" id="totalCount">3 Active</span>
+        </div>
+
+        <!-- Dynamic Gateway List Container -->
+        <div id="walletListContainer">
+            <!-- Wallet 1: bKash -->
+            <div class="wallet-card" id="wallet-1">
+                <div class="wallet-top">
+                    <div class="wallet-name">
+                        <img src="https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png" class="brand-logo" alt="bKash"> bKash Personal
+                    </div>
+                    <span class="wallet-badge">Local Wallet</span>
+                </div>
+                <div class="wallet-details">
+                    Number: <strong>01712345678</strong> (Personal)
+                </div>
+                <div class="wallet-limits">
+                    <span>Min: ৳ 500</span>
+                    <span>Max: ৳ 25,000</span>
+                </div>
+                <div class="commission-box">
+                    <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
+                    <div class="commission-grid">
+                        <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
+                        <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
+                        <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
+                    </div>
+                </div>
+                <div class="wallet-actions">
+                    <span style="font-size: 11px; color: #4ade80; font-weight: 600;" id="status-text-1">Active</span>
+                    <div class="action-group-right">
+                        <div class="toggle-switch active" onclick="toggleWallet(1)">
+                            <div class="toggle-thumb"></div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteWallet(1)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet 2: Nagad -->
+            <div class="wallet-card" id="wallet-2">
+                <div class="wallet-top">
+                    <div class="wallet-name">
+                        <img src="https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png" class="brand-logo" alt="Nagad"> Nagad Personal
+                    </div>
+                    <span class="wallet-badge">Local Wallet</span>
+                </div>
+                <div class="wallet-details">
+                    Number: <strong>01812345678</strong> (Personal)
+                </div>
+                <div class="wallet-limits">
+                    <span>Min: ৳ 500</span>
+                    <span>Max: ৳ 25,000</span>
+                </div>
+                <div class="commission-box">
+                    <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
+                    <div class="commission-grid">
+                        <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
+                        <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
+                        <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
+                    </div>
+                </div>
+                <div class="wallet-actions">
+                    <span style="font-size: 11px; color: #4ade80; font-weight: 600;" id="status-text-2">Active</span>
+                    <div class="action-group-right">
+                        <div class="toggle-switch active" onclick="toggleWallet(2)">
+                            <div class="toggle-thumb"></div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteWallet(2)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet 3: Rocket -->
+            <div class="wallet-card" id="wallet-3">
+                <div class="wallet-top">
+                    <div class="wallet-name">
+                        <img src="https://images.seeklogo.com/logo-png/50/2/dutch-bangla-rocket-logo-png_seeklogo-509355.png" class="brand-logo" alt="Rocket"> Rocket Personal
+                    </div>
+                    <span class="wallet-badge">Local Wallet</span>
+                </div>
+                <div class="wallet-details">
+                    Number: <strong>01912345678</strong> (Personal)
+                </div>
+                <div class="wallet-limits">
+                    <span>Min: ৳ 500</span>
+                    <span>Max: ৳ 25,000</span>
+                </div>
+                <div class="commission-box">
+                    <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
+                    <div class="commission-grid">
+                        <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
+                        <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
+                        <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
+                    </div>
+                </div>
+                <div class="wallet-actions">
+                    <span style="font-size: 11px; color: #4ade80; font-weight: 600;" id="status-text-3">Active</span>
+                    <div class="action-group-right">
+                        <div class="toggle-switch active" onclick="toggleWallet(3)">
+                            <div class="toggle-thumb"></div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteWallet(3)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Add New Wallet / Gateway -->
+    <div class="modal-overlay" id="addWalletModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Add New Wallet / Gateway</h3>
+                <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Gateway Category</label>
+                <select class="form-control" id="gatewayCategory" onchange="handleCategoryChange()">
+                    <option value="mobile">Local Wallet</option>
+                    <option value="bank">Bank Account Transfer</option>
+                    <option value="crypto">Cryptocurrency</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Method Name / Provider</label>
+                <select class="form-control" id="methodName">
+                    <option value="bKash">bKash</option>
+                    <option value="Nagad">Nagad</option>
+                    <option value="Rocket">Rocket</option>
+                    <option value="Upay">Upay</option>
+                    <option value="Cellfin">Cellfin</option>
+                </select>
+            </div>
+
+            <!-- Account Type Field -->
+            <div class="form-group" id="groupAccountType">
+                <label class="form-label">Account Type</label>
+                <select class="form-control" id="accountTypeSelect">
+                    <option value="Personal">Personal</option>
+                    <option value="Agent">Agent</option>
+                    <option value="Merchant">Merchant</option>
+                </select>
+            </div>
+
+            <!-- Dynamic Input Fields -->
+            <div class="form-group" id="groupField1">
+                <label class="form-label" id="labelField1">Wallet / Mobile Number</label>
+                <input type="text" id="inputField1" class="form-control" placeholder="Enter mobile number">
+            </div>
+
+            <div class="form-group" id="groupField2" style="display: none;">
+                <label class="form-label" id="labelField2">Account Number</label>
+                <input type="text" id="inputField2" class="form-control" placeholder="Enter account number">
+            </div>
+
+            <!-- Dynamic Field 3 (For Bank Email/ID) -->
+            <div class="form-group" id="groupField3" style="display: none;">
+                <label class="form-label" id="labelField3">Email / Account ID</label>
+                <input type="text" id="inputField3" class="form-control" placeholder="Enter email or account id">
+            </div>
+
+            <!-- QR Code Image Upload Field -->
+            <div class="form-group" id="qrGroup">
+                <label class="form-label">Upload QR Code Image (Optional)</label>
+                <input type="file" id="qrCodeFile" class="form-control" accept="image/*" style="padding: 7px;">
+            </div>
+
+            <!-- Limit Fields (Blank by default) -->
+            <div class="row-group">
+                <div class="form-group">
+                    <label class="form-label">Min Limit</label>
+                    <input type="number" id="minDeposit" class="form-control" placeholder="e.g. 500" value="">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Max Limit</label>
+                    <input type="number" id="maxDeposit" class="form-control" placeholder="e.g. 25000" value="">
+                </div>
+            </div>
+
+            <!-- Real Time Commission Box -->
+            <div class="commission-box" style="margin-top: 10px; margin-bottom: 14px;">
+                <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
+                <div class="commission-grid">
+                    <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
+                    <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
+                    <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
+                </div>
+            </div>
+
+            <button class="btn-submit" onclick="saveNewWallet()">Save & Activate Gateway</button>
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready?.();
+            tg.expand?.();
+        }
+
+        let walletData = [
+            { id: 1, type: 'mobile', name: 'bKash Personal', logo: 'https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png', details: 'Number: 01712345678 (Personal)', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
+            { id: 2, type: 'mobile', name: 'Nagad Personal', logo: 'https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png', details: 'Number: 01812345678 (Personal)', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
+            { id: 3, type: 'mobile', name: 'Rocket Personal', logo: 'https://images.seeklogo.com/logo-png/50/2/dutch-bangla-rocket-logo-png_seeklogo-509355.png', details: 'Number: 01912345678 (Personal)', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true }
+        ];
+
+        function openModal() {
+            document.getElementById('addWalletModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('addWalletModal').classList.remove('active');
+        }
+
+        function handleCategoryChange() {
+            let cat = document.getElementById('gatewayCategory').value;
+            let nameSelect = document.getElementById('methodName');
+            let groupAccountType = document.getElementById('groupAccountType');
+            let label1 = document.getElementById('labelField1');
+            let input1 = document.getElementById('inputField1');
+            let group2 = document.getElementById('groupField2');
+            let label2 = document.getElementById('labelField2');
+            let input2 = document.getElementById('inputField2');
+            let group3 = document.getElementById('groupField3');
+            let label3 = document.getElementById('labelField3');
+            let input3 = document.getElementById('inputField3');
+
+            nameSelect.innerHTML = "";
+            if (cat === 'mobile') {
+                ['bKash', 'Nagad', 'Rocket', 'Upay', 'Cellfin'].forEach(m => {
+                    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
+                });
+                groupAccountType.style.display = "block";
+                label1.innerText = "Wallet / Mobile Number";
+                input1.placeholder = "Enter mobile number";
+                group2.style.display = "none";
+                group3.style.display = "none";
+            } else if (cat === 'bank') {
+                ['Dutch-Bangla Bank (DBBL)', 'BRAC Bank', 'The City Bank', 'Eastern Bank (EBL)', 'Islami Bank Bangladesh'].forEach(m => {
+                    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
+                });
+                groupAccountType.style.display = "none";
+                label1.innerText = "Branch Name";
+                input1.placeholder = "e.g. Banani Branch";
+                group2.style.display = "block";
+                label2.innerText = "Account Number";
+                input2.placeholder = "e.g. 1541010029384";
+                group3.style.display = "block";
+                label3.innerText = "Email / Account ID";
+                input3.placeholder = "Enter email or account id";
+            } else if (cat === 'crypto') {
+                ['Binance Pay', 'Bybit', 'BNB Smart Chain (BEP20)', 'USDT (TRC20)', 'USDT (ERC20)', 'Bitcoin (BTC)'].forEach(m => {
+                    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
+                });
+                groupAccountType.style.display = "none";
+                label1.innerText = "Wallet Address / ID / Tag";
+                input1.placeholder = "Enter wallet address or binance id";
+                group2.style.display = "none";
+                group3.style.display = "none";
+            }
+        }
+
+        function toggleWallet(id) {
+            let card = document.getElementById('wallet-' + id);
+            let statusText = document.getElementById('status-text-' + id);
+            let toggleBtn = card.querySelector('.toggle-switch');
+            
+            let item = walletData.find(w => w.id === id);
+            if (item) {
+                item.active = !item.active;
+                if (item.active) {
+                    toggleBtn.classList.add('active');
+                    card.classList.remove('inactive');
+                    statusText.innerText = "Active";
+                    statusText.style.color = "#4ade80";
+                } else {
+                    toggleBtn.classList.remove('active');
+                    card.classList.add('inactive');
+                    statusText.innerText = "Inactive";
+                    statusText.style.color = "#f87171";
+                }
+            }
+        }
+
+        function deleteWallet(id) {
+            if (confirm('Are you sure you want to delete this gateway?')) {
+                walletData = walletData.filter(w => w.id !== id);
+                renderWallets();
+            }
+        }
+
+        function saveNewWallet() {
+            let cat = document.getElementById('gatewayCategory').value;
+            let name = document.getElementById('methodName').value;
+            let accType = document.getElementById('accountTypeSelect').value;
+            let val1 = document.getElementById('inputField1').value;
+            let val2 = document.getElementById('inputField2').value;
+            let val3 = document.getElementById('inputField3').value;
+            let qrFile = document.getElementById('qrCodeFile').files[0];
+            let min = document.getElementById('minDeposit').value;
+            let max = document.getElementById('maxDeposit').value;
+
+            if (!val1 || !min || !max) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            let badgeText = "Local Wallet";
+            let logoUrl = "https://cdn-icons-png.flaticon.com/512/2830/2830284.png";
+            
+            // Genuine Brand Logos including USDT ERC20
+            if (name.includes('bKash')) logoUrl = "https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png";
+            else if (name.includes('Nagad')) logoUrl = "https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png";
+            else if (name.includes('Rocket')) logoUrl = "https://images.seeklogo.com/logo-png/50/2/dutch-bangla-rocket-logo-png_seeklogo-509355.png";
+            else if (name.includes('Upay')) logoUrl = "https://images.seeklogo.com/logo-png/52/2/upay-logo-png_seeklogo-526435.png";
+            else if (name.includes('Binance')) logoUrl = "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png";
+            else if (name.includes('Bybit')) logoUrl = "https://assets.coingecko.com/markets/images/698/large/bybit_logo.png";
+            else if (name.includes('BNB Smart Chain') || name.includes('BEP20')) logoUrl = "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png";
+            else if (name.includes('USDT (TRC20)') || name.includes('USDT (ERC20)')) logoUrl = "https://assets.coingecko.com/coins/images/325/large/Tether.png";
+            else if (name.includes('Bitcoin')) logoUrl = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png";
+            else if (cat === 'bank') logoUrl = "https://cdn-icons-png.flaticon.com/512/2830/2830284.png";
+
+            let displayName = name;
+            let detailsHtml = "";
+            if (cat === 'mobile') {
+                badgeText = "Local Wallet";
+                displayName = `${name} ${accType}`;
+                detailsHtml = `Number: <strong>${val1}</strong> (${accType})`;
+            } else if (cat === 'bank') {
+                badgeText = "Bank Account";
+                detailsHtml = `Branch: <strong>${val1}</strong><br>Acc No: <strong>${val2 || 'N/A'}</strong><br>Email/ID: <strong>${val3 || 'N/A'}</strong>`;
+            } else if (cat === 'crypto') {
+                badgeText = "Cryptocurrency";
+                detailsHtml = `Address / ID: <strong style="word-break:break-all;">${val1}</strong>`;
+            }
+
+            if (qrFile) {
+                detailsHtml += `<br>QR Code: <strong>Uploaded (${qrFile.name})</strong>`;
+            }
+
+            let newId = walletData.length > 0 ? Math.max(...walletData.map(w => w.id)) + 1 : 1;
+            
+            walletData.push({
+                id: newId,
+                type: cat,
+                name: displayName,
+                logo: logoUrl,
+                details: detailsHtml,
+                min: cat === 'crypto' ? `$ ${min}` : `৳ ${min}`,
+                max: cat === 'crypto' ? `$ ${max}` : `৳ ${max}`,
+                commDep: '1.5%', 
+                commWd: '1.0%',
+                commSub: '0.5%',
+                badge: badgeText,
+                active: true
+            });
+
+            closeModal();
+            renderWallets();
+            
+            // Reset Fields
+            document.getElementById('inputField1').value = "";
+            document.getElementById('inputField2').value = "";
+            document.getElementById('inputField3').value = "";
+            document.getElementById('qrCodeFile').value = "";
+            document.getElementById('minDeposit').value = "";
+            document.getElementById('maxDeposit').value = "";
+        }
+
+        function renderWallets() {
+            let container = document.getElementById('walletListContainer');
+            container.innerHTML = "";
+            
+            walletData.forEach(w => {
+                let cardClass = w.active ? 'wallet-card' : 'wallet-card inactive';
+                let toggleClass = w.active ? 'toggle-switch active' : 'toggle-switch';
+                let statusColor = w.active ? '#4ade80' : '#f87171';
+                let statusText = w.active ? 'Active' : 'Inactive';
+
+                container.innerHTML += `
+                    <div class="${cardClass}" id="wallet-${w.id}">
+                        <div class="wallet-top">
+                            <div class="wallet-name">
+                                <img src="${w.logo}" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2830/2830284.png'" alt="${w.name}"> ${w.name}
+                            </div>
+                            <span class="wallet-badge">${w.badge}</span>
+                        </div>
+                        <div class="wallet-details">
+                            ${w.details}
+                        </div>
+                        <div class="wallet-limits">
+                            <span>Min: ${w.min}</span>
+                            <span>Max: ${w.max}</span>
+                        </div>
+                        <div class="commission-box">
+                            <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
+                            <div class="commission-grid">
+                                <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">${w.commDep}</span></div>
+                                <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">${w.commWd}</span></div>
+                                <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">${w.commSub}</span></div>
+                            </div>
+                        </div>
+                        <div class="wallet-actions">
+                            <span style="font-size: 11px; color: ${statusColor}; font-weight: 600;" id="status-text-${w.id}">${statusText}</span>
+                            <div class="action-group-right">
+                                <div class="${toggleClass}" onclick="toggleWallet(${w.id})">
+                                    <div class="toggle-thumb"></div>
+                                </div>
+                                <button class="btn-delete" onclick="deleteWallet(${w.id})"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('totalCount').innerText = `${walletData.filter(w => w.active).length} Active`;
+        }
+    </script>
+</body>
+</html>
