@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Withdraw Funds - ADS Pro System</title>
+    <title>Withdraw Funds - PayGaid Portal</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -21,9 +21,9 @@
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            background-color: #0f172a !important; 
-            color: #f8fafc !important;
-            padding: 16px;
+            background-color: #0e1217 !important; 
+            color: #e4e6eb !important;
+            padding: 12px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -38,102 +38,148 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 16px;
+            background: #1e293b;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
         }
         .back-btn {
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: none;
+            border: none;
             color: #38bdf8;
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-size: 16px;
         }
         .page-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             color: #ffffff;
             text-transform: uppercase;
         }
         .balance-card {
-            background: linear-gradient(135deg, #0e7490, #065f46);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        .balance-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .balance-label {
-            font-size: 13px;
-            color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .balance-check-icon {
-            background: rgba(255, 255, 255, 0.2);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #ffffff;
-        }
-        .balance-value {
-            font-size: 26px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-        .form-card {
-            background: #ffffff;
-            color: #0f172a;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        .form-group {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
             margin-bottom: 16px;
         }
-        .form-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 8px;
+        .balance-title {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
             display: block;
+        }
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: #4ade80;
+        }
+        .form-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .form-group {
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .form-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            display: block;
+            text-transform: uppercase;
         }
         .form-control {
             width: 100%;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
+            background: #0e1217;
+            border: 1px solid #334155;
             border-radius: 10px;
             padding: 12px 14px;
-            color: #0f172a;
+            color: #ffffff;
             font-size: 14px;
             outline: none;
             transition: 0.2s;
         }
         .form-control:focus {
-            border-color: #0e7490;
-            background: #ffffff;
+            border-color: #38bdf8;
         }
-        select.form-control {
+
+        /* Custom Select Styling with Logos */
+        .custom-select-box {
+            position: relative;
             cursor: pointer;
         }
+        .select-selected {
+            background: #0e1217;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+            font-size: 14px;
+        }
+        .select-selected img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+        .selected-value {
+            display: flex;
+            align-items: center;
+        }
+        .select-items {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #0e1217;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            margin-top: 4px;
+            z-index: 99;
+            display: none;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+        .select-items.show {
+            display: block;
+        }
+        .select-option {
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #1e293b;
+            font-size: 13px;
+            color: #e4e6eb;
+            transition: 0.2s;
+        }
+        .select-option:hover {
+            background: #1e293b;
+        }
+        .select-option img {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+        }
+
         .btn-submit {
             width: 100%;
             padding: 14px;
-            background: #0f172a;
+            background: #0284c7;
             border: none;
             border-radius: 10px;
             color: white;
@@ -145,7 +191,83 @@
             transition: 0.2s;
         }
         .btn-submit:hover {
+            background: #0369a1;
+        }
+
+        /* Success Modal Design */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(14, 18, 23, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
             background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 360px;
+            padding: 24px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 2px solid #4ade80;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            color: #4ade80;
+            font-size: 28px;
+        }
+        .modal-box h3 {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .modal-box p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .modal-btn {
+            background: #16a34a;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .modal-btn:hover {
+            background: #15803d;
         }
     </style>
 </head>
@@ -160,15 +282,8 @@
 
         <!-- Main Balance Card -->
         <div class="balance-card">
-            <div class="balance-header">
-                <div class="balance-label">
-                    <i class="fa-solid fa-wallet"></i> Main Balance
-                </div>
-                <div class="balance-check-icon">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-            </div>
-            <div class="balance-value">250,000.00 BDT</div>
+            <span class="balance-title">Main Balance</span>
+            <div class="balance-amount">৳ 250,000.00</div>
         </div>
 
         <!-- Withdraw Form Card -->
@@ -176,14 +291,37 @@
             <form onsubmit="handleWithdraw(event)">
                 <div class="form-group">
                     <label class="form-label">Select Crypto Method</label>
-                    <select class="form-control" id="cryptoMethod" required>
-                        <option value="Bitcoin">Bitcoin (Bitcoin)</option>
-                        <option value="Tether TRC20">Tether (TRC20)</option>
-                        <option value="Tether BEP20">Tether (BEP20)</option>
-                        <option value="Tron">Tron (Tron Network)</option>
-                        <option value="Binance Coin">Binance Coin (BEP20)</option>
-                        <option value="Ethereum">Ethereum (ERC20)</option>
-                    </select>
+                    
+                    <!-- Custom Select Dropdown -->
+                    <div class="custom-select-box" id="customSelect">
+                        <div class="select-selected" onclick="toggleDropdown()">
+                            <div class="selected-value" id="selectedValue">
+                                <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC"> Bitcoin (BTC)
+                            </div>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #94a3b8;"></i>
+                        </div>
+                        <div class="select-items" id="selectItems">
+                            <div class="select-option" onclick="selectOption('Bitcoin (BTC)', 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png')">
+                                <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC"> Bitcoin (BTC)
+                            </div>
+                            <div class="select-option" onclick="selectOption('Tether (USDT-TRC20)', 'https://assets.coingecko.com/coins/images/325/large/Tether.png')">
+                                <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT"> Tether (USDT-TRC20)
+                            </div>
+                            <div class="select-option" onclick="selectOption('Tether (USDT-BEP20)', 'https://assets.coingecko.com/coins/images/325/large/Tether.png')">
+                                <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT"> Tether (USDT-BEP20)
+                            </div>
+                            <div class="select-option" onclick="selectOption('Tron (TRX)', 'https://assets.coingecko.com/coins/images/1094/large/tron-logo.png')">
+                                <img src="https://assets.coingecko.com/coins/images/1094/large/tron-logo.png" alt="TRX"> Tron (TRX)
+                            </div>
+                            <div class="select-option" onclick="selectOption('Binance Coin (BNB)', 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png')">
+                                <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB"> Binance Coin (BNB)
+                            </div>
+                            <div class="select-option" onclick="selectOption('Ethereum (ETH)', 'https://assets.coingecko.com/coins/images/279/large/ethereum.png')">
+                                <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH"> Ethereum (ETH)
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="cryptoMethod" value="Bitcoin (BTC)" required>
                 </div>
 
                 <div class="form-group">
@@ -201,6 +339,18 @@
         </div>
     </div>
 
+    <!-- Success Popup Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3>Withdrawal Successful!</h3>
+            <p>Your withdrawal request has been submitted successfully and is pending admin approval.</p>
+            <button class="modal-btn" onclick="closeModal()">Back to Dashboard</button>
+        </div>
+    </div>
+
     <script>
         let tg = window.Telegram?.WebApp;
         if (tg) {
@@ -208,9 +358,29 @@
             tg.expand?.();
         }
 
+        function toggleDropdown() {
+            document.getElementById('selectItems').classList.toggle('show');
+        }
+
+        function selectOption(name, imgSrc) {
+            document.getElementById('selectedValue').innerHTML = `<img src="${imgSrc}" alt=""> ${name}`;
+            document.getElementById('cryptoMethod').value = name;
+            document.getElementById('selectItems').classList.remove('show');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('#customSelect')) {
+                document.getElementById('selectItems').classList.remove('show');
+            }
+        }
+
         function handleWithdraw(event) {
             event.preventDefault();
-            alert('Withdrawal request submitted successfully! It will be reviewed by admin.');
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
             window.location.href = 'agent-dashboard.html';
         }
     </script>
