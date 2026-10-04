@@ -21,20 +21,16 @@
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            background-color: #0f172a !important; 
-            color: #f8fafc !important;
-            padding: 12px 12px 70px 12px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background-color: #0e1217;
+            color: #e4e6eb;
+            padding-bottom: 70px;
         }
         .container {
             width: 100%;
             max-width: 450px;
             margin: 0 auto;
+            padding: 12px;
         }
-        /* Top App Bar */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -44,6 +40,13 @@
             padding: 10px 14px;
             border-radius: 12px;
             border: 1px solid #334155;
+        }
+        .menu-icon {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 18px;
+            cursor: pointer;
         }
         .user-info h3 {
             font-size: 14px;
@@ -66,19 +69,10 @@
             font-size: 14px;
             color: white;
         }
-        .menu-icon {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Balance Card */
         .balance-card {
             background: #1e293b;
             border: 1px solid #334155;
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 16px;
             margin-bottom: 16px;
             position: relative;
@@ -89,6 +83,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 4px;
+            display: block;
         }
         .balance-amount {
             font-size: 24px;
@@ -96,9 +91,6 @@
             color: #4ade80;
         }
         .refresh-btn {
-            position: absolute;
-            right: 16px;
-            top: 16px;
             background: rgba(56, 189, 248, 0.1);
             border: 1px solid rgba(56, 189, 248, 0.2);
             color: #38bdf8;
@@ -109,9 +101,16 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            transition: all 0.3s ease;
         }
-
-        /* Quick Action Grid */
+        .refresh-btn:hover {
+            background: #1b85ff;
+            color: #fff;
+            transform: rotate(180deg);
+        }
         .action-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -121,11 +120,13 @@
         .action-item {
             background: #1e293b;
             border: 1px solid #334155;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 12px 6px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
+            text-decoration: none;
+            display: block;
         }
         .action-item:hover {
             border-color: #38bdf8;
@@ -134,13 +135,13 @@
         .action-icon {
             width: 36px;
             height: 36px;
-            margin: 0 auto 6px auto;
             border-radius: 8px;
+            margin: 0 auto 6px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
             color: white;
+            font-size: 16px;
         }
         .bg-blue { background: #0284c7; }
         .bg-green { background: #16a34a; }
@@ -151,8 +152,6 @@
             font-weight: 600;
             color: #cbd5e1;
         }
-
-        /* Request Status Cards */
         .status-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -164,6 +163,7 @@
             border: 1px solid #334155;
             border-radius: 12px;
             padding: 12px;
+            cursor: pointer;
         }
         .status-card h4 {
             font-size: 11px;
@@ -177,8 +177,6 @@
         }
         .text-pending-dep { color: #4ade80; }
         .text-pending-wit { color: #f87171; }
-
-        /* Commission Section */
         .commission-box {
             background: #1e293b;
             border: 1px solid #334155;
@@ -198,8 +196,6 @@
         }
         .commission-item span { color: #94a3b8; }
         .commission-item strong { color: #ffffff; }
-
-        /* Recent Activity */
         .section-title {
             font-size: 13px;
             font-weight: 700;
@@ -234,16 +230,9 @@
         }
         .text-success { color: #4ade80; }
         .text-danger { color: #f87171; }
-
-        /* Tab Content Sections */
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Bottom Nav Bar */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -268,6 +257,7 @@
             font-size: 10px;
             font-weight: 600;
             transition: 0.2s;
+            text-decoration: none;
         }
         .nav-item i {
             font-size: 18px;
@@ -279,207 +269,204 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- Top Header Bar -->
-        <div class="top-bar">
-            <button class="menu-icon"><i class="fa-solid fa-bars"></i></button>
-            <div class="user-info" style="text-align: center;">
-                <h3>Agent Name</h3>
-                <p>ID: AG-88392</p>
-            </div>
-            <div class="user-avatar">AG</div>
+<div class="container">
+    <!-- Top Header Bar -->
+    <div class="top-bar">
+        <button class="menu-icon"><i class="fa-solid fa-bars"></i></button>
+        <div class="user-info" style="text-align: center;">
+            <h3>Agent Name</h3>
+            <p>ID: AG-88392</p>
+        </div>
+        <div class="user-avatar">AG</div>
+    </div>
+
+    <!-- TAB 1: HOME SECTION -->
+    <div id="tab-home" class="tab-content active">
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <span class="balance-title">Available Balance</span>
+            <div class="balance-amount">৳ 250,000.00</div>
+            <button class="refresh-btn" onclick="refreshBalance()" title="Refresh Balance"><i class="fa-solid fa-rotate"></i></button>
         </div>
 
-        <!-- TAB 1: HOME SECTION -->
-        <div id="tab-home" class="tab-content active">
-            <!-- Balance Card -->
-            <div class="balance-card">
-                <div class="balance-title">Available Balance</div>
-                <div class="balance-amount">৳ 250,000.00</div>
-                <button class="refresh-btn" onclick="refreshBalance()"><i class="fa-solid fa-rotate"></i></button>
+        <!-- Quick Action Grid -->
+        <div class="action-grid">
+            <!-- Add Money Link to add-money.html -->
+            <a href="add-money.html" class="action-item">
+                <div class="action-icon bg-blue"><i class="fa-solid fa-plus"></i></div>
+                <div class="action-text">Add Money</div>
+            </a>
+            <div class="action-item" onclick="switchTab('requests')">
+                <div class="action-icon bg-green"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="action-text">Withdraw</div>
             </div>
-
-            <!-- Quick Action Grid -->
-            <div class="action-grid">
-                <div class="action-item" onclick="switchTab('requests')">
-                    <div class="action-icon bg-blue"><i class="fa-solid fa-plus"></i></div>
-                    <div class="action-text">Add Money</div>
-                </div>
-                <div class="action-item" onclick="switchTab('requests')">
-                    <div class="action-icon bg-green"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="action-text">Withdraw</div>
-                </div>
-                <div class="action-item" onclick="openSupport()">
-                    <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
-                    <div class="action-text">Complain</div>
-                </div>
-                <div class="action-item" onclick="switchTab('profile')">
-                    <div class="action-icon bg-purple"><i class="fa-solid fa-credit-card"></i></div>
-                    <div class="action-text">Gateways</div>
-                </div>
+            <div class="action-item" onclick="openSupport()">
+                <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
+                <div class="action-text">Complain</div>
             </div>
-
-            <!-- Request Status -->
-            <div class="status-row">
-                <div class="status-card" onclick="switchTab('requests')" style="cursor: pointer;">
-                    <h4>Deposit Request</h4>
-                    <p class="text-pending-dep">5 Pending</p>
-                </div>
-                <div class="status-card" onclick="switchTab('requests')" style="cursor: pointer;">
-                    <h4>Withdraw Request</h4>
-                    <p class="text-pending-wit">2 Pending</p>
-                </div>
-            </div>
-
-            <!-- Commission Box -->
-            <div class="commission-box">
-                <div class="commission-item">
-                    <span>Today Commission:</span>
-                    <strong>৳ 1,250</strong>
-                </div>
-                <div class="commission-item">
-                    <span>Total Commission:</span>
-                    <strong>৳ 14,250</strong>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="section-title">Recent Activity</div>
-            <div class="activity-card">
-                <div class="activity-info">
-                    <h5>bKash Deposit Accepted</h5>
-                    <p>User: @kamal &bull; 2 mins ago</p>
-                </div>
-                <div class="activity-amount text-success">+ ৳ 5,000</div>
-            </div>
-            <div class="activity-card">
-                <div class="activity-info">
-                    <h5>Nagad Withdraw Sent</h5>
-                    <p>User: @rahim &bull; 12 mins ago</p>
-                </div>
-                <div class="activity-amount text-danger">- ৳ 2,500</div>
+            <div class="action-item" onclick="switchTab('profile')">
+                <div class="action-icon bg-purple"><i class="fa-solid fa-credit-card"></i></div>
+                <div class="action-text">Gateways</div>
             </div>
         </div>
 
-        <!-- TAB 2: REQUESTS SECTION -->
-        <div id="tab-requests" class="tab-content">
-            <div class="section-title">All Pending Requests</div>
-            <div class="activity-card">
-                <div class="activity-info">
-                    <h5>Deposit #1042</h5>
-                    <p>bKash &bull; ৳ 10,000 &bull; @user1</p>
-                </div>
-                <button style="background: #16a34a; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Approve</button>
+        <!-- Request Status -->
+        <div class="status-row">
+            <div class="status-card" onclick="switchTab('requests')">
+                <h4>Deposit Request</h4>
+                <p class="text-pending-dep">5 Pending</p>
             </div>
-            <div class="activity-card">
-                <div class="activity-info">
-                    <h5>Withdraw #1043</h5>
-                    <p>Nagad &bull; ৳ 5,000 &bull; @user2</p>
-                </div>
-                <button style="background: #f87171; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Process</button>
+            <div class="status-card" onclick="switchTab('requests')">
+                <h4>Withdraw Request</h4>
+                <p class="text-pending-wit">2 Pending</p>
             </div>
         </div>
 
-        <!-- TAB 3: TRANSACTION SECTION -->
-        <div id="tab-transaction" class="tab-content">
-            <div class="section-title">Transaction History</div>
-            <div class="activity-card">
-                <div class="activity-info">
-                    <h5>Fund Transfer</h5>
-                    <p>ID: #TXN-99823 &bull; 1 hour ago</p>
-                </div>
-                <div class="activity-amount text-success">+ ৳ 20,000</div>
+        <!-- Commission Box -->
+        <div class="commission-box">
+            <div class="commission-item">
+                <span>Today Commission:</span>
+                <strong>৳ 1,250</strong>
+            </div>
+            <div class="commission-item">
+                <span>Total Commission:</span>
+                <strong>৳ 14,250</strong>
             </div>
         </div>
 
-        <!-- TAB 4: REPORTS SECTION -->
-        <div id="tab-reports" class="tab-content">
-            <div class="section-title">Performance Reports</div>
-            <div class="commission-box">
-                <div class="commission-item">
-                    <span>Monthly Volume:</span>
-                    <strong>৳ 1,450,000</strong>
-                </div>
-                <div class="commission-item">
-                    <span>Total Success Rate:</span>
-                    <strong>98.5%</strong>
-                </div>
+        <!-- Recent Activity -->
+        <div class="section-title">Recent Activity</div>
+        <div class="activity-card">
+            <div class="activity-info">
+                <h5>bKash Deposit Accepted</h5>
+                <p>User: @kamal &bull; 2 mins ago</p>
             </div>
+            <div class="activity-amount text-success">+ ৳ 5,000</div>
         </div>
-
-        <!-- TAB 5: PROFILE SECTION -->
-        <div id="tab-profile" class="tab-content">
-            <div class="section-title">Agent Profile & Gateways</div>
-            <div class="commission-box">
-                <div class="commission-item">
-                    <span>Account Status:</span>
-                    <strong style="color: #4ade80;">Active</strong>
-                </div>
-                <div class="commission-item">
-                    <span>Active Gateways:</span>
-                    <strong>bKash, Nagad, Rocket</strong>
-                </div>
+        <div class="activity-card">
+            <div class="activity-info">
+                <h5>Nagad Withdraw Sent</h5>
+                <p>User: @rahim &bull; 12 mins ago</p>
             </div>
-            <button onclick="window.location.href='login.html'" style="width:100%; padding:12px; background:#f87171; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer; margin-top:10px;">Logout Portal</button>
+            <div class="activity-amount text-danger">- ৳ 2,500</div>
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('requests')" id="nav-requests">
-            <i class="fa-solid fa-list-check"></i>
-            <span>Requests</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('transaction')" id="nav-transaction">
-            <i class="fa-solid fa-wallet"></i>
-            <span>Transaction</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('reports')" id="nav-reports">
-            <i class="fa-solid fa-chart-line"></i>
-            <span>Reports</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('profile')" id="nav-profile">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </button>
+    <!-- TAB 2: REQUESTS SECTION -->
+    <div id="tab-requests" class="tab-content">
+        <div class="section-title">All Pending Requests</div>
+        <div class="activity-card">
+            <div class="activity-info">
+                <h5>Deposit #1042</h5>
+                <p>bKash &bull; ৳ 10,000 &bull; @user1</p>
+            </div>
+            <button style="background: #16a34a; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Approve</button>
+        </div>
+        <div class="activity-card">
+            <div class="activity-info">
+                <h5>Withdraw #1043</h5>
+                <p>Nagad &bull; ৳ 5,000 &bull; @user2</p>
+            </div>
+            <button style="background: #f87171; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Process</button>
+        </div>
     </div>
 
-    <script>
-        let tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.ready();
-            tg.expand();
-        }
+    <!-- TAB 3: TRANSACTION SECTION -->
+    <div id="tab-transaction" class="tab-content">
+        <div class="section-title">Transaction History</div>
+        <div class="activity-card">
+            <div class="activity-info">
+                <h5>Fund Transfer</h5>
+                <p>ID: #TXN-99823 &bull; 1 hour ago</p>
+            </div>
+            <div class="activity-amount text-success">+ ৳ 20,000</div>
+        </div>
+    </div>
 
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            // Remove active class from all nav items
-            document.querySelectorAll('.nav-item').forEach(nav => {
-                nav.classList.remove('active');
-            });
+    <!-- TAB 4: REPORTS SECTION -->
+    <div id="tab-reports" class="tab-content">
+        <div class="section-title">Performance Reports</div>
+        <div class="commission-box">
+            <div class="commission-item">
+                <span>Monthly Volume:</span>
+                <strong>৳ 1,450,000</strong>
+            </div>
+            <div class="commission-item">
+                <span>Total Success Rate:</span>
+                <strong>98.5%</strong>
+            </div>
+        </div>
+    </div>
 
-            // Show selected tab
-            document.getElementById('tab-' + tabName).classList.add('active');
-            // Set active nav item
-            document.getElementById('nav-' + tabName).classList.add('active');
+    <!-- TAB 5: PROFILE SECTION -->
+    <div id="tab-profile" class="tab-content">
+        <div class="section-title">Agent Profile & Gateways</div>
+        <div class="commission-box">
+            <div class="commission-item">
+                <span>Account Status:</span>
+                <strong style="color: #4ade80;">Active</strong>
+            </div>
+            <div class="commission-item">
+                <span>Active Gateways:</span>
+                <strong>bKash, Nagad, Rocket</strong>
+            </div>
+        </div>
+        <button onclick="window.location.href='login.html'" style="width:100%; padding:12px; background:#f87171; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer; margin-top:10px;">Logout Portal</button>
+    </div>
+</div>
 
-            window.scrollTo(0, 0);
-        }
+<!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('requests')" id="nav-requests">
+        <i class="fa-solid fa-list-check"></i>
+        <span>Requests</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('transaction')" id="nav-transaction">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Transaction</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('reports')" id="nav-reports">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Reports</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </button>
+</div>
 
-        function refreshBalance() {
-            alert('Balance updated successfully!');
-        }
+<script>
+    let tg = window.Telegram?.WebApp;
+    if (tg) {
+        tg.ready();
+        tg.expand();
+    }
 
-        function openSupport() {
-            window.location.href = 'contact.html?t=' + new Date().getTime();
-        }
-    </script>
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelectorAll('.nav-item').forEach(nav => {
+            nav.classList.remove('active');
+        });
+
+        document.getElementById('tab-' + tabName).classList.add('active');
+        document.getElementById('nav-' + tabName).classList.add('active');
+
+        window.scrollTo(0, 0);
+    }
+
+    function refreshBalance() {
+        alert('Balance updated successfully!');
+    }
+
+    function openSupport() {
+        window.location.href = 'contact.html?t=' + new Date().getTime();
+    }
+</script>
 </body>
 </html>
