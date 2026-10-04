@@ -305,10 +305,11 @@
                 <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
                 <div class="action-text">Complain</div>
             </div>
-            <div class="action-item" onclick="switchTab('profile')">
+            <!-- Gateways Link updated to open gateways.html directly -->
+            <a href="gateways.html" class="action-item">
                 <div class="action-icon bg-purple"><i class="fa-solid fa-credit-card"></i></div>
                 <div class="action-text">Gateways</div>
-            </div>
+            </a>
         </div>
 
         <!-- Request Status -->
@@ -412,7 +413,9 @@
                 <strong>bKash, Nagad, Rocket</strong>
             </div>
         </div>
-        <button onclick="window.location.href='login.html'" style="width:100%; padding:12px; background:#f87171; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer; margin-top:10px;">Logout Portal</button>
+        <!-- Manage Gateways Button Added Here -->
+        <button onclick="window.location.href='gateways.html'" style="width:100%; padding:12px; background:#0284c7; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer; margin-bottom:10px;">Manage Gateways</button>
+        <button onclick="window.location.href='login.html'" style="width:100%; padding:12px; background:#f87171; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer;">Logout Portal</button>
     </div>
 </div>
 
