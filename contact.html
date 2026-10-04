@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- ক্যাশ সমস্যা দূর করার মেটা ট্যাগ -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -140,8 +141,8 @@
 <body>
 
     <div class="container">
-        <!-- Back button -->
-        <button class="back-btn" onclick="window.location.href='login.html'">
+        <!-- ব্যাক বাটন -->
+        <button class="back-btn" onclick="backToLogin()">
             <i class="fa-solid fa-arrow-left"></i> Back to Login
         </button>
 
@@ -184,6 +185,10 @@
         if (tg) {
             tg.ready();
             tg.expand();
+        }
+
+        function backToLogin() {
+            window.location.href = 'login.html?t=' + new Date().getTime();
         }
     </script>
 </body>

@@ -166,6 +166,10 @@
             color: #38bdf8;
             text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
+        }
+        .support-box a:hover {
+            text-decoration: underline;
         }
         .footer-note {
             text-align: center;
@@ -178,7 +182,7 @@
 <body>
 
     <div class="container">
-        <!-- ব্যাক বাটন (ড্যাশবোর্ডে ফিরে যাওয়ার জন্য) -->
+        <!-- ব্যাক বাটন -->
         <button class="back-btn" onclick="window.location.href='index.html'">
             <i class="fa-solid fa-arrow-left"></i> Back to Home
         </button>
@@ -207,14 +211,14 @@
                 <label class="remember-me">
                     <input type="checkbox" style="accent-color: #38bdf8;"> Remember me
                 </label>
-                <!-- এখানে সরাসরি forgot-password.html এ যাওয়ার লিংক সেট করা হয়েছে -->
                 <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
             </div>
 
             <button class="btn-action" onclick="handleLogin()">Sign In</button>
 
+            <!-- ক্যাশ সমস্যা এড়াতে ডায়নামিক কন্টাক্ট লিঙ্ক -->
             <div class="support-box">
-                Having trouble? <a href="https://t.me/A_ToolsX" target="_blank">Contact Support</a>
+                Having trouble? <a onclick="openContact(event)">Contact Support</a>
             </div>
         </div>
 
@@ -228,6 +232,11 @@
         if (tg) {
             tg.ready();
             tg.expand();
+        }
+
+        function openContact(e) {
+            e.preventDefault();
+            window.location.href = 'contact.html?t=' + new Date().getTime();
         }
 
         function handleLogin() {
