@@ -358,15 +358,13 @@
             <button class="add-wallet-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add New</button>
         </div>
 
-        <!-- Targeted Country Region Filter (Bangladesh & Global) -->
-        <div class="form-card" style="padding: 12px 16px; margin-bottom: 14px;">
-            <div class="form-group" style="margin-bottom: 0;">
-                <label class="form-label" style="font-size: 10px;">Targeted Region Country</label>
-                <select class="form-control" id="regionSelect">
-                    <option value="BD">Bangladesh</option>
-                    <option value="Global">Global</option>
-                </select>
+        <!-- User Assigned Country Display Info Box (Locked to Account Profile) -->
+        <div class="form-card" style="padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; display: block;">Account Country Profile</span>
+                <span id="userCountryDisplay" style="font-size: 13px; font-weight: 700; color: #38bdf8;">Loading Country...</span>
             </div>
+            <span id="countryFlagBadge" style="font-size: 20px;">🇧🇩</span>
         </div>
 
         <!-- Active Wallets List Header -->
@@ -377,107 +375,7 @@
 
         <!-- Dynamic Gateway List Container -->
         <div id="walletListContainer">
-            <!-- Wallet 1: bKash -->
-            <div class="wallet-card" id="wallet-1">
-                <div class="wallet-top">
-                    <div class="wallet-name">
-                        <img src="https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png" class="brand-logo" alt="bKash"> bKash Personal
-                    </div>
-                    <span class="wallet-badge">Local Wallet</span>
-                </div>
-                <div class="wallet-details">
-                    Number: <strong>01712345678</strong> (Personal)
-                </div>
-                <div class="wallet-limits">
-                    <span>Min: ৳ 500</span>
-                    <span>Max: ৳ 25,000</span>
-                </div>
-                <div class="commission-box">
-                    <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
-                    <div class="commission-grid">
-                        <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
-                        <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
-                        <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
-                    </div>
-                </div>
-                <div class="wallet-actions">
-                    <span style="font-size: 11px; color: #4ade80; font-weight: 600;" id="status-text-1">Active</span>
-                    <div class="action-group-right">
-                        <div class="toggle-switch active" onclick="toggleWallet(1)">
-                            <div class="toggle-thumb"></div>
-                        </div>
-                        <button class="btn-delete" onclick="deleteWallet(1)"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wallet 2: Nagad -->
-            <div class="wallet-card" id="wallet-2">
-                <div class="wallet-top">
-                    <div class="wallet-name">
-                        <img src="https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png" class="brand-logo" alt="Nagad"> Nagad Personal
-                    </div>
-                    <span class="wallet-badge">Local Wallet</span>
-                </div>
-                <div class="wallet-details">
-                    Number: <strong>01812345678</strong> (Personal)
-                </div>
-                <div class="wallet-limits">
-                    <span>Min: ৳ 500</span>
-                    <span>Max: ৳ 25,000</span>
-                </div>
-                <div class="commission-box">
-                    <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
-                    <div class="commission-grid">
-                        <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
-                        <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
-                        <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
-                    </div>
-                </div>
-                <div class="wallet-actions">
-                    <span style="font-size: 11px; color: #4ade80; font-weight: 600;" id="status-text-2">Active</span>
-                    <div class="action-group-right">
-                        <div class="toggle-switch active" onclick="toggleWallet(2)">
-                            <div class="toggle-thumb"></div>
-                        </div>
-                        <button class="btn-delete" onclick="deleteWallet(2)"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wallet 3: Rocket -->
-            <div class="wallet-card" id="wallet-3">
-                <div class="wallet-top">
-                    <div class="wallet-name">
-                        <img src="https://images.seeklogo.com/logo-png/50/2/dutch-bangla-rocket-logo-png_seeklogo-509355.png" class="brand-logo" alt="Rocket"> Rocket Personal
-                    </div>
-                    <span class="wallet-badge">Local Wallet</span>
-                </div>
-                <div class="wallet-details">
-                    Number: <strong>01912345678</strong> (Personal)
-                </div>
-                <div class="wallet-limits">
-                    <span>Min: ৳ 500</span>
-                    <span>Max: ৳ 25,000</span>
-                </div>
-                <div class="commission-box">
-                    <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
-                    <div class="commission-grid">
-                        <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
-                        <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
-                        <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
-                    </div>
-                </div>
-                <div class="wallet-actions">
-                    <span style="font-size: 11px; color: #4ade80; font-weight: 600;" id="status-text-3">Active</span>
-                    <div class="action-group-right">
-                        <div class="toggle-switch active" onclick="toggleWallet(3)">
-                            <div class="toggle-thumb"></div>
-                        </div>
-                        <button class="btn-delete" onclick="deleteWallet(3)"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
+            <!-- Wallets rendered dynamically based on account country -->
         </div>
     </div>
 
@@ -492,20 +390,16 @@
             <div class="form-group">
                 <label class="form-label">Gateway Category</label>
                 <select class="form-control" id="gatewayCategory" onchange="handleCategoryChange()">
-                    <option value="mobile">Local Wallet</option>
-                    <option value="bank">Bank Account Transfer</option>
-                    <option value="crypto">Cryptocurrency</option>
+                    <option value="mobile">Local Wallet / Mobile Money (6 Options)</option>
+                    <option value="bank">Bank Account Transfer (6 Options)</option>
+                    <option value="crypto">Cryptocurrency Network (6 Options)</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Method Name / Provider</label>
                 <select class="form-control" id="methodName">
-                    <option value="bKash">bKash</option>
-                    <option value="Nagad">Nagad</option>
-                    <option value="Rocket">Rocket</option>
-                    <option value="Upay">Upay</option>
-                    <option value="Cellfin">Cellfin</option>
+                    <!-- Automatically filled with 6 specific options for the account's country -->
                 </select>
             </div>
 
@@ -530,7 +424,6 @@
                 <input type="text" id="inputField2" class="form-control" placeholder="Enter account number">
             </div>
 
-            <!-- Dynamic Field 3 (For Bank Email/ID) -->
             <div class="form-group" id="groupField3" style="display: none;">
                 <label class="form-label" id="labelField3">Email / Account ID</label>
                 <input type="text" id="inputField3" class="form-control" placeholder="Enter email or account id">
@@ -542,15 +435,15 @@
                 <input type="file" id="qrCodeFile" class="form-control" accept="image/*" style="padding: 7px;">
             </div>
 
-            <!-- Limit Fields (Blank by default) -->
+            <!-- Limit Fields -->
             <div class="row-group">
                 <div class="form-group">
                     <label class="form-label">Min Limit</label>
-                    <input type="number" id="minDeposit" class="form-control" placeholder="e.g. 500" value="">
+                    <input type="number" id="minDeposit" class="form-control" placeholder="e.g. 500">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Max Limit</label>
-                    <input type="number" id="maxDeposit" class="form-control" placeholder="e.g. 25000" value="">
+                    <input type="number" id="maxDeposit" class="form-control" placeholder="e.g. 25000">
                 </div>
             </div>
 
@@ -575,14 +468,111 @@
             tg.expand?.();
         }
 
+        // --- ACCOUNT COUNTRY SETTING ---
+        // এখানে ইউজারের প্রোফাইল/ডাটাবেজ থেকে তার নির্দিষ্ট দেশ সেট হবে। 
+        // আপনি চাইলে ডায়নামিকভাবে ব্যাকএন্ড বা লোকালস্টোরেজ থেকে ইউজারের দেশ এনে এখানে বসাতে পারেন।
+        // উদাহরণস্বরূপ ইউজারের দেশ 'Bangladesh' সেট করা আছে:
+        let userCountry = localStorage.getItem('user_country') || 'Bangladesh'; 
+
+        // দেশ অনুযায়ী ফ্ল্যাগ এবং কারেন্সি সাইন ম্যাপিং
+        const countryMeta = {
+            'Bangladesh': { flag: '🇧🇩', currency: '৳ ' },
+            'India': { flag: '🇮🇳', currency: '₹ ' },
+            'Pakistan': { flag: '🇵🇰', currency: '₨ ' },
+            'Nepal': { flag: '🇳🇵', currency: '₨ ' },
+            'Philippines': { flag: '🇵🇭', currency: '₱ ' },
+            'Vietnam': { flag: '🇻🇳', currency: '₫ ' },
+            'Thailand': { flag: '🇹🇭', currency: '฿ ' },
+            'Malaysia': { flag: '🇲🇾', currency: 'RM ' },
+            'Indonesia': { flag: '🇮🇩', currency: 'Rp ' },
+            'UAE': { flag: '🇦🇪', currency: 'AED ' },
+            'Saudi Arabia': { flag: '🇸🇦', currency: 'ر.س ' },
+            'Qatar': { flag: '🇶🇦', currency: 'ر.ق ' }
+        };
+
+        // প্রতিটি দেশের জন্য সুনির্দিষ্ট ৬টি করে লোকাল ওয়ালেট, ৬টি ব্যাংক এবং ৬টি ক্রিপ্টো নেটওয়ার্ক
+        const countryGatewaysData = {
+            'Bangladesh': {
+                mobile: ['bKash Wallet', 'Nagad Wallet', 'Rocket Mobile', 'Upay App', 'Cellfin Account', 'M-Cash Service'],
+                bank: ['Dutch-Bangla Bank PLC', 'BRAC Bank PLC', 'Eastern Bank PLC', 'City Bank Limited', 'Islami Bank Bangladesh', 'Prime Bank PLC'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Ethereum (ETH)']
+            },
+            'India': {
+                mobile: ['Paytm UPI Wallet', 'PhonePe Gateway', 'Google Pay UPI', 'BHIM UPI App', 'Mobikwik Wallet', 'Amazon Pay India'],
+                bank: ['State Bank of India', 'HDFC Bank Ltd', 'ICICI Bank Ltd', 'Axis Bank Ltd', 'Kotak Mahindra Bank', 'Punjab National Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Polygon (POL)', 'Solana (SOL)']
+            },
+            'Pakistan': {
+                mobile: ['EasyPaisa Mobile', 'JazzCash Wallet', 'SadaPay Digital', 'NayaPay Account', 'Upaisa Wallet', 'FirstPay Account'],
+                bank: ['HBL (Habib Bank)', 'Meezan Bank', 'Allied Bank Limited', 'UBL (United Bank)', 'Bank Alfalah', 'National Bank of Pakistan'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Litecoin (LTC)', 'Dogecoin (DOGE)']
+            },
+            'Nepal': {
+                mobile: ['eSewa Digital Wallet', 'Khalti Digital Wallet', 'IME Pay Wallet', 'Prabhu Pay App', 'FonePay Direct', 'CellPay Nepal'],
+                bank: ['Global IME Bank', 'Nabil Bank', 'Nepal Investment Mega Bank', 'NIC Asia Bank', 'Prabhu Bank', 'Standard Chartered Nepal'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Cardano (ADA)']
+            },
+            'Philippines': {
+                mobile: ['GCash Wallet', 'Maya (PayMaya)', 'GrabPay PH', 'ShopeePay Wallet', 'Coins.ph App', 'PalawanPay'],
+                bank: ['BDO Unibank', 'Bank of the Philippine Islands', 'Land Bank of the Philippines', 'Metrobank PH', 'Security Bank', 'China Banking Corporation'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Ripple (XRP)', 'Solana (SOL)']
+            },
+            'Vietnam': {
+                mobile: ['MoMo E-Wallet', 'ZaloPay Wallet', 'ViettelPay App', 'ShopeePay VN', 'VNPay QR', 'Moca GrabPay'],
+                bank: ['Vietcombank', 'Techcombank', 'BIDV Bank', 'VietinBank', 'Military Commercial Bank (MB)', 'ACB Vietnam'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Polygon (POL)', 'BNB Smart Chain']
+            },
+            'Thailand': {
+                mobile: ['PromptPay QR', 'TrueMoney Wallet', 'Rabbit LINE Pay', 'ShopeePay TH', 'AirPay Thailand', 'mPay AIS'],
+                bank: ['Bangkok Bank', 'Kasikornbank (KBank)', 'Siam Commercial Bank (SCB)', 'Krungthai Bank', 'Krungsri Bank', 'TMBThanachart Bank (TTB)'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Ethereum (ETH)']
+            },
+            'Malaysia': {
+                mobile: ['Touch \'n Go eWallet', 'GrabPay Malaysia', 'Boost E-Wallet', 'ShopeePay MY', 'BigPay Account', 'MAE by Maybank2u'],
+                bank: ['Maybank (Malayan Banking)', 'CIMB Bank', 'Public Bank Berhad', 'RHB Bank', 'Hong Leong Bank', 'AmBank Malaysia'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Solana (SOL)', 'Polygon (POL)']
+            },
+            'Indonesia': {
+                mobile: ['DANA E-Wallet', 'OVO Digital Wallet', 'GoPay Indonesia', 'ShopeePay IDR', 'LinkAja Wallet', 'DOKI Wallet'],
+                bank: ['Bank Central Asia (BCA)', 'Bank Mandiri', 'Bank Rakyat Indonesia (BRI)', 'Bank Negara Indonesia (BNI)', 'Bank CIMB Niaga', 'Bank Danamon'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Dogecoin (DOGE)']
+            },
+            'UAE': {
+                mobile: ['PayBy / e& money', 'Botim Wallet', 'seamless Pay', 'Zand Pay', 'Klarna UAE', 'Apple Pay UAE'],
+                bank: ['First Abu Dhabi Bank (FAB)', 'Emirates NBD', 'Abu Dhabi Commercial Bank (ADCB)', 'Dubai Islamic Bank (DIB)', 'Mashreq Bank', 'Sharjah Islamic Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Ethereum (ETH)', 'Ripple (XRP)']
+            },
+            'Saudi Arabia': {
+                mobile: ['STC Pay Wallet', 'Urpay Digital', 'Mobily Pay', 'Al Rajhi Pay', 'Apple Pay KSA', 'LimbPay'],
+                bank: ['Al Rajhi Bank', 'National Commercial Bank (SNB)', 'Riyad Bank', 'Saudi British Bank (SABB)', 'Arab National Bank', 'Alinma Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Cardano (ADA)']
+            },
+            'Qatar': {
+                mobile: ['QIB Mobile Pay', 'Vodafone Cash QR', 'Ooredoo Money', 'Doha Bank Pay', 'Commercial Bank Mobile', 'Apple Pay Qatar'],
+                bank: ['Qatar National Bank (QNB)', 'Qatar Islamic Bank (QIB)', 'Commercial Bank of Qatar', 'Doha Bank', 'Masraf Al Rayan', 'Ahlibank Qatar'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Solana (SOL)', 'Polygon (POL)']
+            }
+        };
+
+        // প্রি-কনফিগারড ডেমো ডাটা (লগইন করা ইউজারের দেশের ভিত্তিতে ফিল্টার হবে)
         let walletData = [
-            { id: 1, type: 'mobile', name: 'bKash Personal', logo: 'https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png', details: 'Number: 01712345678 (Personal)', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
-            { id: 2, type: 'mobile', name: 'Nagad Personal', logo: 'https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png', details: 'Number: 01812345678 (Personal)', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
-            { id: 3, type: 'mobile', name: 'Rocket Personal', logo: 'https://images.seeklogo.com/logo-png/50/2/dutch-bangla-rocket-logo-png_seeklogo-509355.png', details: 'Number: 01912345678 (Personal)', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true }
+            { id: 1, region: 'Bangladesh', type: 'mobile', name: 'bKash Wallet (Personal)', logo: 'https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png', details: 'Number: 01712345678', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
+            { id: 2, region: 'Bangladesh', type: 'bank', name: 'Dutch-Bangla Bank PLC', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'Branch: Motijheel<br>Acc No: <strong>1234567890123</strong>', min: '৳ 1,000', max: '৳ 100,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Bank Transfer', active: true },
+            { id: 3, region: 'Bangladesh', type: 'crypto', name: 'USDT (TRC20)', logo: 'https://assets.coingecko.com/coins/images/325/large/Tether.png', details: 'Address: <strong>TXyz9...GlobalWalletAddr</strong>', min: '$ 10', max: '$ 5,000', commDep: '2.0%', commWd: '1.5%', commSub: '0.5%', badge: 'Crypto Network', active: true }
         ];
+
+        function initAccountCountry() {
+            if (!countryGatewaysData[userCountry]) {
+                userCountry = 'Bangladesh'; // ডিফল্ট ফলব্যাক
+            }
+            let meta = countryMeta[userCountry] || { flag: '🌐', currency: '$ ' };
+            document.getElementById('userCountryDisplay').innerText = userCountry;
+            document.getElementById('countryFlagBadge').innerText = meta.flag;
+        }
 
         function openModal() {
             document.getElementById('addWalletModal').classList.add('active');
+            handleCategoryChange();
         }
 
         function closeModal() {
@@ -597,44 +587,39 @@
             let input1 = document.getElementById('inputField1');
             let group2 = document.getElementById('groupField2');
             let label2 = document.getElementById('labelField2');
-            let input2 = document.getElementById('inputField2');
             let group3 = document.getElementById('groupField3');
-            let label3 = document.getElementById('labelField3');
-            let input3 = document.getElementById('inputField3');
 
             nameSelect.innerHTML = "";
+            let countryData = countryGatewaysData[userCountry] || countryGatewaysData['Bangladesh'];
+            let optionsList = [];
+
             if (cat === 'mobile') {
-                ['bKash', 'Nagad', 'Rocket', 'Upay', 'Cellfin'].forEach(m => {
-                    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
-                });
                 groupAccountType.style.display = "block";
-                label1.innerText = "Wallet / Mobile Number";
-                input1.placeholder = "Enter mobile number";
                 group2.style.display = "none";
                 group3.style.display = "none";
+                label1.innerText = "Wallet / Mobile Number / ID";
+                input1.placeholder = "Enter mobile number";
+                optionsList = countryData.mobile;
             } else if (cat === 'bank') {
-                ['Dutch-Bangla Bank (DBBL)', 'BRAC Bank', 'The City Bank', 'Eastern Bank (EBL)', 'Islami Bank Bangladesh'].forEach(m => {
-                    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
-                });
                 groupAccountType.style.display = "none";
-                label1.innerText = "Branch Name";
-                input1.placeholder = "e.g. Banani Branch";
+                label1.innerText = "Branch Name / SWIFT / Sort Code";
+                input1.placeholder = "Enter branch name or code";
                 group2.style.display = "block";
-                label2.innerText = "Account Number";
-                input2.placeholder = "e.g. 1541010029384";
+                label2.innerText = "Account Number / IBAN";
                 group3.style.display = "block";
-                label3.innerText = "Email / Account ID";
-                input3.placeholder = "Enter email or account id";
+                optionsList = countryData.bank;
             } else if (cat === 'crypto') {
-                ['Binance Pay', 'Bybit', 'BNB Smart Chain (BEP20)', 'USDT (TRC20)', 'USDT (ERC20)', 'Bitcoin (BTC)'].forEach(m => {
-                    nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
-                });
                 groupAccountType.style.display = "none";
                 label1.innerText = "Wallet Address / ID / Tag";
-                input1.placeholder = "Enter wallet address or binance id";
+                input1.placeholder = "Enter crypto wallet address";
                 group2.style.display = "none";
                 group3.style.display = "none";
+                optionsList = countryData.crypto;
             }
+
+            optionsList.forEach(m => {
+                nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
+            });
         }
 
         function toggleWallet(id) {
@@ -672,7 +657,6 @@
             let accType = document.getElementById('accountTypeSelect').value;
             let val1 = document.getElementById('inputField1').value;
             let val2 = document.getElementById('inputField2').value;
-            let val3 = document.getElementById('inputField3').value;
             let qrFile = document.getElementById('qrCodeFile').files[0];
             let min = document.getElementById('minDeposit').value;
             let max = document.getElementById('maxDeposit').value;
@@ -682,49 +666,47 @@
                 return;
             }
 
-            let badgeText = "Local Wallet";
+            let meta = countryMeta[userCountry] || { currency: '৳ ' };
+            let currencySign = meta.currency;
+            let badgeText = 'Local Wallet';
             let logoUrl = "https://cdn-icons-png.flaticon.com/512/2830/2830284.png";
             
-            // Genuine Brand Logos including USDT ERC20
+            if (cat === 'bank') badgeText = 'Bank Transfer';
+            else if (cat === 'crypto') {
+                badgeText = 'Crypto Network';
+                currencySign = '$ ';
+                logoUrl = "https://assets.coingecko.com/coins/images/325/large/Tether.png";
+            }
+
             if (name.includes('bKash')) logoUrl = "https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png";
             else if (name.includes('Nagad')) logoUrl = "https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png";
-            else if (name.includes('Rocket')) logoUrl = "https://images.seeklogo.com/logo-png/50/2/dutch-bangla-rocket-logo-png_seeklogo-509355.png";
-            else if (name.includes('Upay')) logoUrl = "https://images.seeklogo.com/logo-png/52/2/upay-logo-png_seeklogo-526435.png";
-            else if (name.includes('Binance')) logoUrl = "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png";
-            else if (name.includes('Bybit')) logoUrl = "https://assets.coingecko.com/markets/images/698/large/bybit_logo.png";
-            else if (name.includes('BNB Smart Chain') || name.includes('BEP20')) logoUrl = "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png";
-            else if (name.includes('USDT (TRC20)') || name.includes('USDT (ERC20)')) logoUrl = "https://assets.coingecko.com/coins/images/325/large/Tether.png";
-            else if (name.includes('Bitcoin')) logoUrl = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png";
-            else if (cat === 'bank') logoUrl = "https://cdn-icons-png.flaticon.com/512/2830/2830284.png";
 
             let displayName = name;
             let detailsHtml = "";
             if (cat === 'mobile') {
-                badgeText = "Local Wallet";
-                displayName = `${name} ${accType}`;
-                detailsHtml = `Number: <strong>${val1}</strong> (${accType})`;
+                displayName = `${name} (${accType})`;
+                detailsHtml = `Number/ID: <strong>${val1}</strong>`;
             } else if (cat === 'bank') {
-                badgeText = "Bank Account";
-                detailsHtml = `Branch: <strong>${val1}</strong><br>Acc No: <strong>${val2 || 'N/A'}</strong><br>Email/ID: <strong>${val3 || 'N/A'}</strong>`;
+                detailsHtml = `Branch/Code: <strong>${val1}</strong><br>Acc No: <strong>${val2 || 'N/A'}</strong>`;
             } else if (cat === 'crypto') {
-                badgeText = "Cryptocurrency";
-                detailsHtml = `Address / ID: <strong style="word-break:break-all;">${val1}</strong>`;
+                detailsHtml = `Address: <strong style="word-break:break-all;">${val1}</strong>`;
             }
 
             if (qrFile) {
-                detailsHtml += `<br>QR Code: <strong>Uploaded (${qrFile.name})</strong>`;
+                detailsHtml += `<br>QR Code: <strong>Uploaded</strong>`;
             }
 
             let newId = walletData.length > 0 ? Math.max(...walletData.map(w => w.id)) + 1 : 1;
             
             walletData.push({
                 id: newId,
+                region: userCountry,
                 type: cat,
                 name: displayName,
                 logo: logoUrl,
                 details: detailsHtml,
-                min: cat === 'crypto' ? `$ ${min}` : `৳ ${min}`,
-                max: cat === 'crypto' ? `$ ${max}` : `৳ ${max}`,
+                min: currencySign + min,
+                max: currencySign + max,
                 commDep: '1.5%', 
                 commWd: '1.0%',
                 commSub: '0.5%',
@@ -735,11 +717,8 @@
             closeModal();
             renderWallets();
             
-            // Reset Fields
             document.getElementById('inputField1').value = "";
             document.getElementById('inputField2').value = "";
-            document.getElementById('inputField3').value = "";
-            document.getElementById('qrCodeFile').value = "";
             document.getElementById('minDeposit').value = "";
             document.getElementById('maxDeposit').value = "";
         }
@@ -748,7 +727,10 @@
             let container = document.getElementById('walletListContainer');
             container.innerHTML = "";
             
-            walletData.forEach(w => {
+            // শুধু লগइन করা ইউজারের দেশের গেটওয়েগুলো ফিল্টার করে দেখাবে
+            let filteredWallets = walletData.filter(w => w.region === userCountry);
+
+            filteredWallets.forEach(w => {
                 let cardClass = w.active ? 'wallet-card' : 'wallet-card inactive';
                 let toggleClass = w.active ? 'toggle-switch active' : 'toggle-switch';
                 let statusColor = w.active ? '#4ade80' : '#f87171';
@@ -790,8 +772,13 @@
                 `;
             });
 
-            document.getElementById('totalCount').innerText = `${walletData.filter(w => w.active).length} Active`;
+            document.getElementById('totalCount').innerText = `${filteredWallets.filter(w => w.active).length} Active`;
         }
+
+        window.onload = function() {
+            initAccountCountry();
+            renderWallets();
+        };
     </script>
 </body>
 </html>
