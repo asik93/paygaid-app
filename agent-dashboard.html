@@ -2,433 +2,483 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Dashboard - PayGaid</title>
-    <!-- FontAwesome Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Agent Dashboard - PayGaid Portal</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            color-scheme: dark !important;
+        }
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
-
         body {
-            background-color: #0e1217; /* 1xBet style dark/clean background */
-            color: #e4e6eb;
-            padding-bottom: 70px;
+            background-color: #0f172a !important; 
+            color: #f8fafc !important;
+            padding: 12px 12px 70px 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
-        /* Top Header */
-        .header {
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top App Bar */
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background: #17212b;
-            border-bottom: 1px solid #232d3f;
+            margin-bottom: 16px;
+            background: #1e293b;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
         }
-
-        .header i {
-            font-size: 18px;
-            color: #8a9ba8;
-            cursor: pointer;
-        }
-
-        .agent-profile-info {
-            text-align: center;
-        }
-
-        .agent-name {
-            font-weight: 600;
+        .user-info h3 {
             font-size: 14px;
+            font-weight: 700;
             color: #ffffff;
         }
-
-        .agent-id {
+        .user-info p {
             font-size: 11px;
-            color: #4cd964; /* Active green tag */
-            font-weight: 500;
+            color: #38bdf8;
         }
-
-        .avatar-circle {
-            width: 32px;
-            height: 32px;
-            background: #1b85ff;
-            color: #fff;
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: #0284c7;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 13px;
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+        }
+        .menu-icon {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 18px;
+            cursor: pointer;
         }
 
-        /* Container */
-        .container {
-            padding: 12px;
-        }
-
-        /* Balance Card (1xBet Dark Card Style) */
+        /* Balance Card */
         .balance-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #17212b;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
             padding: 16px;
-            border-radius: 10px;
-            border: 1px solid #232d3f;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            position: relative;
         }
-
         .balance-title {
-            font-size: 12px;
-            color: #8a9ba8;
-            margin-bottom: 4px;
-            display: block;
+            font-size: 11px;
+            color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
-
         .balance-amount {
-            font-size: 22px;
-            font-weight: 700;
-            color: #4cd964; /* Money Green */
+            font-size: 24px;
+            font-weight: 800;
+            color: #4ade80;
         }
-
         .refresh-btn {
-            background: #232d3f;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #1b85ff;
-            font-size: 15px;
         }
 
-        .refresh-btn:hover {
-            background: #1b85ff;
-            color: #fff;
-            transform: rotate(180deg);
-        }
-
-        /* Quick Action Buttons Grid */
+        /* Quick Action Grid */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 16px;
         }
-
         .action-item {
-            background: #17212b;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
             padding: 12px 6px;
-            border-radius: 10px;
             text-align: center;
-            border: 1px solid #232d3f;
             cursor: pointer;
             transition: 0.2s;
         }
-
-        .action-item:active {
-            transform: scale(0.96);
-            background: #232d3f;
+        .action-item:hover {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
         }
-
         .action-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
             margin: 0 auto 6px auto;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
             font-size: 16px;
+            color: white;
         }
-
-        .bg-blue { background: #1b85ff; }
-        .bg-green { background: #28a745; }
-        .bg-orange { background: #ff9800; }
-        .bg-purple { background: #9c27b0; }
-
+        .bg-blue { background: #0284c7; }
+        .bg-green { background: #16a34a; }
+        .bg-orange { background: #ea580c; }
+        .bg-purple { background: #9333ea; }
         .action-text {
             font-size: 11px;
-            font-weight: 500;
-            color: #c5d0de;
+            font-weight: 600;
+            color: #cbd5e1;
         }
 
         /* Request Status Cards */
-        .request-cards {
+        .status-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 16px;
         }
-
-        .req-card {
-            background: #17212b;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #232d3f;
-            position: relative;
-            overflow: hidden;
+        .status-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px;
         }
-
-        .req-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-        }
-
-        .req-card.deposit::before { background: #28a745; }
-        .req-card.withdraw::before { background: #ff4d4f; }
-
-        .req-title {
+        .status-card h4 {
             font-size: 11px;
-            color: #8a9ba8;
+            color: #94a3b8;
             margin-bottom: 4px;
             text-transform: uppercase;
         }
-
-        .req-count {
-            font-size: 14px;
-            font-weight: 600;
+        .status-card p {
+            font-size: 16px;
+            font-weight: 700;
         }
-
-        .req-card.deposit .req-count { color: #28a745; }
-        .req-card.withdraw .req-count { color: #ff4d4f; }
+        .text-pending-dep { color: #4ade80; }
+        .text-pending-wit { color: #f87171; }
 
         /* Commission Section */
         .commission-box {
-            background: #17212b;
-            border-radius: 10px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
             padding: 12px 16px;
-            margin-bottom: 14px;
-            border: 1px solid #232d3f;
+            margin-bottom: 16px;
         }
-
-        .commission-row {
+        .commission-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 6px 0;
             font-size: 13px;
         }
-
-        .commission-row:not(:last-child) {
-            border-bottom: 1px solid #232d3f;
+        .commission-item:not(:last-child) {
+            border-bottom: 1px solid #334155;
         }
-
-        .commission-label {
-            color: #8a9ba8;
-        }
-
-        .commission-val {
-            font-weight: 600;
-            color: #ffffff;
-        }
+        .commission-item span { color: #94a3b8; }
+        .commission-item strong { color: #ffffff; }
 
         /* Recent Activity */
         .section-title {
             font-size: 13px;
-            font-weight: 600;
-            color: #8a9ba8;
-            margin-bottom: 8px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        .activity-item {
-            background: #17212b;
-            padding: 10px 14px;
+        .activity-card {
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
-            border: 1px solid #232d3f;
         }
-
-        .activity-details h4 {
-            font-size: 12px;
+        .activity-info h5 {
+            font-size: 13px;
+            font-weight: 600;
             color: #ffffff;
             margin-bottom: 2px;
         }
-
-        .activity-details p {
-            font-size: 10px;
-            color: #8a9ba8;
+        .activity-info p {
+            font-size: 11px;
+            color: #64748b;
         }
-
         .activity-amount {
-            font-size: 12px;
-            font-weight: 600;
-            color: #28a745;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .text-success { color: #4ade80; }
+        .text-danger { color: #f87171; }
+
+        /* Tab Content Sections */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
         }
 
-        .activity-amount.out {
-            color: #ff4d4f;
-        }
-
-        /* Bottom Navigation */
+        /* Bottom Nav Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
-            right: 0;
-            background: #17212b;
+            width: 100%;
+            background: #1e293b;
+            border-top: 1px solid #334155;
             display: flex;
             justify-content: space-around;
             padding: 8px 0;
-            border-top: 1px solid #232d3f;
+            z-index: 1000;
         }
-
         .nav-item {
-            text-align: center;
-            color: #8a9ba8;
-            text-decoration: none;
-            font-size: 10px;
+            background: none;
+            border: none;
+            color: #64748b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
             cursor: pointer;
+            font-size: 10px;
+            font-weight: 600;
+            transition: 0.2s;
         }
-
         .nav-item i {
-            font-size: 16px;
-            display: block;
-            margin-bottom: 2px;
+            font-size: 18px;
         }
-
         .nav-item.active {
-            color: #1b85ff;
+            color: #38bdf8;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <div class="header">
-        <i class="fas fa-bars"></i>
-        <div class="agent-profile-info">
-            <div class="agent-name">Agent Name</div>
-            <div class="agent-id">ID: AG-88392</div>
-        </div>
-        <div class="avatar-circle">AG</div>
-    </div>
-
-    <!-- Main Content -->
     <div class="container">
-        
-        <!-- Balance Section with Refresh Button -->
-        <div class="balance-card">
-            <div>
-                <span class="balance-title">Available Balance</span>
+        <!-- Top Header Bar -->
+        <div class="top-bar">
+            <button class="menu-icon"><i class="fa-solid fa-bars"></i></button>
+            <div class="user-info" style="text-align: center;">
+                <h3>Agent Name</h3>
+                <p>ID: AG-88392</p>
+            </div>
+            <div class="user-avatar">AG</div>
+        </div>
+
+        <!-- TAB 1: HOME SECTION -->
+        <div id="tab-home" class="tab-content active">
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div class="balance-title">Available Balance</div>
                 <div class="balance-amount">৳ 250,000.00</div>
+                <button class="refresh-btn" onclick="refreshBalance()"><i class="fa-solid fa-rotate"></i></button>
             </div>
-            <button onclick="refreshBalance()" class="refresh-btn" title="Refresh Balance">
-                <i class="fas fa-sync-alt"></i>
-            </button>
+
+            <!-- Quick Action Grid -->
+            <div class="action-grid">
+                <div class="action-item" onclick="switchTab('requests')">
+                    <div class="action-icon bg-blue"><i class="fa-solid fa-plus"></i></div>
+                    <div class="action-text">Add Money</div>
+                </div>
+                <div class="action-item" onclick="switchTab('requests')">
+                    <div class="action-icon bg-green"><i class="fa-solid fa-arrow-down"></i></div>
+                    <div class="action-text">Withdraw</div>
+                </div>
+                <div class="action-item" onclick="openSupport()">
+                    <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
+                    <div class="action-text">Complain</div>
+                </div>
+                <div class="action-item" onclick="switchTab('profile')">
+                    <div class="action-icon bg-purple"><i class="fa-solid fa-credit-card"></i></div>
+                    <div class="action-text">Gateways</div>
+                </div>
+            </div>
+
+            <!-- Request Status -->
+            <div class="status-row">
+                <div class="status-card" onclick="switchTab('requests')" style="cursor: pointer;">
+                    <h4>Deposit Request</h4>
+                    <p class="text-pending-dep">5 Pending</p>
+                </div>
+                <div class="status-card" onclick="switchTab('requests')" style="cursor: pointer;">
+                    <h4>Withdraw Request</h4>
+                    <p class="text-pending-wit">2 Pending</p>
+                </div>
+            </div>
+
+            <!-- Commission Box -->
+            <div class="commission-box">
+                <div class="commission-item">
+                    <span>Today Commission:</span>
+                    <strong>৳ 1,250</strong>
+                </div>
+                <div class="commission-item">
+                    <span>Total Commission:</span>
+                    <strong>৳ 14,250</strong>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section-title">Recent Activity</div>
+            <div class="activity-card">
+                <div class="activity-info">
+                    <h5>bKash Deposit Accepted</h5>
+                    <p>User: @kamal &bull; 2 mins ago</p>
+                </div>
+                <div class="activity-amount text-success">+ ৳ 5,000</div>
+            </div>
+            <div class="activity-card">
+                <div class="activity-info">
+                    <h5>Nagad Withdraw Sent</h5>
+                    <p>User: @rahim &bull; 12 mins ago</p>
+                </div>
+                <div class="activity-amount text-danger">- ৳ 2,500</div>
+            </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="action-grid">
-            <div class="action-item">
-                <div class="action-icon bg-blue"><i class="fas fa-plus"></i></div>
-                <div class="action-text">Add Money</div>
+        <!-- TAB 2: REQUESTS SECTION -->
+        <div id="tab-requests" class="tab-content">
+            <div class="section-title">All Pending Requests</div>
+            <div class="activity-card">
+                <div class="activity-info">
+                    <h5>Deposit #1042</h5>
+                    <p>bKash &bull; ৳ 10,000 &bull; @user1</p>
+                </div>
+                <button style="background: #16a34a; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Approve</button>
             </div>
-            <div class="action-item">
-                <div class="action-icon bg-green"><i class="fas fa-arrow-down"></i></div>
-                <div class="action-text">Withdraw</div>
-            </div>
-            <div class="action-item">
-                <div class="action-icon bg-orange"><i class="fas fa-headset"></i></div>
-                <div class="action-text">Complain</div>
-            </div>
-            <div class="action-item">
-                <div class="action-icon bg-purple"><i class="fas fa-credit-card"></i></div>
-                <div class="action-text">Gateways</div>
-            </div>
-        </div>
-
-        <!-- Request Status Cards -->
-        <div class="request-cards">
-            <div class="req-card deposit">
-                <div class="req-title">Deposit Request</div>
-                <div class="req-count">5 Pending</div>
-            </div>
-            <div class="req-card withdraw">
-                <div class="req-title">Withdraw Request</div>
-                <div class="req-count">2 Pending</div>
+            <div class="activity-card">
+                <div class="activity-info">
+                    <h5>Withdraw #1043</h5>
+                    <p>Nagad &bull; ৳ 5,000 &bull; @user2</p>
+                </div>
+                <button style="background: #f87171; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Process</button>
             </div>
         </div>
 
-        <!-- Commission Summary -->
-        <div class="commission-box">
-            <div class="commission-row">
-                <span class="commission-label">Today Commission:</span>
-                <span class="commission-val">৳ 1,250</span>
-            </div>
-            <div class="commission-row">
-                <span class="commission-label">Total Commission:</span>
-                <span class="commission-val">৳ 14,250</span>
+        <!-- TAB 3: TRANSACTION SECTION -->
+        <div id="tab-transaction" class="tab-content">
+            <div class="section-title">Transaction History</div>
+            <div class="activity-card">
+                <div class="activity-info">
+                    <h5>Fund Transfer</h5>
+                    <p>ID: #TXN-99823 &bull; 1 hour ago</p>
+                </div>
+                <div class="activity-amount text-success">+ ৳ 20,000</div>
             </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="section-title">Recent Activity</div>
-        
-        <div class="activity-item">
-            <div class="activity-details">
-                <h4>bKash Deposit Accepted</h4>
-                <p>User: @kamal · 2 mins ago</p>
+        <!-- TAB 4: REPORTS SECTION -->
+        <div id="tab-reports" class="tab-content">
+            <div class="section-title">Performance Reports</div>
+            <div class="commission-box">
+                <div class="commission-item">
+                    <span>Monthly Volume:</span>
+                    <strong>৳ 1,450,000</strong>
+                </div>
+                <div class="commission-item">
+                    <span>Total Success Rate:</span>
+                    <strong>98.5%</strong>
+                </div>
             </div>
-            <div class="activity-amount">+ ৳ 5,000</div>
         </div>
 
-        <div class="activity-item">
-            <div class="activity-details">
-                <h4>Nagad Withdraw Sent</h4>
-                <p>User: @rahim · 12 mins ago</p>
+        <!-- TAB 5: PROFILE SECTION -->
+        <div id="tab-profile" class="tab-content">
+            <div class="section-title">Agent Profile & Gateways</div>
+            <div class="commission-box">
+                <div class="commission-item">
+                    <span>Account Status:</span>
+                    <strong style="color: #4ade80;">Active</strong>
+                </div>
+                <div class="commission-item">
+                    <span>Active Gateways:</span>
+                    <strong>bKash, Nagad, Rocket</strong>
+                </div>
             </div>
-            <div class="activity-amount out">- ৳ 2,500</div>
+            <button onclick="window.location.href='login.html'" style="width:100%; padding:12px; background:#f87171; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer; margin-top:10px;">Logout Portal</button>
         </div>
-
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-file-invoice-dollar"></i> Requests
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-wallet"></i> Transaction
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-chart-line"></i> Reports
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-user"></i> Profile
-        </a>
+        <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('requests')" id="nav-requests">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Requests</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('transaction')" id="nav-transaction">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Transaction</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('reports')" id="nav-reports">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Reports</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </button>
     </div>
 
     <script>
+        let tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready();
+            tg.expand();
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById('tab-' + tabName).classList.add('active');
+            // Set active nav item
+            document.getElementById('nav-' + tabName).classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
         function refreshBalance() {
-            const btn = document.querySelector('.refresh-btn i');
-            btn.style.transform = 'rotate(360deg)';
-            setTimeout(() => {
-                alert('Balance refreshed successfully!');
-            }, 300);
+            alert('Balance updated successfully!');
+        }
+
+        function openSupport() {
+            window.location.href = 'contact.html?t=' + new Date().getTime();
         }
     </script>
 </body>
