@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PayGaid Agent Registration</title>
+  <title>Become an Agent - PayGaid</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --bg-color: #f8fafc;
-      --card-bg: #ffffff;
-      --accent-blue: #0052ff;
-      --accent-green: #00c853;
-      --text-main: #0f172a;
-      --text-sub: #64748b;
-      --border-color: #cbd5e1;
-      --input-bg: #ffffff;
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --accent-blue: #2563eb;
+      --accent-green: #22c55e;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --border-color: #334155;
+      --input-bg: #0f172a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -22,39 +22,46 @@
     .container { width: 100%; max-width: 480px; }
     
     /* Top Bar */
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-    .back-btn { color: var(--accent-blue); text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .top-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 18px; font-weight: 600; }
+    .back-btn { color: var(--text-main); text-decoration: none; font-size: 20px; }
 
     /* Stepper */
-    .stepper { display: flex; justify-content: space-between; align-items: center; position: relative; margin-bottom: 20px; padding: 0 30px; }
-    .stepper::before { content: ''; position: absolute; top: 50%; left: 50px; right: 50px; height: 2px; background: var(--border-color); z-index: 1; }
-    .step-node { width: 32px; height: 32px; border-radius: 50%; background: #e2e8f0; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; position: relative; z-index: 2; color: var(--text-sub); }
-    .step-node.active { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
-    .step-node.completed { background: var(--accent-green); border-color: var(--accent-green); color: #fff; }
+    .stepper { display: flex; justify-content: space-between; align-items: center; position: relative; margin-bottom: 25px; padding: 0 40px; }
+    .stepper::before { content: ''; position: absolute; top: 50%; left: 60px; right: 60px; height: 2px; background: var(--border-color); z-index: 1; }
+    .step-node { width: 32px; height: 32px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; position: relative; z-index: 2; color: var(--text-sub); }
+    .step-node.active { background: var(--accent-blue); color: #fff; }
+    .step-node.completed { background: var(--accent-green); color: #fff; }
 
     /* Card Layout */
-    .card { background: var(--card-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .card { background: var(--card-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); }
     .step-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
     .step-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 18px; }
 
     .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-main); margin-bottom: 6px; }
     .form-control { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 14px; outline: none; }
-    .form-control:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(0,82,255,0.1); }
+    .form-control:focus { border-color: var(--accent-blue); }
 
     /* Gateway Grid */
     .gateway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
     .gateway-btn { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.2s; color: var(--text-main); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .gateway-btn.selected { border-color: var(--accent-blue); background: rgba(0,82,255,0.05); font-weight: bold; color: var(--accent-blue); }
+    .gateway-btn.selected { border-color: var(--accent-blue); background: rgba(37,99,235,0.1); color: #60a5fa; font-weight: bold; }
+
+    /* Upload Box */
+    .upload-box { border: 2px dashed var(--border-color); border-radius: 10px; padding: 20px; text-align: center; color: var(--text-sub); cursor: pointer; background: var(--input-bg); font-size: 13px; }
+    .upload-box:hover { border-color: var(--accent-blue); }
+
+    /* Checkbox */
+    .checkbox-group { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-sub); margin-bottom: 15px; cursor: pointer; }
+    .checkbox-group input { width: 16px; height: 16px; accent-color: var(--accent-blue); }
 
     /* Buttons */
     .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-    .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .btn { flex: 1; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 5px; }
     .btn-primary { background: var(--accent-blue); color: white; }
     .btn-success { background: var(--accent-green); color: white; }
-    .btn-secondary { background: #e2e8f0; color: var(--text-sub); }
+    .btn-secondary { background: var(--border-color); color: var(--text-main); }
 
-    .powered { text-align: center; font-size: 11px; color: var(--text-sub); margin-top: 25px; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid var(--border-color); padding-top: 15px; }
     .hidden { display: none; }
   </style>
 </head>
@@ -63,12 +70,9 @@
 <div class="container">
   <!-- Top Bar -->
   <div class="top-bar">
-    <a href="#" class="back-btn">&#8592; Back</a>
-    <div style="font-size: 15px; font-weight: 700; color: var(--text-main);">PayGaid Agent</div>
-    <div style="width: 24px;"></div>
+    <a href="index.html" class="back-btn">&#8592;</a>
+    <span>Become an Agent <span style="color: var(--accent-green);">✔</span></span>
   </div>
-
-  <div style="font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">Agent Registration</div>
 
   <!-- Stepper Header -->
   <div class="stepper">
@@ -77,46 +81,48 @@
     <div class="step-node" id="node-3">3</div>
   </div>
 
-  <!-- Step 1: Personal & Business Details -->
+  <!-- Step 1: Personal Details -->
   <div class="card" id="step-1">
-    <div class="step-title">Step 1: Personal & Business Details</div>
-    <div class="step-sub">Provide contact and shop details</div>
+    <div class="step-title">Step 1: Personal Details</div>
+    <div class="step-sub">Provide your contact and identity details</div>
 
     <div class="form-group">
       <label>Full Name</label>
-      <input type="text" class="form-control" placeholder="Enter full name">
+      <input type="text" class="form-control" placeholder="e.g. John Doe">
     </div>
 
     <div class="form-group">
-      <label>Mobile / WhatsApp Number</label>
+      <label>Email Address</label>
+      <input type="email" class="form-control" placeholder="example@mail.com">
+    </div>
+
+    <div class="form-group">
+      <label>Mobile Number</label>
       <input type="text" class="form-control" value="+880 1700-000000">
     </div>
 
     <div class="form-group">
-      <label>Business / Shop Name</label>
-      <input type="text" class="form-control" placeholder="Enter business name">
+      <label>WhatsApp Number</label>
+      <input type="text" class="form-control" value="+880 1700-000000">
+    </div>
+
+    <div class="form-group">
+      <label>Telegram Username</label>
+      <input type="text" class="form-control" placeholder="@username">
     </div>
 
     <div class="form-group">
       <label>Country</label>
-      <select class="form-control" id="countrySelect" onchange="updateGateways()">
+      <select class="form-control" id="countrySelect">
+        <option value="BD" selected>🇧🇩 Bangladesh</option>
         <option value="IN">🇮🇳 India</option>
         <option value="PK">🇵🇰 Pakistan</option>
-        <option value="UAE">🇦🇪 UAE</option>
-        <option value="SA">🇸🇦 Saudi Arabia</option>
-        <option value="BD" selected>🇧🇩 Bangladesh</option>
-        <option value="NP">🇳🇵 Nepal</option>
-        <option value="PH">🇵🇭 Philippines</option>
-        <option value="VN">🇻🇳 Vietnam</option>
         <option value="TH">🇹🇭 Thailand</option>
-        <option value="MY">🇲🇾 Malaysia</option>
-        <option value="ID">🇮🇩 Indonesia</option>
-        <option value="GLOBAL">🌐 Global / Other</option>
       </select>
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="goToStep(2)" style="width: 100%;">Next: Payment Gateways &rarr;</button>
+      <button class="btn btn-primary" onclick="goToStep(2)" style="width: 100%;">Next: Wallet Details &rarr;</button>
     </div>
   </div>
 
@@ -126,8 +132,17 @@
     <div class="step-sub">Select popular local methods or crypto</div>
 
     <div class="form-group">
-      <label>Select Payment Gateway (6-8 Options)</label>
-      <div class="gateway-grid" id="gatewayContainer"></div>
+      <label>Select Payment Gateway</label>
+      <div class="gateway-grid">
+        <div class="gateway-btn selected" onclick="selectGateway(this)">PromptPay</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">TrueMoney</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">Rabbit LinePay</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">AirPay</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">Krungsri Pay</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">SCB Easy</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">🏦 Thai Bank Wire</div>
+        <div class="gateway-btn" onclick="selectGateway(this)">🪙 Crypto (USDT)</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -144,12 +159,40 @@
   <!-- Step 3: Identity & Verification -->
   <div class="card hidden" id="step-3">
     <div class="step-title">Step 3: Identity & Verification</div>
-    <div class="step-sub">Provide your NID or Passport number</div>
+    <div class="step-sub">Upload document and state your experience</div>
 
     <div class="form-group">
-      <label>Document Number (NID / Passport)</label>
-      <input type="text" class="form-control" placeholder="Enter Document Number">
+      <label>Previous Agent / Payment Experience</label>
+      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P Exchange">
     </div>
+
+    <div class="form-group">
+      <label>Identity Document Type</label>
+      <select class="form-control">
+        <option>NID / Passport / Trade License</option>
+        <option>National ID Card</option>
+        <option>Passport</option>
+        <option>Trade License</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Document Number</label>
+      <input type="text" class="form-control" placeholder="Enter ID / Passport Number">
+    </div>
+
+    <div class="form-group">
+      <label>Upload Document Image</label>
+      <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+        <span style="font-size: 22px;">&#8679;</span><br>
+        <span>Tap to upload Front Side of Document (JPG/PNG)</span>
+        <input type="file" id="fileInput" class="hidden">
+      </div>
+    </div>
+
+    <label class="checkbox-group">
+      <input type="checkbox" checked> I agree to PayGaid Agent Terms & Conditions
+    </label>
 
     <div class="btn-group">
       <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
@@ -157,57 +200,30 @@
     </div>
   </div>
 
-  <!-- Success Screen -->
+  <!-- Success Screen (Step 4) -->
   <div class="card hidden" id="step-success" style="text-align: center;">
-    <div style="font-size: 50px; color: var(--accent-green); margin-bottom: 10px;">&#10004;</div>
-    <div class="step-title">Application Submitted!</div>
+    <div style="background: var(--input-bg); padding: 15px; border-radius: 12px; margin-bottom: 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--border-color);">
+      Application Status
+    </div>
+    
+    <div style="width: 70px; height: 70px; background: rgba(34,197,94,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--accent-green); font-size: 32px;">&#10004;</div>
+    
+    <div class="step-title" style="font-size: 20px;">Application Submitted!</div>
     <div class="step-sub">Thank you for applying to PayGaid Agent Program.</div>
 
-    <div style="background: #f1f5f9; padding: 15px; border-radius: 10px; margin: 15px 0; text-align: left;">
+    <div style="background: var(--input-bg); padding: 15px; border-radius: 12px; margin: 20px 0; text-align: left; border: 1px solid var(--border-color);">
       <div style="font-size: 12px; color: var(--text-sub);">Application Reference ID</div>
-      <div style="font-size: 18px; font-weight: bold; color: var(--accent-blue);">#PGA-883920</div>
+      <div style="font-size: 18px; font-weight: bold; color: #60a5fa; margin-bottom: 10px;">#PGA-883920</div>
+      <div style="font-size: 12px; color: var(--text-sub);">What happens next?</div>
+      <div style="font-size: 13px; color: var(--text-main); margin-top: 4px;">Our verification team will review your documents within 24-48 hours.</div>
     </div>
 
-    <button class="btn btn-primary" onclick="Telegram.WebApp.close()" style="width: 100%;">Back to Dashboard</button>
+    <button class="btn btn-primary" onclick="window.location.href='index.html'" style="width: 100%;">Back to Dashboard</button>
   </div>
 
-  <div class="powered">Powered by PayGaid</div>
 </div>
 
 <script>
-  const gateways = {
-    IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Mobikwik', 'Freecharge', '🏦 Indian Bank Transfer', '🪙 Crypto (USDT)'],
-    PK: ['Easypaisa', 'JazzCash', 'SadaPay', 'NayaPay', 'UPaisa', 'PayMax', '🏦 Pakistani Bank Transfer', '🪙 Crypto (USDT)'],
-    UAE: ['PayTabs', 'Noqoody', 'Telr', 'FilsPay', 'Checkout.com', 'Pyy', '🏦 UAE Bank Wire', '🪙 Crypto (USDT)'],
-    SA: ['STC Pay', 'UrPay', 'Tabby', 'Tamara', 'Mada Pay', 'Halalah', '🏦 Saudi Bank Transfer', '🪙 Crypto (USDT)'],
-    BD: ['bKash', 'Nagad', 'Rocket', 'Upay', 'CellFin', 'Tap', '🏦 Local Bank Transfer', '🪙 Crypto (USDT)'],
-    NP: ['eSewa', 'Khalti', 'IME Pay', 'Prabhu Pay', 'ConnectIPS', 'FonePay', '🏦 Nepalese Bank Wire', '🪙 Crypto (USDT)'],
-    PH: ['GCash', 'Maya', 'GrabPay', 'ShopeePay', 'Coins.ph', 'PalawanPay', '🏦 Philippine Bank Wire', '🪙 Crypto (USDT)'],
-    VN: ['MoMo', 'ZaloPay', 'ViettelPay', 'VNPay', 'ShopeePayM', 'Moca', '🏦 Vietnamese Bank Wire', '🪙 Crypto (USDT)'],
-    TH: ['PromptPay', 'TrueMoney', 'Rabbit LinePay', 'AirPay', 'Krungsri Pay', 'SCB Easy', '🏦 Thai Bank Wire', '🪙 Crypto (USDT)'],
-    MY: ['Touch \'n Go', 'GrabPay', 'Boost', 'ShopeePayMY', 'DuitNow', 'BigPay', '🏦 Malaysian Bank Wire', '🪙 Crypto (USDT)'],
-    ID: ['GoPay', 'OVO', 'DANA', 'LinkAja', 'ShopeePayID', 'BCA Mobile', '🏦 Indonesian Bank Wire', '🪙 Crypto (USDT)'],
-    GLOBAL: ['Perfect Money', 'Payeer', 'Skrill', 'Neteller', 'WebMoney', 'Advcash', '🏦 Int. Wire Transfer', '🪙 Crypto (USDT)']
-  };
-
-  function updateGateways() {
-    const country = document.getElementById('countrySelect').value;
-    const container = document.getElementById('gatewayContainer');
-    container.innerHTML = '';
-
-    const list = gateways[country] || gateways['GLOBAL'];
-    list.forEach((gw, index) => {
-      const btn = document.createElement('div');
-      btn.className = `gateway-btn ${index === 0 ? 'selected' : ''}`;
-      btn.innerText = gw;
-      btn.onclick = function() {
-        document.querySelectorAll('.gateway-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      };
-      container.appendChild(btn);
-    });
-  }
-
   function goToStep(stepNumber) {
     document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
     document.getElementById(`step-${stepNumber}`).classList.remove('hidden');
@@ -220,12 +236,16 @@
     }
   }
 
+  function selectGateway(element) {
+    document.querySelectorAll('.gateway-btn').forEach(btn => btn.classList.remove('selected'));
+    element.classList.add('selected');
+  }
+
   function submitForm() {
     document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
     document.getElementById('step-success').classList.remove('hidden');
   }
 
-  updateGateways();
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
