@@ -153,7 +153,7 @@
 </head>
 <body>
 
-    <!-- 1. Country Selection Screen -->
+    <!-- 1. Country Selection Screen[cite: 4] -->
     <div id="page-country" class="page active">
         <div class="page-title-center">
             <h1>Welcome</h1>
@@ -204,7 +204,7 @@
         </div>
     </div>
 
-    <!-- 2. Language Selection Screen -->
+    <!-- 2. Language Selection Screen[cite: 4] -->
     <div id="page-lang" class="page">
         <button class="back-btn" onclick="goPage('page-country')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
@@ -228,7 +228,7 @@
         </div>
     </div>
 
-    <!-- 3. Main Dashboard Screen -->
+    <!-- 3. Main Dashboard Screen[cite: 4] -->
     <div id="page-dashboard" class="page">
         <svg class="dashboard-bg-globe" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="350" cy="150" r="200" fill="#3b82f6" opacity="0.12"/>
@@ -261,7 +261,8 @@
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <div class="menu-item" onclick="showSubPage('m2')">
+            <!-- Agent Login এখন আলাদা agent-dashboard.html পেজে যাবে -->
+            <div class="menu-item" onclick="window.location.href='agent-dashboard.html'">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
                     <div class="menu-text">
@@ -346,7 +347,7 @@
         </div>
     </div>
 
-    <!-- 4. Inner Detail Page -->
+    <!-- 4. Inner Detail Page[cite: 4] -->
     <div id="page-detail" class="page">
         <button class="back-btn" onclick="goPage('page-dashboard')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
@@ -362,7 +363,7 @@
         </div>
     </div>
 
-    <!-- 5. Become an Agent 3-Step Registration Form Page -->
+    <!-- 5. Become an Agent 3-Step Registration Form Page[cite: 4] -->
     <div id="page-agent-form" class="page">
         <button class="back-btn" onclick="goPage('page-dashboard')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
@@ -489,7 +490,6 @@
                 m6_title: "Frequently Asked Questions", m6_sub: "Find answers to common questions.",
                 m7_title: "Contact Support", m7_sub: "Get help from our support team.",
                 m8_title: "Change Language", m8_sub: "Select your preferred language.",
-                m2_content: "Enter your registered credentials to log in to your Agent Dashboard.",
                 m3_content: "PayGaid allows you to operate as an official payment agent with reliable instant transactions and high commission rates.",
                 m4_content: "Requirements: Valid Government NID/Passport, Active Mobile Number, and Business Verification.",
                 m5_content: "All terms and conditions apply according to international payment processing rules and financial security standards.",
@@ -521,7 +521,6 @@
                 m6_title: "সচরাচর জিজ্ঞাসিত প্রশ্নাবলী", m6_sub: "সাধারণ প্রশ্নগুলোর উত্তর খুঁজুন।",
                 m7_title: "সাপোর্ট যোগাযোগ", m7_sub: "আমাদের সাপোর্ট টিমের সাহায্য নিন।",
                 m8_title: "ভাষা পরিবর্তন করুন", m8_sub: "আপনার পছন্দসই ভাষা নির্বাচন করুন।",
-                m2_content: "আপনার এজেন্ট ড্যাশবোর্ডে প্রবেশের জন্য নিবন্ধিত ইউজারনেম ও পাসওয়ার্ড প্রদান করুন।",
                 m3_content: "পেগেড আপনাকে সর্বোচ্চ কমিশন এবং দ্রুততম পেমেন্ট সিস্টেমের সাথে একজন অফিসিয়াল এজেন্ট হিসেবে কাজ করার সুযোগ প্রদান করে।",
                 m4_content: "প্রয়োজনীয় ডকুমেন্টস: জাতীয় পরিচয়পত্র/পাসপোর্ট, সক্রিয় মোবাইল নম্বর এবং ব্যবসায়িক পরিচিতি।",
                 m5_content: "আন্তর্জাতিক পেমেন্ট প্রসেসিং আইন ও আর্থিক নিরাপত্তা বিধি অনুযায়ী সকল শর্তাবলী প্রযোজ্য।",
@@ -531,7 +530,7 @@
                 formHead: "এজেন্ট রেজিস্ট্রেশন",
                 formS1Title: "ধাপ ১: ব্যক্তিগত ও ব্যবসায়িক তথ্য", formS1Sub: "যোগাযোগ ও প্রতিষ্ঠানের তথ্য প্রদান করুন",
                 lblFullname: "আপনার নাম", phFullname: "পুরো নাম লিখুন",
-                lblPhone: "মোবাইল / হোয়াটসঅ্যাপ নম্বর", lblBusiness: "ব্যবসা বা প্রতিষ্ঠানের নাম", phBusiness: "প্রতিষ্ঠানের নাম লিখুন",
+                lblPhone: "মোবাইল / হোয়াটসঅ্যাপ নম্বর", lblBusiness: "ব্যবসা বা প্রতিষ্ঠানের নাম", phBusiness: "প্রতিষ্ঠानोंের নাম লিখুন",
                 btnNext1: "পরবর্তী: পেমেন্ট মেথড \u2192",
                 formS2Title: "ধাপ ২: পেমেন্ট গেটওয়ে নির্বাচন", formS2Sub: "আপনার দেশের জনপ্রিয় মেথড বা ক্রিপ্টো বেছে নিন",
                 lblSelectGw: "পেমেন্ট গেটওয়ে সিলেক্ট করুন", lblAccNum: "সিলেক্ট করা একাউন্ট / ওয়ালেট নম্বর", phAccNum: "একাউন্ট নম্বর বা ওয়ালেট এড্রেস",
@@ -553,7 +552,6 @@
                 m6_title: "अक्सर पूछे जाने वाले प्रश्न", m6_sub: "सामान्य प्रश्नों के उत्तर पाएं।",
                 m7_title: "सहायता संपर्क", m7_sub: "हमारी सहायता टीम से मदद लें।",
                 m8_title: "भाषा बदलें", m8_sub: "अपनी पसंदीदा भाषा चुनें।",
-                m2_content: "अपने एजेंट डैशबोर्ड तक पहुँचने के लिए अपने क्रेडेंशियल दर्ज करें।",
                 m3_content: "पेगेड आपको उच्च कमीशन दरों और सुरक्षित लेनदेन के साथ एक आधिकारिक एजेंट के रूप में काम करने की अनुमति देता है।",
                 m4_content: "आवश्यकताएं: मान्य सरकारी पहचान पत्र/पासपोर्ट, सक्रिय मोबाइल नंबर और व्यावसायिक विवरण।",
                 m5_content: "अंतरराष्ट्रीय भुगतान नियमों के अनुसार सभी नियम और शर्तें लागू होती हैं।",
@@ -582,10 +580,9 @@
                 m3_title: "پروگرام کا جائزہ", m3_sub: "جانیے کہ پے گیڈ ایجنٹ پروگرام کیسے کام کرتا ہے۔",
                 m4_title: "اہلیت کا معیار", m4_sub: "اہلیت और आवश्यक जानकारी की समीक्षा करें।",
                 m5_title: "شرائط و ضوابط", m5_sub: "प्रोग्राम के नियम और शर्तें पढ़ें।",
-                m6_title: "बاقاعدگی سے پوچھے گئے سوالات", m6_sub: "सामान्य प्रश्नों के उत्तर पाएं।",
-                m7_title: "سپورٹ से رابطہ करें", m7_sub: "हमारी सहायता टीम से मदद लें।",
+                m6_title: "باقاعدگی سے پوچھے گئے سوالات", m6_sub: "सामान्य प्रश्नों के उत्तर पाएं।",
+                m7_title: "سپورٹ سے رابطہ کریں", m7_sub: "हमारी सहायता टीम से मदद लें।",
                 m8_title: "भाषा बदलें", m8_sub: "अपनी पसंदीदा भाषा चुनें।",
-                m2_content: "अपने एजेंट डैशबोर्ड तक पहुँचने के लिए अपने क्रेडेंशियल दर्ज करें।",
                 m3_content: "पेगेड आपको उच्च कमीशन दरों और सुरक्षित लेनदेन के साथ एक आधिकारिक एजेंट के रूप में काम करने की अनुमति देता है।",
                 m4_content: "आवश्यकताएं: मान्य सरकारी पहचान पत्र/पासपोर्ट, सक्रिय मोबाइल नंबर और व्यावसायिक विवरण।",
                 m5_content: "अंतरराष्ट्रीय भुगतान नियमों के अनुसार सभी नियम और शर्तें लागू होती हैं।",
@@ -616,7 +613,6 @@
                 m6_title: "الأسئلة الشائعة", m6_sub: "الإجابات على الأسئلة الشائعة.",
                 m7_title: "الدعم الفني", m7_sub: "احصل على المساعدة من فريق الدعم.",
                 m8_title: "تغيير اللغة", m8_sub: "اختر لغتك المفضلة.",
-                m2_content: "أدخل بيانات الاعتماد الخاصة بك لتسجيل الدخول إلى لوحة التحكم.",
                 m3_content: "تتيح لك PayGaid العمل كوكيل رسمي مع معاملات فورية ونسب عمولة عالية.",
                 m4_content: "المتطلبات: هوية حكومية سارية أو جواز سفر، رقم هاتف نشط، والتحقق من النشاط التجاري.",
                 m5_content: "تطبق جميع الشروط والأحكام وفقًا لقواعد المعاملات المالية الدولية.",
@@ -642,7 +638,6 @@
                 m6_title: "प्रायः सोधिने प्रश्नहरू", m6_sub: "सामान्य प्रश्नहरूको उत्तर पाउनुहोस्।",
                 m7_title: "सम्पर्क सहायता", m7_sub: "हाम्रो सहयोग टोलीबाट मद्दत लिनुहोस्।",
                 m8_title: "भाषा परिवर्तन गर्नुहोस्", m8_sub: "आफ्नो मनपर्ने भाषा चयन गर्नुहोस्।",
-                m2_content: "तपाईंको एजेन्ट ड्यासबोर्डमा लगइन गर्न आफ्नो विवरण प्रविष्ट गर्नुहोस्।",
                 m3_content: "PayGaid ले तपाईंलाई उच्च कमिसन र सुरक्षित प्रणालीको साथ आधिकारिक एजेन्ट बन्ने अवसर दिन्छ।",
                 m4_content: "आवश्यकताहरू: मान्य परिचयपत्र/राहदानी, सक्रिय मोबाइल नम्बर, र व्यावसायिक विवरण।",
                 m5_content: "सबै नियम र सर्तहरू अन्तर्राष्ट्रिय भुक्तानी नियम अनुसार लागू हुनेछन्।",
@@ -668,7 +663,6 @@
                 m6_title: "Mga Madalas Itanong (FAQ)", m6_sub: "Maghanap ng mga sagot sa karaniwang tanong.",
                 m7_title: "Makipag-ugnayan sa Support", m7_sub: "Humingi ng tulong sa aming support team.",
                 m8_title: "Baguhin ang Wika", m8_sub: "Piliin ang iyong gustong wika.",
-                m2_content: "Ipasok ang iyong mga kredensyal upang mag-log in sa iyong Agent Dashboard.",
                 m3_content: "Pinapayagan ka ng PayGaid na magtrabaho bilang isang opisyal na agent na may mataas na komisyon.",
                 m4_content: "Mga Kinakailangan: Valib ID/Passport, Aktibong Mobile Number, at Impormasyon sa Negosyo.",
                 m5_content: "Lahat ng mga tuntunin ay nag-aapply ayon sa mga panuntunan sa internasyonal na pagbabayad.",
@@ -694,7 +688,6 @@
                 m6_title: "Câu hỏi Thường gặp", m6_sub: "Tìm câu trả lời cho các câu hỏi phổ biến.",
                 m7_title: "Liên hệ Hỗ trợ", m7_sub: "Nhận trợ giúp từ đội ngũ hỗ trợ.",
                 m8_title: "Đổi Ngôn ngữ", m8_sub: "Chọn ngôn ngữ ưu tiên của bạn.",
-                m2_content: "Nhập thông tin đăng nhập của bạn để truy cập Bảng điều khiển Đại lý.",
                 m3_content: "PayGaid cho phép bạn hoạt động như một đại lý thanh toán chính thức với hoa hồng cao.",
                 m4_content: "Yêu cầu: CCCD/Hộ chiếu hợp lệ, Số điện thoại hoạt động và Xác minh kinh doanh.",
                 m5_content: "Tất cả các điều khoản áp dụng theo quy định thanh toán quốc tế và an toàn tài chính.",
@@ -720,7 +713,6 @@
                 m6_title: "คำถามที่พบบ่อย", m6_sub: "ค้นหาคำตอบสำหรับคำถามทั่วไป",
                 m7_title: "ติดต่อฝ่ายสนับสนุน", m7_sub: "รับความช่วยเหลือจากทีมสนับสนุน",
                 m8_title: "เปลี่ยนภาษา", m8_sub: "เลือกภาษาที่คุณต้องการ",
-                m2_content: "กรอกข้อมูลประจำตัวของคุณเพื่อเข้าสู่ระบบแผงควบคุมตัวแทน",
                 m3_content: "PayGaid ช่วยให้คุณทำงานเป็นตัวแทนชำระเงินอย่างเป็นทางการพร้อมค่าคอมมิชชั่นสูง",
                 m4_content: "ข้อกำหนด: บัตรประชาชน/พาสปอร์ต, เบอร์โทรศัพท์ที่ใช้งานได้ และเอกสารธุรกิจ",
                 m5_content: "ข้อกำหนดทั้งหมดเป็นไปตามกฎระเบียบการชำระเงินระหว่างประเทศ",
@@ -746,7 +738,6 @@
                 m6_title: "Soalan Lazim (FAQ)", m6_sub: "Cari jawapan kepada soalan biasa.",
                 m7_title: "Hubungi Sokongan", m7_sub: "Dapatkan bantuan daripada pasukan sokongan.",
                 m8_title: "Tukar Bahasa", m8_sub: "Pilih bahasa pilihan anda.",
-                m2_content: "Masukkan maklumat anda untuk log masuk ke Papan Pemuka Ejen.",
                 m3_content: "PayGaid membolehkan anda beroperasi sebagai ejen pembayaran rasmi dengan komisen tinggi.",
                 m4_content: "Keperluan: Kad Pengenalan/Pasport Sah, Nombor Telefon Aktif, dan Maklumat Perniagaan.",
                 m5_content: "Semua terma terpakai mengikut undang-undang pemprosesan pembayaran antarabangsa.",
@@ -772,7 +763,6 @@
                 m6_title: "Pertanyaan Umum (FAQ)", m6_sub: "Temukan jawaban untuk pertanyaan umum.",
                 m7_title: "Hubungi Dukungan", m7_sub: "Dapatkan bantuan dari tim dukungan kami.",
                 m8_title: "Ubah Bahasa", m8_sub: "Pilih bahasa pilihan Anda.",
-                m2_content: "Masukkan kredensial Anda untuk masuk ke Dashboard Agen Anda.",
                 m3_content: "PayGaid memungkinkan Anda beroperasi sebagai agen pembayaran resmi dengan komisi tinggi.",
                 m4_content: "Persyaratan: KTP/Paspor Sah, Nomor Telepon Aktif, dan Verifikasi Usaha.",
                 m5_content: "Semua syarat berlaku sesuai dengan standar keamanan pemprosesan pembayaran internasional.",
@@ -856,7 +846,7 @@
             document.getElementById('btn-back1').innerText = langData.btnBack || "\u2190 Back";
             document.getElementById('btn-next2').innerText = langData.btnNext2 || "Next \u2192";
 
-            document.getElementById('form-s3-title').innerText = langData.formS3Title || "Step 3: Verification";
+            document.getElementById('form-s3-title').innerText, document.getElementById('form-s3-title').innerText = langData.formS3Title || "Step 3: Verification";
             document.getElementById('form-s3-sub').innerText = langData.formS3Sub || "Verify identity";
             document.getElementById('lbl-doc-num').innerText = langData.lblDocNum || "Document Number";
             document.getElementById('ph-doc-num').placeholder = langData.phDocNum || "Enter number";
