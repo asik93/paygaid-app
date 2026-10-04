@@ -57,7 +57,7 @@
 
     /* Buttons */
     .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-    .btn { flex: 1; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .btn { flex: 1; padding: 14px 10px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 5px; text-align: center; }
     .btn-primary { background: var(--accent-blue); color: white; }
     .btn-success { background: var(--accent-green); color: white; }
     .btn-secondary { background: var(--border-color); color: var(--text-main); }
@@ -195,8 +195,8 @@
     </label>
 
     <div class="btn-group">
-      <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-      <button class="btn btn-success" onclick="submitForm()">Submit Application &#10004;</button>
+      <button class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+      <button class="btn btn-success" onclick="submitForm()">Submit Application</button>
     </div>
   </div>
 
