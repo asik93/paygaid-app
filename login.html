@@ -216,7 +216,7 @@
 
             <button class="btn-action" onclick="handleLogin()">Sign In</button>
 
-            <!-- ক্যাশ সমস্যা এড়াতে ডায়নামিক কন্টাক্ট লিঙ্ক -->
+            <!-- কন্টাক্ট সাপোর্ট লিঙ্ক -->
             <div class="support-box">
                 Having trouble? <a onclick="openContact(event)">Contact Support</a>
             </div>
@@ -248,7 +248,8 @@
                 return;
             }
 
-            alert('Login request submitted successfully!');
+            // সঠিক ড্যাশবোর্ড ফাইলের নাম (agent-dashboard.html) এ রিডাইরেক্ট করবে
+            window.location.href = 'agent-dashboard.html?t=' + new Date().getTime();
         }
     </script>
 </body>
