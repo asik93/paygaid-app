@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Withdraw Funds - ADS Pro System</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0f172a !important; 
+            color: #f8fafc !important;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .back-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .back-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #38bdf8;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        .balance-card {
+            background: linear-gradient(135deg, #0e7490, #065f46);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .balance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .balance-label {
+            font-size: 13px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .balance-check-icon {
+            background: rgba(255, 255, 255, 0.2);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #ffffff;
+        }
+        .balance-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .form-card {
+            background: #ffffff;
+            color: #0f172a;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .form-control {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: #0f172a;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            border-color: #0e7490;
+            background: #ffffff;
+        }
+        select.form-control {
+            cursor: pointer;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #0f172a;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 6px;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Bar -->
+        <div class="back-bar">
+            <button class="back-btn" onclick="window.location.href='agent-dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="page-title">Withdraw Funds</div>
+        </div>
+
+        <!-- Main Balance Card -->
+        <div class="balance-card">
+            <div class="balance-header">
+                <div class="balance-label">
+                    <i class="fa-solid fa-wallet"></i> Main Balance
+                </div>
+                <div class="balance-check-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+            </div>
+            <div class="balance-value">250,000.00 BDT</div>
+        </div>
+
+        <!-- Withdraw Form Card -->
+        <div class="form-card">
+            <form onsubmit="handleWithdraw(event)">
+                <div class="form-group">
+                    <label class="form-label">Select Crypto Method</label>
+                    <select class="form-control" id="cryptoMethod" required>
+                        <option value="Bitcoin">Bitcoin (Bitcoin)</option>
+                        <option value="Tether TRC20">Tether (TRC20)</option>
+                        <option value="Tether BEP20">Tether (BEP20)</option>
+                        <option value="Tron">Tron (Tron Network)</option>
+                        <option value="Binance Coin">Binance Coin (BEP20)</option>
+                        <option value="Ethereum">Ethereum (ERC20)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Withdraw Amount (BDT)</label>
+                    <input type="number" class="form-control" placeholder="Enter amount" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Wallet Address</label>
+                    <input type="text" class="form-control" placeholder="Enter wallet address" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Withdrawal</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready?.();
+            tg.expand?.();
+        }
+
+        function handleWithdraw(event) {
+            event.preventDefault();
+            alert('Withdrawal request submitted successfully! It will be reviewed by admin.');
+            window.location.href = 'agent-dashboard.html';
+        }
+    </script>
+</body>
+</html>
