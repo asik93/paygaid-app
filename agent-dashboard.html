@@ -291,15 +291,16 @@
 
         <!-- Quick Action Grid -->
         <div class="action-grid">
-            <!-- Add Money Link to add-money.html -->
+            <!-- Add Money Link -->
             <a href="add-money.html" class="action-item">
                 <div class="action-icon bg-blue"><i class="fa-solid fa-plus"></i></div>
                 <div class="action-text">Add Money</div>
             </a>
-            <div class="action-item" onclick="switchTab('requests')">
+            <!-- Withdraw Link to withdraw.html -->
+            <a href="withdraw.html" class="action-item">
                 <div class="action-icon bg-green"><i class="fa-solid fa-arrow-down"></i></div>
                 <div class="action-text">Withdraw</div>
-            </div>
+            </a>
             <div class="action-item" onclick="openSupport()">
                 <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
                 <div class="action-text">Complain</div>
@@ -316,7 +317,7 @@
                 <h4>Deposit Request</h4>
                 <p class="text-pending-dep">5 Pending</p>
             </div>
-            <div class="status-card" onclick="switchTab('requests')">
+            <div class="status-card" onclick="window.location.href='withdraw.html'">
                 <h4>Withdraw Request</h4>
                 <p class="text-pending-wit">2 Pending</p>
             </div>
