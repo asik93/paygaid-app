@@ -153,7 +153,7 @@
 </head>
 <body>
 
-    <!-- 1. Country Selection Screen[cite: 4] -->
+    <!-- 1. Country Selection Screen -->
     <div id="page-country" class="page active">
         <div class="page-title-center">
             <h1>Welcome</h1>
@@ -261,8 +261,8 @@
                 <i class="fa-solid fa-chevron-right arrow-icon"></i>
             </div>
 
-            <!-- Agent Login এখন আলাদা agent-dashboard.html পেজে যাবে -->
-            <div class="menu-item" onclick="window.location.href='agent-dashboard.html'">
+            <!-- Agent Login পেজ লিংক (login.html ফাইলে যাবে)[cite: 4] -->
+            <div class="menu-item" onclick="window.location.href='login.html'">
                 <div class="menu-left">
                     <div class="icon-box"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
                     <div class="menu-text">
@@ -530,7 +530,7 @@
                 formHead: "এজেন্ট রেজিস্ট্রেশন",
                 formS1Title: "ধাপ ১: ব্যক্তিগত ও ব্যবসায়িক তথ্য", formS1Sub: "যোগাযোগ ও প্রতিষ্ঠানের তথ্য প্রদান করুন",
                 lblFullname: "আপনার নাম", phFullname: "পুরো নাম লিখুন",
-                lblPhone: "মোবাইল / হোয়াটসঅ্যাপ নম্বর", lblBusiness: "ব্যবসা বা প্রতিষ্ঠানের নাম", phBusiness: "প্রতিষ্ঠानोंের নাম লিখুন",
+                lblPhone: "মোবাইল / হোয়াটসঅ্যাপ নম্বর", lblBusiness: "ব্যবসা বা প্রতিষ্ঠানের নাম", phBusiness: "প্রতিষ্ঠানের নাম লিখুন",
                 btnNext1: "পরবর্তী: পেমেন্ট মেথড \u2192",
                 formS2Title: "ধাপ ২: পেমেন্ট গেটওয়ে নির্বাচন", formS2Sub: "আপনার দেশের জনপ্রিয় মেথড বা ক্রিপ্টো বেছে নিন",
                 lblSelectGw: "পেমেন্ট গেটওয়ে সিলেক্ট করুন", lblAccNum: "সিলেক্ট করা একাউন্ট / ওয়ালেট নম্বর", phAccNum: "একাউন্ট নম্বর বা ওয়ালেট এড্রেস",
@@ -846,7 +846,7 @@
             document.getElementById('btn-back1').innerText = langData.btnBack || "\u2190 Back";
             document.getElementById('btn-next2').innerText = langData.btnNext2 || "Next \u2192";
 
-            document.getElementById('form-s3-title').innerText, document.getElementById('form-s3-title').innerText = langData.formS3Title || "Step 3: Verification";
+            document.getElementById('form-s3-title').innerText = langData.formS3Title || "Step 3: Verification";
             document.getElementById('form-s3-sub').innerText = langData.formS3Sub || "Verify identity";
             document.getElementById('lbl-doc-num').innerText = langData.lblDocNum || "Document Number";
             document.getElementById('ph-doc-num').placeholder = langData.phDocNum || "Enter number";
