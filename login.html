@@ -2,222 +2,244 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Login - PayGaid</title>
-    <!-- FontAwesome Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- ক্যাশ সমস্যা দূর করার মেটা ট্যাগ -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Agent Login - PayGaid Portal</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            color-scheme: dark !important;
+        }
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
-
         body {
-            background-color: #0e1217;
-            color: #e4e6eb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #0f172a !important; 
+            color: #f8fafc !important;
+            padding: 20px 16px;
             min-height: 100vh;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
-        .login-container {
+        .container {
             width: 100%;
             max-width: 400px;
-            background: #17212b;
-            padding: 30px 24px;
-            border-radius: 12px;
-            border: 1px solid #232d3f;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
         }
-
-        .brand-logo {
-            text-align: center;
+        .back-btn {
+            background: none; 
+            border: none; 
+            color: #38bdf8;
+            font-size: 14px; 
+            font-weight: 600; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
             margin-bottom: 24px;
         }
-
-        .brand-logo h2 {
-            color: #ffffff;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        .header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .logo-box {
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 8px; 
+            margin-bottom: 14px;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .logo-text { 
+            font-size: 20px; 
+            font-weight: 800; 
+            color: #38bdf8; 
+            letter-spacing: 0.5px; 
+        }
+        .welcome-title { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: #ffffff; 
+            margin-bottom: 6px; 
+        }
+        .welcome-sub { 
+            font-size: 13px; 
+            color: #94a3b8; 
+            line-height: 1.4; 
         }
 
-        .brand-logo p {
-            color: #8a9ba8;
-            font-size: 13px;
-            margin-top: 4px;
+        .content-card {
+            background: #1e293b; 
+            border: 1px solid #334155;
+            border-radius: 14px; 
+            padding: 20px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
-
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
+            text-align: left;
         }
-
-        .form-label {
+        .form-group label {
             display: block;
             font-size: 12px;
-            color: #8a9ba8;
+            font-weight: 600;
+            color: #cbd5e1;
             margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 14px;
-            color: #8a9ba8;
-            font-size: 15px;
-        }
-
         .form-control {
             width: 100%;
-            background: #0e1217;
-            border: 1px solid #232d3f;
-            padding: 12px 14px 12px 42px;
+            padding: 12px 14px;
+            background: #0f172a;
+            border: 1px solid #475569;
             border-radius: 8px;
             color: #ffffff;
             font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
             outline: none;
-            border-color: #1b85ff;
-            box-shadow: 0 0 0 2px rgba(27, 133, 255, 0.2);
+            transition: all 0.2s;
         }
-
-        .form-actions {
+        .form-control:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+        .form-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
             font-size: 13px;
-            margin-bottom: 24px;
         }
-
         .remember-me {
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #8a9ba8;
+            color: #94a3b8;
             cursor: pointer;
         }
-
-        .remember-me input {
-            accent-color: #1b85ff;
-            cursor: pointer;
-        }
-
         .forgot-link {
-            color: #1b85ff;
+            color: #38bdf8;
             text-decoration: none;
-            transition: color 0.2s;
+            font-weight: 600;
         }
-
         .forgot-link:hover {
             text-decoration: underline;
-            color: #4da3ff;
         }
-
-        .login-btn {
+        .btn-action {
             width: 100%;
-            background: #1b85ff;
-            color: #ffffff;
+            padding: 13px;
             border: none;
-            padding: 12px;
             border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-
-        .login-btn:hover {
-            background: #006fe6;
-        }
-
-        .login-btn:active {
-            transform: scale(0.98);
-        }
-
-        .support-text {
+            font-size: 15px;
             text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #8a9ba8;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            transition: opacity 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-
-        .support-text a {
-            color: #4cd964;
+        .btn-action:active {
+            opacity: 0.85;
+        }
+        .support-box {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .support-box a {
+            color: #38bdf8;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 24px;
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="brand-logo">
-            <h2>PayGaid Agent</h2>
-            <p>Sign in to your agent dashboard</p>
+    <div class="container">
+        <!-- ব্যাক বাটন (ড্যাশবোর্ডে ফিরে যাওয়ার জন্য) -->
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </button>
+
+        <div class="header">
+            <div class="logo-box">
+                <i class="fa-solid fa-user-shield" style="color: #38bdf8;"></i>
+                <span class="logo-text">AGENT PORTAL</span>
+            </div>
+            <h1 class="welcome-title">Welcome Back</h1>
+            <p class="welcome-sub">Sign in with your agent credentials to access your portal dashboard.</p>
         </div>
 
-        <form onsubmit="handleLogin(event)">
-            <!-- Agent ID / Phone -->
+        <div class="content-card">
             <div class="form-group">
-                <label class="form-label">Agent ID / Phone</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-user"></i>
-                    <input type="text" class="form-control" placeholder="Enter your ID or phone" required>
-                </div>
+                <label>Agent ID / Username</label>
+                <input type="text" class="form-control" id="agentId" placeholder="Enter your ID">
             </div>
 
-            <!-- Password -->
             <div class="form-group">
-                <label class="form-label">Password</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" class="form-control" placeholder="Enter your password" required>
-                </div>
+                <label>Password</label>
+                <input type="password" class="form-control" id="agentPass" placeholder="Enter your password">
             </div>
 
-            <!-- Remember Me & Forgot Password -->
-            <div class="form-actions">
+            <div class="form-row">
                 <label class="remember-me">
-                    <input type="checkbox"> Remember me
+                    <input type="checkbox" style="accent-color: #38bdf8;"> Remember me
                 </label>
-                <a href="#" onclick="handleForgotPassword(event)" class="forgot-link">Forgot Password?</a>
+                <!-- এখানে সরাসরি forgot-password.html এ যাওয়ার লিংক সেট করা হয়েছে -->
+                <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
             </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="login-btn">Sign In</button>
-        </form>
+            <button class="btn-action" onclick="handleLogin()">Sign In</button>
 
-        <div class="support-text">
-            Having trouble? <a href="#">Contact Support</a>
+            <div class="support-box">
+                Having trouble? <a href="https://t.me/A_ToolsX" target="_blank">Contact Support</a>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Secure Telegram Mini App Authentication &bull; PayGaid Agent Portal
         </div>
     </div>
 
     <script>
-        function handleLogin(event) {
-            event.preventDefault();
-            // এখানে সফল লগইনের পর ড্যাশবোর্ডে রিডাইরেক্ট করার কোড দিতে পারেন
-            alert('Login successful! Redirecting to dashboard...');
-            window.location.href = 'agent-dashboard.html';
+        let tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready();
+            tg.expand();
         }
 
-        function handleForgotPassword(event) {
-            event.preventDefault();
-            // পাসওয়ার্ড রিকভারি বা টেলিগ্রাম বটের মাধ্যমে রিসেট করার অপশন এখানে যুক্ত করা যাবে
-            alert('Please contact the system administrator or use your Telegram bot to reset the password.');
+        function handleLogin() {
+            const id = document.getElementById('agentId').value.trim();
+            const pass = document.getElementById('agentPass').value.trim();
+
+            if(!id || !pass) {
+                alert('Please enter both Agent ID and Password.');
+                return;
+            }
+
+            alert('Login request submitted successfully!');
         }
     </script>
 </body>
