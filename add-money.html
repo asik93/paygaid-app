@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Add Money - ADS Pro System</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0f172a !important; 
+            color: #f8fafc !important;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .back-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .back-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #38bdf8;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        .section-header {
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .crypto-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .crypto-card {
+            background: #ffffff;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .crypto-card:hover {
+            border-color: #38bdf8;
+        }
+        .crypto-icon-area {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            gap: 6px;
+        }
+        .crypto-icon-area img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .crypto-name {
+            background: #2563eb;
+            color: white;
+            padding: 8px 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Modal Overlays */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.88);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 16px;
+        }
+        .modal-box {
+            background: #ffffff;
+            color: #0f172a;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .close-modal {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        /* Warning Popup Styles */
+        .warning-text-box {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+        .warning-text-box b.red {
+            color: #dc2626;
+        }
+        .btn-confirm {
+            width: 100%;
+            padding: 12px;
+            background: #65a30d;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn-confirm:hover {
+            background: #4d7c0f;
+        }
+
+        /* Deposit Details Popup Styles */
+        .deposit-header-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #f1f5f9;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+        .deposit-header-icons img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+        .rate-display {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        .wallet-instruction {
+            font-size: 12px;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+        .wallet-text-area {
+            font-size: 12px;
+            color: #0284c7;
+            word-break: break-all;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .copy-link-btn {
+            background: none;
+            border: none;
+            color: #16a34a;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        .qr-box {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .qr-box img {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #cbd5e1;
+            padding: 6px;
+            border-radius: 6px;
+            background: white;
+        }
+        .deposit-info-footer {
+            background: #1e3a8a;
+            color: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        .unique-tx-code {
+            text-align: right;
+            font-size: 11px;
+            color: #64748b;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Back Bar (Link back to agent-dashboard) -->
+        <div class="back-bar">
+            <button class="back-btn" onclick="window.location.href='agent-dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="page-title">ADD MONEY</div>
+        </div>
+
+        <div class="section-header">CRYPTOCURRENCY</div>
+
+        <!-- Crypto Grid with Original Logos -->
+        <div class="crypto-grid">
+            <!-- TRON -->
+            <div class="crypto-card" onclick="showWarning('TRON', 'TRON (TRX)', 'TRX9Y2khEsLJW1ChVWFMSMeRDow5KcbL39', '10.00 TRX', '1 TRX = 12.5047976 BDT', '<img src=\'https://assets.coingecko.com/coins/images/1094/large/tron-logo.png\' alt=\'TRON\'>', '(x123-48)')">
+                <div class="crypto-icon-area">
+                    <img src="https://assets.coingecko.com/coins/images/1094/large/tron-logo.png" alt="TRON">
+                </div>
+                <div class="crypto-name">TRON</div>
+            </div>
+
+            <!-- Tether on Tron -->
+            <div class="crypto-card" onclick="showWarning('Tether on Tron', 'USDT (TRC20)', 'TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE', '1.00 USDT', '1 USDT = 125.9947976 BDT', '<img src=\'https://assets.coingecko.com/coins/images/325/large/Tether.png\' alt=\'USDT\'><img src=\'https://assets.coingecko.com/coins/images/1094/large/tron-logo.png\' alt=\'TRON\'>', '(x124-52)')">
+                <div class="crypto-icon-area">
+                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+                    <img src="https://assets.coingecko.com/coins/images/1094/large/tron-logo.png" alt="TRON">
+                </div>
+                <div class="crypto-name">Tether on Tron</div>
+            </div>
+
+            <!-- Tether on BSC -->
+            <div class="crypto-card" onclick="showWarning('Tether on BSC', 'USDT (Binance Smart Chain / BEP20)', '0x874f3d481132dd70ec9c63851bb2e1556dc7a8d', '1.00 USDT', '1 USDT = 125.9947976 BDT', '<img src=\'https://assets.coingecko.com/coins/images/325/large/Tether.png\' alt=\'USDT\'><img src=\'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png\' alt=\'BSC\'>', '(x125-99)')">
+                <div class="crypto-icon-area">
+                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+                    <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BSC">
+                </div>
+                <div class="crypto-name">Tether on BSC</div>
+            </div>
+
+            <!-- Tether on Ethereum -->
+            <div class="crypto-card" onclick="showWarning('Tether on Ethereum', 'USDT (ERC20)', '0x7169D381015D7A9a47738228148b1114b0b147B2', '5.00 USDT', '1 USDT = 125.9947976 BDT', '<img src=\'https://assets.coingecko.com/coins/images/325/large/Tether.png\' alt=\'USDT\'><img src=\'https://assets.coingecko.com/coins/images/279/large/ethereum.png\' alt=\'ETH\'>', '(x126-11)')">
+                <div class="crypto-icon-area">
+                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH">
+                </div>
+                <div class="crypto-name">Tether on Ethereum</div>
+            </div>
+
+            <!-- Litecoin -->
+            <div class="crypto-card" onclick="showWarning('Litecoin', 'Litecoin Network', 'LTC7Y2khEsLJW1ChVWFMSMeRDow5KcbL39', '0.05 LTC', '1 LTC = 11,420.50 BDT', '<img src=\'https://assets.coingecko.com/coins/images/2/large/litecoin.png\' alt=\'Litecoin\'>', '(x127-88)')">
+                <div class="crypto-icon-area">
+                    <img src="https://assets.coingecko.com/coins/images/2/large/litecoin.png" alt="Litecoin">
+                </div>
+                <div class="crypto-name">Litecoin</div>
+            </div>
+
+            <!-- Bitcoin -->
+            <div class="crypto-card" onclick="showWarning('Bitcoin', 'Bitcoin Network', '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', '0.0001 BTC', '1 BTC = 8,450,000 BDT', '<img src=\'https://assets.coingecko.com/coins/images/1/large/bitcoin.png\' alt=\'Bitcoin\'>', '(x128-03)')">
+                <div class="crypto-icon-area">
+                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin">
+                </div>
+                <div class="crypto-name">Bitcoin</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 1: Warning Popup Modal -->
+    <div class="modal-overlay" id="warningModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModals()"><i class="fa-solid fa-xmark"></i></button>
+            <div style="text-align: center; margin-bottom: 12px; display: flex; justify-content: center; gap: 6px;" id="warningIconsContainer"></div>
+            
+            <div class="warning-text-box" id="warningTextContent"></div>
+
+            <button type="button" class="btn-confirm" onclick="proceedToDeposit()">CONFIRM</button>
+        </div>
+    </div>
+
+    <!-- Step 2: Exact Deposit Details Popup Modal -->
+    <div class="modal-overlay" id="depositModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModals()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="deposit-header-icons" id="depositIconsContainer"></div>
+
+            <div class="rate-display" id="popupRate">1 USDT = 125.9947976 BDT</div>
+            
+            <div class="wallet-instruction">Copy the address or scan the QR code:</div>
+            <div class="wallet-text-area" id="popupWallet">WALLET_ADDRESS</div>
+            
+            <button type="button" class="copy-link-btn" onclick="copyWalletAddr()">
+                <i class="fa-regular fa-copy"></i> Copy address
+            </button>
+
+            <!-- Auto Generated QR Code -->
+            <div class="qr-box">
+                <img id="popupQrImg" src="" alt="QR Code">
+            </div>
+
+            <!-- Exact Footer Warning Note -->
+            <div class="deposit-info-footer" id="popupFooterNote">
+                Minimum deposit amount 1.00 USDT. If you transfer a deposit amount below the specified limit, your funds will be lost.<br><br>
+                Please note that the exchange rate at the completion of the transaction may differ slightly from the above.
+            </div>
+
+            <!-- Unique Session / Reference Code -->
+            <div class="unique-tx-code" id="popupUniqueCode">(x123-48)</div>
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.tg?.ready?.();
+            tg.expand?.();
+        }
+
+        let activeData = {};
+
+        function showWarning(cryptoName, networkFullName, walletAddr, minLimit, exchangeRate, iconHtml, uniqueCode) {
+            activeData = { cryptoName, networkFullName, walletAddr, minLimit, exchangeRate, iconHtml, uniqueCode };
+
+            document.getElementById('warningIconsContainer').innerHTML = iconHtml;
+            document.getElementById('warningTextContent').innerHTML = `
+                ONLY send <b class="red">${cryptoName} (${networkFullName})</b> to this deposit address.<br><br>
+                Do NOT use other network standards as you may <b class="red">lose your funds</b>. ONLY make deposits through the specified network.<br><br>
+                The use of contract addresses is not allowed!<br><br>
+                By clicking the "Confirm" button, you indicate that you agree to the above-mentioned risks.
+            `;
+
+            document.getElementById('warningModal').style.display = 'flex';
+        }
+
+        function proceedToDeposit() {
+            document.getElementById('warningModal').style.display = 'none';
+
+            document.getElementById('depositIconsContainer').innerHTML = activeData.iconHtml;
+            document.getElementById('popupRate').innerText = activeData.exchangeRate;
+            document.getElementById('popupWallet').innerText = activeData.walletAddr;
+            
+            // কিউআর কোড অটো জেনারেটর
+            document.getElementById('popupQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${activeData.walletAddr}`;
+
+            document.getElementById('popupFooterNote').innerHTML = `
+                Minimum deposit amount <b>${activeData.minLimit}</b>. If you transfer a deposit amount below the specified limit, your funds will be lost.<br><br>
+                Please note that the exchange rate at the completion of the transaction may differ slightly from the above.
+            `;
+
+            document.getElementById('popupUniqueCode').innerText = activeData.uniqueCode;
+
+            document.getElementById('depositModal').style.display = 'flex';
+        }
+
+        function closeModals() {
+            document.getElementById('warningModal').style.display = 'none';
+            document.getElementById('depositModal').style.display = 'none';
+        }
+
+        function copyWalletAddr() {
+            const address = document.getElementById('popupWallet').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                alert('Wallet address copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
