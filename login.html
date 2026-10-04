@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Login - PayGaid</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0e1217;
+            color: #e4e6eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: #17212b;
+            padding: 30px 24px;
+            border-radius: 12px;
+            border: 1px solid #232d3f;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .brand-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-logo h2 {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-logo p {
+            color: #8a9ba8;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: #8a9ba8;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            color: #8a9ba8;
+            font-size: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #0e1217;
+            border: 1px solid #232d3f;
+            padding: 12px 14px 12px 42px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1b85ff;
+            box-shadow: 0 0 0 2px rgba(27, 133, 255, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #8a9ba8;
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            accent-color: #1b85ff;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #1b85ff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+            color: #4da3ff;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: #1b85ff;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background: #006fe6;
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        .support-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #8a9ba8;
+        }
+
+        .support-text a {
+            color: #4cd964;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="brand-logo">
+            <h2>PayGaid Agent</h2>
+            <p>Sign in to your agent dashboard</p>
+        </div>
+
+        <form onsubmit="handleLogin(event)">
+            <!-- Agent ID / Phone -->
+            <div class="form-group">
+                <label class="form-label">Agent ID / Phone</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" placeholder="Enter your ID or phone" required>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="form-actions">
+                <label class="remember-me">
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="#" onclick="handleForgotPassword(event)" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="login-btn">Sign In</button>
+        </form>
+
+        <div class="support-text">
+            Having trouble? <a href="#">Contact Support</a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            // এখানে সফল লগইনের পর ড্যাশবোর্ডে রিডাইরেক্ট করার কোড দিতে পারেন
+            alert('Login successful! Redirecting to dashboard...');
+            window.location.href = 'agent-dashboard.html';
+        }
+
+        function handleForgotPassword(event) {
+            event.preventDefault();
+            // পাসওয়ার্ড রিকভারি বা টেলিগ্রাম বটের মাধ্যমে রিসেট করার অপশন এখানে যুক্ত করা যাবে
+            alert('Please contact the system administrator or use your Telegram bot to reset the password.');
+        }
+    </script>
+</body>
+</html>
