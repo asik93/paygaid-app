@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Contact Support - PayGaid Agent</title>
+    <title>Agent Login - PayGaid Portal</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -87,49 +87,90 @@
             padding: 20px; 
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
-        
-        .support-option {
-            display: flex;
-            align-items: center;
-            gap: 14px;
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
             background: #0f172a;
-            border: 1px solid #334155;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            text-decoration: none;
-            color: white;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
             transition: all 0.2s;
         }
-        .support-option:last-child {
-            margin-bottom: 0;
-        }
-        .support-option:hover {
+        .form-control:focus {
             border-color: #38bdf8;
-            background: rgba(56, 189, 248, 0.05);
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
         }
-        .support-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(56, 189, 248, 0.15);
-            border-radius: 8px;
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .remember-me {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+        .forgot-link {
             color: #38bdf8;
-            font-size: 18px;
+            text-decoration: none;
+            font-weight: 600;
         }
-        .support-info h4 {
-            font-size: 14px;
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        .btn-action {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 2px;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            transition: opacity 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .support-info p {
-            font-size: 12px;
+        .btn-action:active {
+            opacity: 0.85;
+        }
+        .support-box {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
             color: #94a3b8;
         }
-
+        .support-box a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .support-box a:hover {
+            text-decoration: underline;
+        }
         .footer-note {
             text-align: center;
             font-size: 11px;
@@ -142,37 +183,43 @@
 
     <div class="container">
         <!-- ব্যাক বাটন -->
-        <button class="back-btn" onclick="backToLogin()">
-            <i class="fa-solid fa-arrow-left"></i> Back to Login
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
         </button>
 
         <div class="header">
             <div class="logo-box">
-                <i class="fa-solid fa-headset" style="color: #38bdf8;"></i>
-                <span class="logo-text">HELP DESK</span>
+                <i class="fa-solid fa-user-shield" style="color: #38bdf8;"></i>
+                <span class="logo-text">AGENT PORTAL</span>
             </div>
-            <h1 class="welcome-title">Contact Support</h1>
-            <p class="welcome-sub">Our support team is available 24/7 to assist you via Telegram and Email.</p>
+            <h1 class="welcome-title">Welcome Back</h1>
+            <p class="welcome-sub">Sign in with your agent credentials to access your portal dashboard.</p>
         </div>
 
         <div class="content-card">
-            <!-- Telegram Support -->
-            <a href="https://t.me/A_ToolsX" target="_blank" class="support-option">
-                <div class="support-icon"><i class="fa-brands fa-telegram"></i></div>
-                <div class="support-info">
-                    <h4>Telegram Support</h4>
-                    <p>Instant support via official channel/bot</p>
-                </div>
-            </a>
+            <div class="form-group">
+                <label>Agent ID / Username</label>
+                <input type="text" class="form-control" id="agentId" placeholder="Enter your ID">
+            </div>
 
-            <!-- Email Support -->
-            <a href="mailto:support@paygaid.com" class="support-option">
-                <div class="support-icon"><i class="fa-solid fa-envelope"></i></div>
-                <div class="support-info">
-                    <h4>Email Support</h4>
-                    <p>support@paygaid.com</p>
-                </div>
-            </a>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="agentPass" placeholder="Enter your password">
+            </div>
+
+            <div class="form-row">
+                <label class="remember-me">
+                    <input type="checkbox" style="accent-color: #38bdf8;"> Remember me
+                </label>
+                <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button class="btn-action" onclick="handleLogin()">Sign In</button>
+
+            <!-- কন্টাক্ট লিঙ্ক -->
+            <div class="support-box">
+                Having trouble? <a onclick="openContact(event)">Contact Support</a>
+            </div>
         </div>
 
         <div class="footer-note">
@@ -187,8 +234,22 @@
             tg.expand();
         }
 
-        function backToLogin() {
-            window.location.href = 'login.html?t=' + new Date().getTime();
+        function openContact(e) {
+            e.preventDefault();
+            window.location.href = 'contact.html?t=' + new Date().getTime();
+        }
+
+        function handleLogin() {
+            const id = document.getElementById('agentId').value.trim();
+            const pass = document.getElementById('agentPass').value.trim();
+
+            if(!id || !pass) {
+                alert('Please enter both Agent ID and Password.');
+                return;
+            }
+
+            // সফল লগইনের পর ড্যাশবোর্ড পেজে রিডাইরেক্ট হবে
+            window.location.href = 'dashboard.html?t=' + new Date().getTime();
         }
     </script>
 </body>
