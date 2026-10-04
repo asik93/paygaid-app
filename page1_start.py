@@ -1,8 +1,8 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ContextTypes
 
-# মিনি অ্যাপের সঠিক মেইন ড্যাশবোর্ড লিংক (index.html)
-WEB_APP_URL = "https://asik93.github.io/paygaid-app/index.html"
+# মিনি অ্যাপের সঠিক মেইন ড্যাশবোর্ড লিংক (ক্যাশ সমস্যা এড়াতে ?v=2 যুক্ত করা হয়েছে)
+WEB_APP_URL = "https://asik93.github.io/paygaid-app/index.html?v=2"
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
