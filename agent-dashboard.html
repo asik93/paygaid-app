@@ -4,309 +4,429 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agent Dashboard - PayGaid</title>
-    <!-- FontAwesome & CSS links -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #f4f6f9;
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-        }
-        .page {
-            width: 100%;
-            max-width: 480px;
-            min-height: 100vh;
-            background: #f4f6f9;
-            position: relative;
             box-sizing: border-box;
-            padding: 15px;
-            padding-bottom: 80px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* Agent Dashboard Specific Styles */
-        .agent-top-header {
+
+        body {
+            background-color: #f7f9fc;
+            color: #333;
+            padding-bottom: 70px;
+        }
+
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .header i {
+            font-size: 20px;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .agent-profile-info {
+            text-align: center;
+        }
+
+        .agent-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1a202c;
+        }
+
+        .agent-id {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .avatar-circle {
+            width: 35px;
+            height: 35px;
+            background: #0056b3;
+            color: #fff;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 12px 15px;
-            background: #ffffff;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
         }
-        .header-left { display: flex; align-items: center; gap: 10px; }
-        .menu-btn { background: none; border: none; font-size: 18px; color: #333; cursor: pointer; }
-        .agent-avatar-sm {
-            width: 34px; height: 34px; background: #0066ff; color: #fff;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 13px;
+
+        /* Container */
+        .container {
+            padding: 15px;
         }
-        .agent-info-center { text-align: center; }
-        .agent-name { font-size: 15px; font-weight: 700; color: #0f172a; margin: 0; }
-        .agent-id { font-size: 11px; color: #64748b; }
-        .notification-btn { background: none; border: none; font-size: 18px; color: #333; cursor: pointer; }
 
         /* Balance Card */
-        .agent-balance-card {
+        .balance-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: #ffffff;
-            padding: 16px;
+            padding: 20px;
             border-radius: 14px;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            margin-bottom: 20px;
+            border: 1px solid #edf2f7;
         }
-        .balance-label { font-size: 12px; color: #64748b; display: block; margin-bottom: 4px; font-weight: 500; }
-        .balance-amount-row { display: flex; align-items: center; justify-content: space-between; }
-        .balance-amount-row h2 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0; }
-        .balance-icons { display: flex; gap: 12px; color: #64748b; font-size: 16px; cursor: pointer; }
 
-        /* Quick Actions */
-        .agent-quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
+        .balance-title {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 5px;
+            display: block;
         }
-        .action-item {
-            background: #fff;
-            padding: 10px 4px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-            cursor: pointer;
-        }
-        .action-icon-box {
-            width: 38px; height: 38px; margin: 0 auto 6px auto;
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 15px;
-        }
-        .bg-blue { background: #0066ff; }
-        .bg-green { background: #10b981; }
-        .bg-orange { background: #f97316; }
-        .bg-purple { background: #8b5cf6; }
-        .action-item span { font-size: 11px; font-weight: 600; color: #1e293b; }
 
-        /* Request Cards */
-        .agent-request-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 12px;
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
         }
-        .req-card {
-            background: #fff;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
+
+        .refresh-btn {
+            background: #f0f2f5;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             cursor: pointer;
-            border-left: 4px solid transparent;
+            transition: all 0.4s ease;
+            color: #4a5568;
+            font-size: 16px;
         }
-        .border-green { border-left-color: #10b981; }
-        .border-red { border-left-color: #ef4444; }
-        .req-info h4 { font-size: 12px; font-weight: 600; color: #334155; margin: 0 0 2px 0; }
-        .status-pending { font-size: 12px; font-weight: 700; margin: 0; }
-        .text-green { color: #10b981; }
-        .text-red { color: #ef4444; }
-        .req-icon { font-size: 20px; }
 
-        /* Commission Box */
+        .refresh-btn:hover {
+            background: #e2e8f0;
+            transform: rotate(180deg);
+            color: #0056b3;
+        }
+
+        /* Quick Action Buttons Grid */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-item {
+            background: #ffffff;
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            cursor: pointer;
+            border: 1px solid #edf2f7;
+            transition: transform 0.2s;
+        }
+
+        .action-item:active {
+            transform: scale(0.95);
+        }
+
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            margin: 0 auto 8px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .bg-blue { background: #007bff; }
+        .bg-green { background: #28a745; }
+        .bg-orange { background: #fd7e14; }
+        .bg-purple { background: #6f42c1; }
+
+        .action-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        /* Request Status Cards */
+        .request-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .req-card {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            border: 1px solid #edf2f7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .req-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        .req-card.deposit::before { background: #28a745; }
+        .req-card.withdraw::before { background: #dc3545; }
+
+        .req-title {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+
+        .req-count {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .req-card.deposit .req-count { color: #28a745; }
+        .req-card.withdraw .req-count { color: #dc3545; }
+
+        /* Commission Section */
         .commission-box {
             background: #fff;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 10px;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #edf2f7;
+        }
+
+        .commission-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .commission-row:not(:last-child) {
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .commission-label {
+            color: #4a5568;
+        }
+
+        .commission-val {
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        /* Recent Activity */
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+
+        .activity-item {
+            background: #fff;
             padding: 12px 15px;
             border-radius: 12px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-        .comm-title { font-size: 13px; font-weight: 600; color: #475569; }
-        .comm-amount { font-size: 15px; font-weight: 800; color: #0f172a; }
-
-        /* Recent Activity */
-        .recent-activity-section { padding-bottom: 20px; }
-        .recent-activity-section h3 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
-        .activity-item {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            padding: 10px 12px;
-            border-radius: 12px;
-            display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #edf2f7;
         }
-        .activity-icon-badge {
-            width: 32px; height: 32px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: 800;
-        }
-        .bg-soft-green { background: #d1fae5; color: #065f46; }
-        .bg-soft-red { background: #fee2e2; color: #991b1b; }
-        .activity-details { flex: 1; margin-left: 10px; }
-        .activity-details h4 { font-size: 12px; font-weight: 600; color: #0f172a; margin: 0 0 2px 0; }
-        .activity-details p { font-size: 10px; color: #64748b; margin: 0; }
-        .activity-amount { font-size: 12px; font-weight: 700; }
 
-        /* Bottom Nav */
-        .agent-bottom-nav {
+        .activity-details h4 {
+            font-size: 13px;
+            color: #2d3748;
+            margin-bottom: 3px;
+        }
+
+        .activity-details p {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .activity-amount {
+            font-size: 13px;
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .activity-amount.out {
+            color: #dc3545;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
             position: fixed;
-            bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 100%; max-width: 480px;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: #fff;
             display: flex;
             justify-content: space-around;
-            padding: 8px 0;
-            border-top: 1px solid #e2e8f0;
-            z-index: 1000;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            border-top: 1px solid #edf2f7;
         }
-        .agent-bottom-nav .nav-item {
+
+        .nav-item {
             text-align: center;
-            color: #64748b;
+            color: #718096;
+            text-decoration: none;
+            font-size: 11px;
             cursor: pointer;
-            font-size: 10px;
         }
-        .agent-bottom-nav .nav-item i {
+
+        .nav-item i {
+            font-size: 18px;
             display: block;
-            font-size: 16px;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
-        .agent-bottom-nav .nav-item.active {
-            color: #0066ff;
-            font-weight: 600;
+
+        .nav-item.active {
+            color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-    <div class="page">
-        <!-- Top Header -->
-        <div class="agent-top-header">
-            <div class="header-left">
-                <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
-                <div class="agent-avatar-sm">AG</div>
+    <!-- Header -->
+    <div class="header">
+        <i class="fas fa-bars"></i>
+        <div class="agent-profile-info">
+            <div class="agent-name">Agent Name</div>
+            <div class="agent-id">AG-88392</div>
+        </div>
+        <div class="avatar-circle">AG</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Balance Section with Refresh Button -->
+        <div class="balance-card">
+            <div>
+                <span class="balance-title">Available Balance</span>
+                <div class="balance-amount">৳ 250,000.00</div>
             </div>
-            <div class="agent-info-center">
-                <h3 class="agent-name">Agent Name</h3>
-                <span class="agent-id">AG-88392</span>
-            </div>
-            <div class="header-right">
-                <button class="notification-btn"><i class="fa-regular fa-bell"></i></button>
-            </div>
+            <button onclick="refreshBalance()" class="refresh-btn" title="Refresh Balance">
+                <i class="fas fa-sync-alt"></i>
+            </button>
         </div>
 
-        <!-- Available Balance Card -->
-        <div class="agent-balance-card">
-            <span class="balance-label">Available Balance</span>
-            <div class="balance-amount-row">
-                <h2 id="agent-balance">৳ 250,000.00</h2>
-                <div class="balance-icons">
-                    <i class="fa-regular fa-eye"></i>
-                    <i class="fa-solid fa-list-ul"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Action Buttons -->
-        <div class="agent-quick-actions">
+        <!-- Quick Actions -->
+        <div class="action-grid">
             <div class="action-item">
-                <div class="action-icon-box bg-blue"><i class="fa-solid fa-plus"></i></div>
-                <span>Add Money</span>
+                <div class="action-icon bg-blue"><i class="fas fa-plus"></i></div>
+                <div class="action-text">Add Money</div>
             </div>
             <div class="action-item">
-                <div class="action-icon-box bg-green"><i class="fa-solid fa-arrow-down"></i></div>
-                <span>Withdraw</span>
+                <div class="action-icon bg-green"><i class="fas fa-arrow-down"></i></div>
+                <div class="action-text">Withdraw</div>
             </div>
             <div class="action-item">
-                <div class="action-icon-box bg-orange"><i class="fa-solid fa-headset"></i></div>
-                <span>Complaine</span>
+                <div class="action-icon bg-orange"><i class="fas fa-headset"></i></div>
+                <div class="action-text">Complain</div>
             </div>
             <div class="action-item">
-                <div class="action-icon-box bg-purple"><i class="fa-solid fa-credit-card"></i></div>
-                <span>Gateways</span>
+                <div class="action-icon bg-purple"><i class="fas fa-credit-card"></i></div>
+                <div class="action-text">Gateways</div>
             </div>
         </div>
 
         <!-- Request Status Cards -->
-        <div class="agent-request-grid">
-            <div class="req-card border-green">
-                <div class="req-info">
-                    <h4>Deposit Request</h4>
-                    <p class="status-pending text-green"><span>5</span> Pending</p>
-                </div>
-                <i class="fa-solid fa-file-arrow-down req-icon text-green"></i>
+        <div class="request-cards">
+            <div class="req-card deposit">
+                <div class="req-title">Deposit Request</div>
+                <div class="req-count">5 Pending</div>
             </div>
-            <div class="req-card border-red">
-                <div class="req-info">
-                    <h4>Withdraw Request</h4>
-                    <p class="status-pending text-red"><span>2</span> Pending</p>
-                </div>
-                <i class="fa-solid fa-file-arrow-up req-icon text-red"></i>
+            <div class="req-card withdraw">
+                <div class="req-title">Withdraw Request</div>
+                <div class="req-count">2 Pending</div>
             </div>
         </div>
 
-        <!-- Commission Boxes -->
+        <!-- Commission Summary -->
         <div class="commission-box">
-            <span class="comm-title">Today Commission:</span>
-            <span class="comm-amount">৳ 1,250</span>
-        </div>
-        <div class="commission-box">
-            <span class="comm-title">Total Commission:</span>
-            <span class="comm-amount">৳ 14,250</span>
-        </div>
-
-        <!-- Recent Activity Section -->
-        <div class="recent-activity-section">
-            <h3>Recent Activity</h3>
-            
-            <div class="activity-item">
-                <div class="activity-icon-badge bg-soft-green">IN</div>
-                <div class="activity-details">
-                    <h4>bKash Deposit Accepted</h4>
-                    <p>User: @kamal · 2 mins ago</p>
-                </div>
-                <div class="activity-amount text-green">+ ৳ 5,000</div>
+            <div class="commission-row">
+                <span class="commission-label">Today Commission:</span>
+                <span class="commission-val">৳ 1,250</span>
             </div>
-
-            <div class="activity-item">
-                <div class="activity-icon-badge bg-soft-red">OUT</div>
-                <div class="activity-details">
-                    <h4>Nagad Withdraw Sent</h4>
-                    <p>User: @rahim · 12 mins ago</p>
-                </div>
-                <div class="activity-amount text-red">- ৳ 2,500</div>
+            <div class="commission-row">
+                <span class="commission-label">Total Commission:</span>
+                <span class="commission-val">৳ 14,250</span>
             </div>
         </div>
 
-        <!-- Bottom Navigation Bar -->
-        <div class="agent-bottom-nav">
-            <div class="nav-item active">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
+        <!-- Recent Activity -->
+        <div class="section-title">Recent Activity</div>
+        
+        <div class="activity-item">
+            <div class="activity-details">
+                <h4>bKash Deposit Accepted</h4>
+                <p>User: @kamal · 2 mins ago</p>
             </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span>Requests</span>
-            </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-wallet"></i>
-                <span>Transaction</span>
-            </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Reports</span>
-            </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-user"></i>
-                <span>Profile</span>
-            </div>
+            <div class="activity-amount">+ ৳ 5,000</div>
         </div>
+
+        <div class="activity-item">
+            <div class="activity-details">
+                <h4>Nagad Withdraw Sent</h4>
+                <p>User: @rahim · 12 mins ago</p>
+            </div>
+            <div class="activity-amount out">- ৳ 2,500</div>
+        </div>
+
     </div>
 
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-file-invoice-dollar"></i> Requests
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-wallet"></i> Transaction
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-chart-line"></i> Reports
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user"></i> Profile
+        </a>
+    </div>
+
+    <script>
+        function refreshBalance() {
+            const btn = document.querySelector('.refresh-btn i');
+            btn.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                alert('Balance refreshed successfully!');
+            }, 300);
+        }
+    </script>
 </body>
 </html>
