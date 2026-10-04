@@ -11,12 +11,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: #f7f9fc;
-            color: #333;
+            background-color: #0e1217; /* 1xBet style dark/clean background */
+            color: #e4e6eb;
             padding-bottom: 70px;
         }
 
@@ -25,14 +25,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            padding: 12px 16px;
+            background: #17212b;
+            border-bottom: 1px solid #232d3f;
         }
 
         .header i {
-            font-size: 20px;
-            color: #4a5568;
+            font-size: 18px;
+            color: #8a9ba8;
             cursor: pointer;
         }
 
@@ -42,140 +42,141 @@
 
         .agent-name {
             font-weight: 600;
-            font-size: 16px;
-            color: #1a202c;
+            font-size: 14px;
+            color: #ffffff;
         }
 
         .agent-id {
-            font-size: 12px;
-            color: #718096;
+            font-size: 11px;
+            color: #4cd964; /* Active green tag */
+            font-weight: 500;
         }
 
         .avatar-circle {
-            width: 35px;
-            height: 35px;
-            background: #0056b3;
+            width: 32px;
+            height: 32px;
+            background: #1b85ff;
             color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Container */
         .container {
-            padding: 15px;
+            padding: 12px;
         }
 
-        /* Balance Card */
+        /* Balance Card (1xBet Dark Card Style) */
         .balance-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 14px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-            margin-bottom: 20px;
-            border: 1px solid #edf2f7;
+            background: #17212b;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid #232d3f;
+            margin-bottom: 14px;
         }
 
         .balance-title {
-            font-size: 13px;
-            color: #718096;
-            margin-bottom: 5px;
+            font-size: 12px;
+            color: #8a9ba8;
+            margin-bottom: 4px;
             display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .balance-amount {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: #1a202c;
+            color: #4cd964; /* Money Green */
         }
 
         .refresh-btn {
-            background: #f0f2f5;
+            background: #232d3f;
             border: none;
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.4s ease;
-            color: #4a5568;
-            font-size: 16px;
+            transition: all 0.3s ease;
+            color: #1b85ff;
+            font-size: 15px;
         }
 
         .refresh-btn:hover {
-            background: #e2e8f0;
+            background: #1b85ff;
+            color: #fff;
             transform: rotate(180deg);
-            color: #0056b3;
         }
 
         /* Quick Action Buttons Grid */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
 
         .action-item {
-            background: #ffffff;
-            padding: 15px 10px;
-            border-radius: 12px;
+            background: #17212b;
+            padding: 12px 6px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            border: 1px solid #232d3f;
             cursor: pointer;
-            border: 1px solid #edf2f7;
-            transition: transform 0.2s;
+            transition: 0.2s;
         }
 
         .action-item:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
+            background: #232d3f;
         }
 
         .action-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            margin: 0 auto 8px auto;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            margin: 0 auto 6px auto;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
         }
 
-        .bg-blue { background: #007bff; }
+        .bg-blue { background: #1b85ff; }
         .bg-green { background: #28a745; }
-        .bg-orange { background: #fd7e14; }
-        .bg-purple { background: #6f42c1; }
+        .bg-orange { background: #ff9800; }
+        .bg-purple { background: #9c27b0; }
 
         .action-text {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
-            color: #4a5568;
+            color: #c5d0de;
         }
 
         /* Request Status Cards */
         .request-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
 
         .req-card {
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            border: 1px solid #edf2f7;
+            background: #17212b;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #232d3f;
             position: relative;
             overflow: hidden;
         }
@@ -186,94 +187,97 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 4px;
+            width: 3px;
         }
 
         .req-card.deposit::before { background: #28a745; }
-        .req-card.withdraw::before { background: #dc3545; }
+        .req-card.withdraw::before { background: #ff4d4f; }
 
         .req-title {
-            font-size: 12px;
-            color: #718096;
-            margin-bottom: 5px;
+            font-size: 11px;
+            color: #8a9ba8;
+            margin-bottom: 4px;
+            text-transform: uppercase;
         }
 
         .req-count {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
         }
 
         .req-card.deposit .req-count { color: #28a745; }
-        .req-card.withdraw .req-count { color: #dc3545; }
+        .req-card.withdraw .req-count { color: #ff4d4f; }
 
         /* Commission Section */
         .commission-box {
-            background: #fff;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #edf2f7;
+            background: #17212b;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            border: 1px solid #232d3f;
         }
 
         .commission-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            font-size: 14px;
+            padding: 8px 0;
+            font-size: 13px;
         }
 
         .commission-row:not(:last-child) {
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #232d3f;
         }
 
         .commission-label {
-            color: #4a5568;
+            color: #8a9ba8;
         }
 
         .commission-val {
             font-weight: 600;
-            color: #1a202c;
+            color: #ffffff;
         }
 
         /* Recent Activity */
         .section-title {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 12px;
+            color: #8a9ba8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .activity-item {
-            background: #fff;
-            padding: 12px 15px;
-            border-radius: 12px;
+            background: #17212b;
+            padding: 10px 14px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            border: 1px solid #edf2f7;
+            margin-bottom: 8px;
+            border: 1px solid #232d3f;
         }
 
         .activity-details h4 {
-            font-size: 13px;
-            color: #2d3748;
-            margin-bottom: 3px;
+            font-size: 12px;
+            color: #ffffff;
+            margin-bottom: 2px;
         }
 
         .activity-details p {
-            font-size: 11px;
-            color: #718096;
+            font-size: 10px;
+            color: #8a9ba8;
         }
 
         .activity-amount {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: #28a745;
         }
 
         .activity-amount.out {
-            color: #dc3545;
+            color: #ff4d4f;
         }
 
         /* Bottom Navigation */
@@ -282,30 +286,29 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: #fff;
+            background: #17212b;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            border-top: 1px solid #edf2f7;
+            padding: 8px 0;
+            border-top: 1px solid #232d3f;
         }
 
         .nav-item {
             text-align: center;
-            color: #718096;
+            color: #8a9ba8;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 10px;
             cursor: pointer;
         }
 
         .nav-item i {
-            font-size: 18px;
+            font-size: 16px;
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .nav-item.active {
-            color: #0056b3;
+            color: #1b85ff;
         }
     </style>
 </head>
@@ -316,7 +319,7 @@
         <i class="fas fa-bars"></i>
         <div class="agent-profile-info">
             <div class="agent-name">Agent Name</div>
-            <div class="agent-id">AG-88392</div>
+            <div class="agent-id">ID: AG-88392</div>
         </div>
         <div class="avatar-circle">AG</div>
     </div>
