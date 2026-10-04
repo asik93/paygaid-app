@@ -167,22 +167,37 @@
             background: #4d7c0f;
         }
 
-        /* Deposit Details Popup Styles */
+        /* Deposit Details Popup Styles & Fixed Icon Sizes */
         .deposit-header-icons {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 10px;
             background: #f1f5f9;
-            padding: 8px;
+            padding: 12px;
             border-radius: 8px;
             margin-bottom: 14px;
         }
         .deposit-header-icons img {
-            width: 26px;
-            height: 26px;
+            width: 36px !important;
+            height: 36px !important;
             object-fit: contain;
         }
+
+        /* Warning modal icon container fixed sizes */
+        #warningIconsContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        #warningIconsContainer img {
+            width: 40px !important;
+            height: 40px !important;
+            object-fit: contain;
+        }
+
         .rate-display {
             font-size: 14px;
             font-weight: 700;
@@ -312,7 +327,7 @@
     <div class="modal-overlay" id="warningModal">
         <div class="modal-box">
             <button class="close-modal" onclick="closeModals()"><i class="fa-solid fa-xmark"></i></button>
-            <div style="text-align: center; margin-bottom: 12px; display: flex; justify-content: center; gap: 6px;" id="warningIconsContainer"></div>
+            <div id="warningIconsContainer"></div>
             
             <div class="warning-text-box" id="warningTextContent"></div>
 
@@ -355,7 +370,7 @@
     <script>
         let tg = window.Telegram?.WebApp;
         if (tg) {
-            tg.tg?.ready?.();
+            tg.ready?.();
             tg.expand?.();
         }
 
