@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- ক্যাশ সমস্যা চিরতরে দূর করার মেটা ট্যাগ -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>PayGaid Agent Portal</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -457,7 +461,6 @@
         let currentLangCode = "bn";
         let activeLang = "en";
 
-        // All 12 countries with 6 Local Methods + Bank + Crypto
         const gateways = {
             BD: ['bKash', 'Nagad', 'Rocket', 'Upay', 'CellFin', 'Tap', '🏦 Local Bank Transfer', '🪙 Crypto (USDT)'],
             IN: ['UPI / GPay', 'Paytm', 'PhonePe', 'BharatPe', 'Freecharge', 'Mobikwik', '🏦 Bank Account', '🪙 Crypto (USDT)'],
@@ -575,28 +578,31 @@
                 sub1: "آپ کا قابل اعتماد پیمنٹ گیٹ وے اور<br>ای والٹ ایجنٹ پلیٹ فارم۔",
                 sub2: "ہمارے پروگرام کو دیکھیں، ضروریات چیک کریں،<br>یا اپنی درخواست جمع کروائیں۔",
                 m1_title: "ایجنٹ بنیں", m1_sub: "مزید جانیں اور اپنی درخواست جمع کروائیں۔",
-                m2_title: "ایجنٹ لاگ ان", m2_sub: "اپنے ایجنٹ پینل تک رسائی حاصل کریں۔",
+                m2_title: "ایجنٹ لاگ ان", m2_sub: "अपने एजेंट पैनल तक पहुंचें।",
                 m3_title: "پروگرام کا جائزہ", m3_sub: "جانیے کہ پے گیڈ ایجنٹ پروگرام کیسے کام کرتا ہے۔",
-                m4_title: "اہلیت کا معیار", m4_sub: "اہلیت اور مطلوبہ معلومات کا جائزہ لیں۔",
-                m5_title: "شرائط و ضوابط", m5_sub: "پروگرام کی شرائط و ضوابط پڑھیں۔",
-                m6_title: "باقاعدگی سے پوچھے گئے سوالات", m6_sub: "عام سوالات کے جوابات حاصل کریں۔",
-                m7_title: "سپورٹ سے رابطہ کریں", m7_sub: "ہماری سپورٹ ٹیم سے مدد حاصل کریں۔",
-                m8_title: "زبان تبدیل کریں", m8_sub: "अपनी पसंदीदा भाषा चुनें।",
-                m2_content: "اپنے ڈیش بورڈ میں لاگ ان کرنے کے لیے اپنی معلومات درج کریں۔",
-                m3_content: "پے گیڈ آپ کو بہترین کمیشن اور محفوظ ترین نظام کے ساتھ کام کرنے کا موقع فراہم کرتا ہے۔",
-                m4_content: "ضروریات: شناختی کارڈ یا پاسپورٹ، فعال موبائل نمبر اور کاروباری تفصیلات۔",
-                m5_content: "تمام شرائط و ضوابط بین الاقوامی مالیاتی قوانین کے مطابق لاگو ہوتے ہیں۔",
-                m6_content: "سوال: منظوری میں کتنا وقت لگتا ہے؟<br>جواب: معمول کے مطابق 24 سے 48 گھنٹے۔",
-                m7_content: "مدد کی ضرورت ہے؟ ہماری ٹیم سے رابطہ کریں: support@paygaid.com",
-                formHead: "ایجنٹ رجسٹریشن",
-                formS1Title: "مرحلہ 1: ذاتی تفصیلات", formS1Sub: "رابطہ اور دکان کی تفصیلات درج کریں",
+                m4_title: "اہلیت کا معیار", m4_sub: "اہلیت और आवश्यक जानकारी की समीक्षा करें।",
+                m5_title: "شرائط و ضوابط", m5_sub: "प्रोग्राम के नियम और शर्तें पढ़ें।",
+                m6_title: "बاقاعدگی سے پوچھے گئے سوالات", m6_sub: "सामान्य प्रश्नों के उत्तर पाएं।",
+                m7_title: "سپورٹ से رابطہ करें", m7_sub: "हमारी सहायता टीम से मदद लें।",
+                m8_title: "भाषा बदलें", m8_sub: "अपनी पसंदीदा भाषा चुनें।",
+                m2_content: "अपने एजेंट डैशबोर्ड तक पहुँचने के लिए अपने क्रेडेंशियल दर्ज करें।",
+                m3_content: "पेगेड आपको उच्च कमीशन दरों और सुरक्षित लेनदेन के साथ एक आधिकारिक एजेंट के रूप में काम करने की अनुमति देता है।",
+                m4_content: "आवश्यकताएं: मान्य सरकारी पहचान पत्र/पासपोर्ट, सक्रिय मोबाइल नंबर और व्यावसायिक विवरण।",
+                m5_content: "अंतरराष्ट्रीय भुगतान नियमों के अनुसार सभी नियम और शर्तें लागू होती हैं।",
+                m6_content: "प्रश्न: स्वीकृति में कितना समय लगता है?<br>उत्तर: आमतौर पर 24-48 कार्य घंटे लगते हैं।",
+                m7_content: "सहायता चाहिए? हमारी सहायता टीम से 24/7 संपर्क करें: support@paygaid.com",
+                formHead: "एजेंट पंजीकरण",
+                formS1Title: "चरण 1: व्यक्तिगत विवरण", formS1Sub: "संपर्क और दुकान का विवरण प्रदान करें",
                 lblFullname: "पूरा नाम", phFullname: "पूरा नाम दर्ज करें",
-                lblPhone: "موبাইল نمبر", lblBusiness: "کاروبار کا نام", phBusiness: "کاروبار کا نام درج کریں",
-                btnNext1: "اگلا \u2192", formS2Title: "مرحلہ 2: پیمنٹ گیٹ وے", formS2Sub: "لوکل طریقہ منتخب کریں",
-                lblSelectGw: "پেমেন্ট গেটওয়ে সিলেক্ট করুন", lblAccNum: "اکاؤنٹ نمبر", phAccNum: "اکاؤنট نمبر درج کریں",
-                btnBack: "\u2190 واپس", btnNext2: "اگلا \u2192", formS3Title: "مرحلہ 3: تصدیق", formS3Sub: "شناختی کارڈ نمبر درج کریں",
-                lblDocNum: "دستاویز نمبر", phDocNum: "نمبر درج کریں", btnSubmit: "جمع کروائیں \u2714",
-                sucTitle: "درخواست جمع ہو گئی!", sucSub: "شکریہ।"
+                lblPhone: "फ़ोन / व्हाट्सएप नंबर", lblBusiness: "व्यवसाय का नाम", phBusiness: "व्यवसाय का नाम दर्ज करें",
+                btnNext1: "अगला: भुगतान विधियां \u2192",
+                formS2Title: "चरण 2: भुगतान गेटवे", formS2Sub: "अपने देश के लोकप्रिय तरीके चुनें",
+                lblSelectGw: "भुगतान गेटवे चुनें", lblAccNum: "चयनित वॉलेट / खाता संख्या", phAccNum: "खाता नंबर दर्ज करें",
+                btnBack: "\u2190 पीछे जाएं", btnNext2: "अगला: सत्यापन \u2192",
+                formS3Title: "चरण 3: पहचान सत्यापन", formS3Sub: "अपना आईडी/पासपोर्ट नंबर प्रदान करें",
+                lblDocNum: "दस्तावेज़ संख्या (NID / Passport)", phDocNum: "आईडी नंबर दर्ज करें",
+                btnSubmit: "आवेदन जमा करें \u2714",
+                sucTitle: "आवेदन सफलतापूर्वक प्रस्तुत किया गया!", sucSub: "आवेदन करने के लिए धन्यवाद।"
             },
             ar: {
                 back: "رجوع", welcome: "أهلاً بك",
