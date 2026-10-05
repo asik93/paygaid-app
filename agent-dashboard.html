@@ -433,7 +433,7 @@
 <!-- Sidebar Overlay -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-<!-- Sidebar Menu -->
+<!-- Sidebar Menu (All requested pages added here) -->
 <div class="sidebar-menu" id="sidebarMenu">
     <div class="sidebar-profile-header">
         <a href="profile.html" class="sidebar-user-info">
@@ -447,28 +447,40 @@
     </div>
 
     <div class="sidebar-links">
-        <a href="complain.html" class="sidebar-link-item">
+        <a href="deposit-requests.html" class="sidebar-link-item">
             <div class="sidebar-link-left">
-                <div class="sidebar-icon-box orange"><i class="fa-solid fa-headset"></i></div>
-                <span>Complain</span>
+                <div class="sidebar-icon-box"><i class="fa-solid fa-arrow-down"></i></div>
+                <span>Deposit Request</span>
+            </div>
+        </a>
+        <a href="withdraw.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box orange"><i class="fa-solid fa-arrow-up"></i></div>
+                <span>Withdraw Request</span>
+            </div>
+        </a>
+        <a href="recent-activity.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box blue"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <span>Recent Activity</span>
+            </div>
+        </a>
+        <a href="request.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box purple"><i class="fa-solid fa-list-check"></i></div>
+                <span>Requests</span>
             </div>
         </a>
         <a href="transaction.html" class="sidebar-link-item">
             <div class="sidebar-link-left">
                 <div class="sidebar-icon-box blue"><i class="fa-solid fa-wallet"></i></div>
-                <span>Transactions</span>
+                <span>Transaction</span>
             </div>
         </a>
         <a href="reports.html" class="sidebar-link-item">
             <div class="sidebar-link-left">
                 <div class="sidebar-icon-box purple"><i class="fa-solid fa-chart-line"></i></div>
                 <span>Reports</span>
-            </div>
-        </a>
-        <a href="gateways.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box"><i class="fa-solid fa-credit-card"></i></div>
-                <span>Gateways</span>
             </div>
         </a>
         <a href="profile.html" class="sidebar-link-item">
@@ -479,38 +491,20 @@
         </a>
     </div>
 
-    <div class="sidebar-section-title">Settings</div>
-    <div class="sidebar-links" style="margin-bottom: 20px;">
-        <a href="profile.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;"><i class="fa-solid fa-lock"></i></div>
-                <span>Change Password</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size: 11px; color: #94a3b8;"></i>
-        </a>
-        <a href="profile.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;"><i class="fa-solid fa-shield-halved"></i></div>
-                <span>Security</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size: 11px; color: #94a3b8;"></i>
-        </a>
-    </div>
-
     <a href="login.html" class="sidebar-logout-btn">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
     </a>
 </div>
 
 <div class="container">
-    <!-- Top Header Bar -->
+    <!-- Top Header Bar (Profile Avatar links to profile.html) -->
     <div class="top-bar">
         <button class="menu-icon" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
         <div class="user-info" style="text-align: center;">
             <h3>Agent Name</h3>
             <p>ID: AG-88392</p>
         </div>
-        <a href="profile.html" class="user-avatar">AG</a>
+        <a href="profile.html" class="user-avatar" title="View Profile">AG</a>
     </div>
 
     <!-- HOME SECTION -->
@@ -540,7 +534,7 @@
         </a>
     </div>
 
-    <!-- Request Status -->
+    <!-- Request Status (Links to deposit-requests.html and withdraw.html) -->
     <div class="status-row">
         <a href="deposit-requests.html" class="status-card">
             <h4>Deposit Request</h4>
@@ -564,7 +558,7 @@
         </div>
     </div>
 
-    <!-- Recent Activity -->
+    <!-- Recent Activity (Links to recent-activity.html) -->
     <div class="section-header">
         <span class="section-title">Recent Activity</span>
         <a href="recent-activity.html" class="view-all-link">View All</a>
@@ -585,13 +579,13 @@
     </a>
 </div>
 
-<!-- Bottom Navigation Bar -->
+<!-- Bottom Navigation Bar (Updated with correct links) -->
 <div class="bottom-nav">
     <a href="agent-dashboard.html" class="nav-item active">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
     </a>
-    <a href="deposit-requests.html" class="nav-item">
+    <a href="request.html" class="nav-item">
         <i class="fa-solid fa-list-check"></i>
         <span>Requests</span>
     </a>
