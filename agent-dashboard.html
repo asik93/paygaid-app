@@ -68,6 +68,8 @@
             font-weight: 700;
             font-size: 14px;
             color: white;
+            cursor: pointer;
+            text-decoration: none;
         }
         .balance-card {
             background: #1e293b;
@@ -164,6 +166,8 @@
             border-radius: 12px;
             padding: 12px;
             cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
         .status-card h4 {
             font-size: 11px;
@@ -196,13 +200,24 @@
         }
         .commission-item span { color: #94a3b8; }
         .commission-item strong { color: #ffffff; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
         .section-title {
             font-size: 13px;
             font-weight: 700;
             color: #94a3b8;
-            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        .view-all-link {
+            font-size: 11px;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
         }
         .activity-card {
             background: #1e293b;
@@ -213,6 +228,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            text-decoration: none;
+            color: inherit;
         }
         .activity-info h5 {
             font-size: 13px;
@@ -230,8 +247,6 @@
         }
         .text-success { color: #4ade80; }
         .text-danger { color: #f87171; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
         
         .bottom-nav {
             position: fixed;
@@ -265,182 +280,333 @@
         .nav-item.active {
             color: #38bdf8;
         }
+
+        /* Sidebar Styling */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 1998;
+            display: none;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 290px;
+            height: 100%;
+            background: #1e293b;
+            border-right: 1px solid #334155;
+            z-index: 1999;
+            transition: 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 16px;
+            overflow-y: auto;
+        }
+        .sidebar-menu.active {
+            left: 0;
+        }
+        .sidebar-profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 12px;
+        }
+        .sidebar-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .sidebar-avatar {
+            width: 42px;
+            height: 42px;
+            background: #0284c7;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .sidebar-user-details h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .sidebar-user-details p {
+            font-size: 11px;
+            color: #38bdf8;
+        }
+        .sidebar-close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+        .sidebar-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 14px 0 8px 4px;
+        }
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .sidebar-link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 12px;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+        .sidebar-link-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+        }
+        .sidebar-link-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sidebar-icon-box {
+            width: 32px;
+            height: 32px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+        .sidebar-icon-box.blue { background: rgba(2, 132, 199, 0.15); color: #0284c7; }
+        .sidebar-icon-box.purple { background: rgba(147, 51, 234, 0.15); color: #9333ea; }
+        .sidebar-icon-box.orange { background: rgba(234, 88, 12, 0.15); color: #ea580c; }
+
+        .sidebar-logout-btn {
+            margin-top: auto;
+            background: rgba(248, 113, 113, 0.15);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            color: #f87171;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .sidebar-logout-btn:hover {
+            background: rgba(248, 113, 113, 0.25);
+        }
     </style>
 </head>
 <body>
 
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar Menu -->
+<div class="sidebar-menu" id="sidebarMenu">
+    <div class="sidebar-profile-header">
+        <a href="profile.html" class="sidebar-user-info">
+            <div class="sidebar-avatar">AG</div>
+            <div class="sidebar-user-details">
+                <h4>Agent Name</h4>
+                <p>ID: AG-88392</p>
+            </div>
+        </a>
+        <button class="sidebar-close-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="sidebar-links">
+        <a href="complain.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box orange"><i class="fa-solid fa-headset"></i></div>
+                <span>Complain</span>
+            </div>
+        </a>
+        <a href="transaction.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box blue"><i class="fa-solid fa-wallet"></i></div>
+                <span>Transactions</span>
+            </div>
+        </a>
+        <a href="reports.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box purple"><i class="fa-solid fa-chart-line"></i></div>
+                <span>Reports</span>
+            </div>
+        </a>
+        <a href="gateways.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box"><i class="fa-solid fa-credit-card"></i></div>
+                <span>Gateways</span>
+            </div>
+        </a>
+        <a href="profile.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box blue"><i class="fa-solid fa-user"></i></div>
+                <span>Profile</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="sidebar-section-title">Settings</div>
+    <div class="sidebar-links" style="margin-bottom: 20px;">
+        <a href="profile.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;"><i class="fa-solid fa-lock"></i></div>
+                <span>Change Password</span>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="font-size: 11px; color: #94a3b8;"></i>
+        </a>
+        <a href="profile.html" class="sidebar-link-item">
+            <div class="sidebar-link-left">
+                <div class="sidebar-icon-box" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;"><i class="fa-solid fa-shield-halved"></i></div>
+                <span>Security</span>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="font-size: 11px; color: #94a3b8;"></i>
+        </a>
+    </div>
+
+    <a href="login.html" class="sidebar-logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+</div>
+
 <div class="container">
     <!-- Top Header Bar -->
     <div class="top-bar">
-        <button class="menu-icon"><i class="fa-solid fa-bars"></i></button>
+        <button class="menu-icon" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
         <div class="user-info" style="text-align: center;">
             <h3>Agent Name</h3>
             <p>ID: AG-88392</p>
         </div>
-        <div class="user-avatar">AG</div>
+        <a href="profile.html" class="user-avatar">AG</a>
     </div>
 
-    <!-- TAB 1: HOME SECTION -->
-    <div id="tab-home" class="tab-content active">
-        <!-- Balance Card -->
-        <div class="balance-card">
-            <span class="balance-title">Available Balance</span>
-            <div class="balance-amount">৳ 250,000.00</div>
-            <button class="refresh-btn" onclick="refreshBalance()" title="Refresh Balance"><i class="fa-solid fa-rotate"></i></button>
-        </div>
+    <!-- HOME SECTION -->
+    <div class="balance-card">
+        <span class="balance-title">Available Balance</span>
+        <div class="balance-amount">৳ 250,000.00</div>
+        <button class="refresh-btn" onclick="refreshBalance()" title="Refresh Balance"><i class="fa-solid fa-rotate"></i></button>
+    </div>
 
-        <!-- Quick Action Grid -->
-        <div class="action-grid">
-            <!-- Add Money Link -->
-            <a href="add-money.html" class="action-item">
-                <div class="action-icon bg-blue"><i class="fa-solid fa-plus"></i></div>
-                <div class="action-text">Add Money</div>
-            </a>
-            <!-- Withdraw Link to withdraw.html -->
-            <a href="withdraw.html" class="action-item">
-                <div class="action-icon bg-green"><i class="fa-solid fa-arrow-down"></i></div>
-                <div class="action-text">Withdraw</div>
-            </a>
-            <div class="action-item" onclick="openSupport()">
-                <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
-                <div class="action-text">Complain</div>
-            </div>
-            <!-- Gateways Link updated to open gateways.html directly -->
-            <a href="gateways.html" class="action-item">
-                <div class="action-icon bg-purple"><i class="fa-solid fa-credit-card"></i></div>
-                <div class="action-text">Gateways</div>
-            </a>
-        </div>
+    <!-- Quick Action Grid -->
+    <div class="action-grid">
+        <a href="add-money.html" class="action-item">
+            <div class="action-icon bg-blue"><i class="fa-solid fa-plus"></i></div>
+            <div class="action-text">Add Money</div>
+        </a>
+        <a href="withdraw.html" class="action-item">
+            <div class="action-icon bg-green"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="action-text">Withdraw</div>
+        </a>
+        <a href="complain.html" class="action-item">
+            <div class="action-icon bg-orange"><i class="fa-solid fa-headset"></i></div>
+            <div class="action-text">Complain</div>
+        </a>
+        <a href="gateways.html" class="action-item">
+            <div class="action-icon bg-purple"><i class="fa-solid fa-credit-card"></i></div>
+            <div class="action-text">Gateways</div>
+        </a>
+    </div>
 
-        <!-- Request Status -->
-        <div class="status-row">
-            <div class="status-card" onclick="switchTab('requests')">
-                <h4>Deposit Request</h4>
-                <p class="text-pending-dep">5 Pending</p>
-            </div>
-            <div class="status-card" onclick="window.location.href='withdraw.html'">
-                <h4>Withdraw Request</h4>
-                <p class="text-pending-wit">2 Pending</p>
-            </div>
-        </div>
+    <!-- Request Status -->
+    <div class="status-row">
+        <a href="deposit-requests.html" class="status-card">
+            <h4>Deposit Request</h4>
+            <p class="text-pending-dep">5 Pending</p>
+        </a>
+        <a href="withdraw.html" class="status-card">
+            <h4>Withdraw Request</h4>
+            <p class="text-pending-wit">2 Pending</p>
+        </a>
+    </div>
 
-        <!-- Commission Box -->
-        <div class="commission-box">
-            <div class="commission-item">
-                <span>Today Commission:</span>
-                <strong>৳ 1,250</strong>
-            </div>
-            <div class="commission-item">
-                <span>Total Commission:</span>
-                <strong>৳ 14,250</strong>
-            </div>
+    <!-- Commission Box -->
+    <div class="commission-box">
+        <div class="commission-item">
+            <span>Today Commission:</span>
+            <strong>৳ 1,250</strong>
         </div>
-
-        <!-- Recent Activity -->
-        <div class="section-title">Recent Activity</div>
-        <div class="activity-card">
-            <div class="activity-info">
-                <h5>bKash Deposit Accepted</h5>
-                <p>User: @kamal &bull; 2 mins ago</p>
-            </div>
-            <div class="activity-amount text-success">+ ৳ 5,000</div>
-        </div>
-        <div class="activity-card">
-            <div class="activity-info">
-                <h5>Nagad Withdraw Sent</h5>
-                <p>User: @rahim &bull; 12 mins ago</p>
-            </div>
-            <div class="activity-amount text-danger">- ৳ 2,500</div>
+        <div class="commission-item">
+            <span>Total Commission:</span>
+            <strong>৳ 14,250</strong>
         </div>
     </div>
 
-    <!-- TAB 2: REQUESTS SECTION -->
-    <div id="tab-requests" class="tab-content">
-        <div class="section-title">All Pending Requests</div>
-        <div class="activity-card">
-            <div class="activity-info">
-                <h5>Deposit #1042</h5>
-                <p>bKash &bull; ৳ 10,000 &bull; @user1</p>
-            </div>
-            <button style="background: #16a34a; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Approve</button>
-        </div>
-        <div class="activity-card">
-            <div class="activity-info">
-                <h5>Withdraw #1043</h5>
-                <p>Nagad &bull; ৳ 5,000 &bull; @user2</p>
-            </div>
-            <button style="background: #f87171; border:none; color:white; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Process</button>
-        </div>
+    <!-- Recent Activity -->
+    <div class="section-header">
+        <span class="section-title">Recent Activity</span>
+        <a href="recent-activity.html" class="view-all-link">View All</a>
     </div>
-
-    <!-- TAB 3: TRANSACTION SECTION -->
-    <div id="tab-transaction" class="tab-content">
-        <div class="section-title">Transaction History</div>
-        <div class="activity-card">
-            <div class="activity-info">
-                <h5>Fund Transfer</h5>
-                <p>ID: #TXN-99823 &bull; 1 hour ago</p>
-            </div>
-            <div class="activity-amount text-success">+ ৳ 20,000</div>
+    <a href="recent-activity.html" class="activity-card">
+        <div class="activity-info">
+            <h5>bKash Deposit Accepted</h5>
+            <p>User: @kamal &bull; 2 mins ago</p>
         </div>
-    </div>
-
-    <!-- TAB 4: REPORTS SECTION -->
-    <div id="tab-reports" class="tab-content">
-        <div class="section-title">Performance Reports</div>
-        <div class="commission-box">
-            <div class="commission-item">
-                <span>Monthly Volume:</span>
-                <strong>৳ 1,450,000</strong>
-            </div>
-            <div class="commission-item">
-                <span>Total Success Rate:</span>
-                <strong>98.5%</strong>
-            </div>
+        <div class="activity-amount text-success">+ ৳ 5,000</div>
+    </a>
+    <a href="recent-activity.html" class="activity-card">
+        <div class="activity-info">
+            <h5>Nagad Withdraw Sent</h5>
+            <p>User: @rahim &bull; 12 mins ago</p>
         </div>
-    </div>
-
-    <!-- TAB 5: PROFILE SECTION -->
-    <div id="tab-profile" class="tab-content">
-        <div class="section-title">Agent Profile & Gateways</div>
-        <div class="commission-box">
-            <div class="commission-item">
-                <span>Account Status:</span>
-                <strong style="color: #4ade80;">Active</strong>
-            </div>
-            <div class="commission-item">
-                <span>Active Gateways:</span>
-                <strong>bKash, Nagad, Rocket</strong>
-            </div>
-        </div>
-        <!-- Manage Gateways Button Added Here -->
-        <button onclick="window.location.href='gateways.html'" style="width:100%; padding:12px; background:#0284c7; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer; margin-bottom:10px;">Manage Gateways</button>
-        <button onclick="window.location.href='login.html'" style="width:100%; padding:12px; background:#f87171; border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer;">Logout Portal</button>
-    </div>
+        <div class="activity-amount text-danger">- ৳ 2,500</div>
+    </a>
 </div>
 
 <!-- Bottom Navigation Bar -->
 <div class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+    <a href="agent-dashboard.html" class="nav-item active">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('requests')" id="nav-requests">
+    </a>
+    <a href="deposit-requests.html" class="nav-item">
         <i class="fa-solid fa-list-check"></i>
         <span>Requests</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('transaction')" id="nav-transaction">
+    </a>
+    <a href="transaction.html" class="nav-item">
         <i class="fa-solid fa-wallet"></i>
         <span>Transaction</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('reports')" id="nav-reports">
+    </a>
+    <a href="reports.html" class="nav-item">
         <i class="fa-solid fa-chart-line"></i>
         <span>Reports</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+    </a>
+    <a href="profile.html" class="nav-item">
         <i class="fa-solid fa-user"></i>
         <span>Profile</span>
-    </button>
+    </a>
 </div>
 
 <script>
@@ -450,26 +616,15 @@
         tg.expand();
     }
 
-    function switchTab(tabName) {
-        document.querySelectorAll('.tab-content').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        document.querySelectorAll('.nav-item').forEach(nav => {
-            nav.classList.remove('active');
-        });
-
-        document.getElementById('tab-' + tabName).classList.add('active');
-        document.getElementById('nav-' + tabName).classList.add('active');
-
-        window.scrollTo(0, 0);
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebarMenu');
+        const overlay = document.getElementById('sidebarOverlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
     }
 
     function refreshBalance() {
         alert('Balance updated successfully!');
-    }
-
-    function openSupport() {
-        window.location.href = 'complain.html?t=' + new Date().getTime();
     }
 </script>
 </body>
