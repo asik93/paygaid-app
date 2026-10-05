@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Personal Profile - PayGaid Agent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 90px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top Navigation Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Profile Top Hero Card */
+        .profile-hero-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #38bdf8;
+            flex-shrink: 0;
+        }
+        .profile-hero-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .profile-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .profile-id-row {
+            font-size: 13px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .copy-btn {
+            background: none;
+            border: none;
+            color: #38bdf8;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .verified-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            width: fit-content;
+            margin-top: 4px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-left: 4px;
+        }
+
+        /* Info Item Card */
+        .info-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .info-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .info-card-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .info-label {
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: right;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="page-title">Personal Profile</div>
+        </div>
+
+        <!-- Profile Hero Card -->
+        <div class="profile-hero-card">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="profile-hero-info">
+                <div class="profile-name">Alla</div>
+                <div class="profile-id-row">
+                    ID: 112233 
+                    <button class="copy-btn" onclick="alert('Agent ID Copied!')"><i class="fa-regular fa-copy"></i></button>
+                </div>
+                <div class="verified-badge">
+                    <i class="fa-solid fa-circle-check"></i> Verified Agent
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Information Section -->
+        <div class="section-title">Account Information</div>
+        <div class="info-card-list">
+            <div class="info-card">
+                <div class="info-card-left">
+                    <div class="info-icon"><i class="fa-regular fa-user"></i></div>
+                    <div class="info-label">Full Name</div>
+                </div>
+                <div class="info-value">Alla</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-left">
+                    <div class="info-icon"><i class="fa-solid fa-hashtag"></i></div>
+                    <div class="info-label">Agent ID</div>
+                </div>
+                <div class="info-value">112233</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-left">
+                    <div class="info-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <div class="info-label">Phone Number</div>
+                </div>
+                <div class="info-value">+8801586587458</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-left">
+                    <div class="info-icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="info-label">Email Address</div>
+                </div>
+                <div class="info-value">website26apk@gmail.com</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-left">
+                    <div class="info-icon"><i class="fa-regular fa-calendar"></i></div>
+                    <div class="info-label">Registration Date</div>
+                </div>
+                <div class="info-value">9 Aug, 2026</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
