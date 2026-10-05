@@ -82,8 +82,8 @@
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 14px;
+            margin-bottom: 14px;
         }
         .form-group {
             margin-bottom: 12px;
@@ -358,13 +358,23 @@
             <button class="add-wallet-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add New</button>
         </div>
 
-        <!-- User Assigned Country Display Info Box (Locked to Account Profile) -->
-        <div class="form-card" style="padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
-            <div>
-                <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; display: block;">Account Country Profile</span>
-                <span id="userCountryDisplay" style="font-size: 13px; font-weight: 700; color: #38bdf8;">Loading Country...</span>
-            </div>
-            <span id="countryFlagBadge" style="font-size: 20px;">🇧🇩</span>
+        <!-- Account Country Profile Selector (Testing & Dynamic Verification Switcher) -->
+        <div class="form-card">
+            <label class="form-label">Account Country Profile (Auto-Assigned / Switchable for Testing)</label>
+            <select class="form-control" id="accountCountrySelector" onchange="changeAccountCountry(this.value)">
+                <option value="Bangladesh">🇧🇩 Bangladesh</option>
+                <option value="India">🇮🇳 India</option>
+                <option value="Pakistan">🇵🇰 Pakistan</option>
+                <option value="Nepal">🇳🇵 Nepal</option>
+                <option value="Philippines">🇵🇭 Philippines</option>
+                <option value="Vietnam">🇻🇳 Vietnam</option>
+                <option value="Thailand">🇹🇭 Thailand</option>
+                <option value="Malaysia">🇲🇾 Malaysia</option>
+                <option value="Indonesia">🇮🇩 Indonesia</option>
+                <option value="UAE">🇦🇪 UAE</option>
+                <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                <option value="Qatar">🇶🇦 Qatar</option>
+            </select>
         </div>
 
         <!-- Active Wallets List Header -->
@@ -469,25 +479,22 @@
         }
 
         // --- ACCOUNT COUNTRY SETTING ---
-        // এখানে ইউজারের প্রোফাইল/ডাটাবেজ থেকে তার নির্দিষ্ট দেশ সেট হবে। 
-        // আপনি চাইলে ডায়নামিকভাবে ব্যাকএন্ড বা লোকালস্টোরেজ থেকে ইউজারের দেশ এনে এখানে বসাতে পারেন।
-        // উদাহরণস্বরূপ ইউজারের দেশ 'Bangladesh' সেট করা আছে:
         let userCountry = localStorage.getItem('user_country') || 'Bangladesh'; 
 
-        // দেশ অনুযায়ী ফ্ল্যাগ এবং কারেন্সি সাইন ম্যাপিং
+        // দেশ অনুযায়ী কারেন্সি সাইন ম্যাপিং
         const countryMeta = {
-            'Bangladesh': { flag: '🇧🇩', currency: '৳ ' },
-            'India': { flag: '🇮🇳', currency: '₹ ' },
-            'Pakistan': { flag: '🇵🇰', currency: '₨ ' },
-            'Nepal': { flag: '🇳🇵', currency: '₨ ' },
-            'Philippines': { flag: '🇵🇭', currency: '₱ ' },
-            'Vietnam': { flag: '🇻🇳', currency: '₫ ' },
-            'Thailand': { flag: '🇹🇭', currency: '฿ ' },
-            'Malaysia': { flag: '🇲🇾', currency: 'RM ' },
-            'Indonesia': { flag: '🇮🇩', currency: 'Rp ' },
-            'UAE': { flag: '🇦🇪', currency: 'AED ' },
-            'Saudi Arabia': { flag: '🇸🇦', currency: 'ر.س ' },
-            'Qatar': { flag: '🇶🇦', currency: 'ر.ق ' }
+            'Bangladesh': { currency: '৳ ' },
+            'India': { currency: '₹ ' },
+            'Pakistan': { currency: '₨ ' },
+            'Nepal': { currency: '₨ ' },
+            'Philippines': { currency: '₱ ' },
+            'Vietnam': { currency: '₫ ' },
+            'Thailand': { currency: '฿ ' },
+            'Malaysia': { currency: 'RM ' },
+            'Indonesia': { currency: 'Rp ' },
+            'UAE': { currency: 'AED ' },
+            'Saudi Arabia': { currency: 'ر.س ' },
+            'Qatar': { currency: 'ر.ق ' }
         };
 
         // প্রতিটি দেশের জন্য সুনির্দিষ্ট ৬টি করে লোকাল ওয়ালেট, ৬টি ব্যাংক এবং ৬টি ক্রিপ্টো নেটওয়ার্ক
@@ -554,20 +561,31 @@
             }
         };
 
-        // প্রি-কনফিগারড ডেমো ডাটা (লগইন করা ইউজারের দেশের ভিত্তিতে ফিল্টার হবে)
+        // ডিফল্ট ডেমো গেটওয়ে লিস্ট
         let walletData = [
             { id: 1, region: 'Bangladesh', type: 'mobile', name: 'bKash Wallet (Personal)', logo: 'https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png', details: 'Number: 01712345678', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
             { id: 2, region: 'Bangladesh', type: 'bank', name: 'Dutch-Bangla Bank PLC', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'Branch: Motijheel<br>Acc No: <strong>1234567890123</strong>', min: '৳ 1,000', max: '৳ 100,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Bank Transfer', active: true },
-            { id: 3, region: 'Bangladesh', type: 'crypto', name: 'USDT (TRC20)', logo: 'https://assets.coingecko.com/coins/images/325/large/Tether.png', details: 'Address: <strong>TXyz9...GlobalWalletAddr</strong>', min: '$ 10', max: '$ 5,000', commDep: '2.0%', commWd: '1.5%', commSub: '0.5%', badge: 'Crypto Network', active: true }
+            { id: 3, region: 'Bangladesh', type: 'crypto', name: 'USDT (TRC20)', logo: 'https://assets.coingecko.com/coins/images/325/large/Tether.png', details: 'Address: <strong>TXyz9...GlobalWalletAddr</strong>', min: '$ 10', max: '$ 5,000', commDep: '2.0%', commWd: '1.5%', commSub: '0.5%', badge: 'Crypto Network', active: true },
+            
+            // কিছু স্যাম্পল ডাটা অন্যান্য দেশের জন্য যাতে সুইচ করলে লিস্ট খালি না দেখায়
+            { id: 4, region: 'India', type: 'mobile', name: 'Paytm UPI Wallet', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'UPI ID: 9876543210@paytm', min: '₹ 500', max: '₹ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
+            { id: 5, region: 'Pakistan', type: 'mobile', name: 'EasyPaisa Mobile', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'Number: 03001234567', min: '₨ 1,000', max: '₨ 50,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true }
         ];
 
         function initAccountCountry() {
-            if (!countryGatewaysData[userCountry]) {
-                userCountry = 'Bangladesh'; // ডিফল্ট ফলব্যাক
+            let selector = document.getElementById('accountCountrySelector');
+            if (countryGatewaysData[userCountry]) {
+                selector.value = userCountry;
+            } else {
+                userCountry = 'Bangladesh';
+                selector.value = 'Bangladesh';
             }
-            let meta = countryMeta[userCountry] || { flag: '🌐', currency: '$ ' };
-            document.getElementById('userCountryDisplay').innerText = userCountry;
-            document.getElementById('countryFlagBadge').innerText = meta.flag;
+        }
+
+        function changeAccountCountry(selectedCountry) {
+            userCountry = selectedCountry;
+            localStorage.setItem('user_country', userCountry);
+            renderWallets();
         }
 
         function openModal() {
@@ -678,9 +696,6 @@
                 logoUrl = "https://assets.coingecko.com/coins/images/325/large/Tether.png";
             }
 
-            if (name.includes('bKash')) logoUrl = "https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png";
-            else if (name.includes('Nagad')) logoUrl = "https://images.seeklogo.com/logo-png/43/2/nagad-logo-png_seeklogo-437599.png";
-
             let displayName = name;
             let detailsHtml = "";
             if (cat === 'mobile') {
@@ -727,8 +742,12 @@
             let container = document.getElementById('walletListContainer');
             container.innerHTML = "";
             
-            // শুধু লগइन করা ইউজারের দেশের গেটওয়েগুলো ফিল্টার করে দেখাবে
+            // শুধু বর্তমান সিলেক্ট করা বা অ্যাকাউন্ট কান্ট্রির গেটওয়েগুলো ফিল্টার হবে
             let filteredWallets = walletData.filter(w => w.region === userCountry);
+
+            if (filteredWallets.length === 0) {
+                container.innerHTML = `<div style="text-align: center; color: #94a3b8; font-size: 13px; padding: 20px; background: #1e293b; border-radius: 12px; border: 1px solid #334155;">No gateways configured for ${userCountry}. Click 'Add New' to add gateways.</div>`;
+            }
 
             filteredWallets.forEach(w => {
                 let cardClass = w.active ? 'wallet-card' : 'wallet-card inactive';
