@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Transaction History - PayGaid Agent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 90px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top Navigation Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .search-icon-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Search Bar Container */
+        .search-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, margin-bottom 0.3s ease;
+            margin-bottom: 0;
+        }
+        .search-container.active {
+            max-height: 60px;
+            margin-bottom: 16px;
+        }
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+        .search-input {
+            width: 100%;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 10px 15px 10px 40px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #38bdf8;
+        }
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Filter Tabs */
+        .tabs-container {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 18px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-item {
+            font-size: 13px;
+            font-weight: 600;
+            color: #94a3b8;
+            padding-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        .tab-item.active {
+            color: #38bdf8;
+        }
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #38bdf8;
+        }
+
+        /* Transaction Card Style */
+        .trx-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .trx-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .trx-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+        .trx-icon.deposit {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .trx-icon.withdraw {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+        .trx-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .trx-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .trx-user-time {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .trx-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .trx-amount {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .trx-amount.deposit {
+            color: #34d399;
+        }
+        .trx-amount.withdraw {
+            color: #f87171;
+        }
+        .trx-status {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .trx-status.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .trx-status.pending {
+            background: rgba(234, 179, 8, 0.15);
+            color: #facc15;
+        }
+        .trx-status.failed {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .empty-state.active {
+            display: flex;
+        }
+        .empty-icon-bg {
+            width: 70px;
+            height: 70px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .empty-icon-bg i {
+            font-size: 28px;
+            color: #38bdf8;
+        }
+        .empty-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+        .empty-desc {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <div class="top-left">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="page-title">Transaction History</div>
+            </div>
+            <button class="search-icon-btn" onclick="toggleSearch()"><i class="fa-solid fa-search"></i></button>
+        </div>
+
+        <!-- Search Bar Dropdown/Expandable -->
+        <div class="search-container" id="searchContainer">
+            <div class="search-box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by title, user, or status..." oninput="renderTransactions()">
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="tabs-container">
+            <div class="tab-item active" onclick="filterTrx('all', this)">All Transactions</div>
+            <div class="tab-item" onclick="filterTrx('deposit', this)">Deposit</div>
+            <div class="tab-item" onclick="filterTrx('withdraw', this)">Withdraw</div>
+            <div class="tab-item" onclick="filterTrx('commission', this)">Commission</div>
+        </div>
+
+        <!-- Transaction List Container -->
+        <div id="transactionListContainer"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon-bg">
+                <i class="fa-solid fa-receipt"></i>
+            </div>
+            <div class="empty-title">No Transactions Found</div>
+            <div class="empty-desc">Your transaction records will appear here.</div>
+        </div>
+    </div>
+
+    <script>
+        let transactions = [
+            {
+                id: 1,
+                type: 'deposit',
+                title: 'bKash Deposit Accepted',
+                user: '@kamal',
+                time: '06 Oct 2026, 01:10 AM',
+                amount: '+ ৳ 5,000',
+                status: 'success'
+            },
+            {
+                id: 2,
+                type: 'withdraw',
+                title: 'Nagad Withdraw Sent',
+                user: '@rahim',
+                time: '06 Oct 2026, 12:45 AM',
+                amount: '- ৳ 2,500',
+                status: 'success'
+            },
+            {
+                id: 3,
+                type: 'commission',
+                title: 'Agent Commission',
+                user: 'System Bonus',
+                time: '05 Oct 2026, 11:30 PM',
+                amount: '+ ৳ 150',
+                status: 'success'
+            },
+            {
+                id: 4,
+                type: 'deposit',
+                title: 'Rocket Deposit Pending',
+                user: '@tanvir',
+                time: '05 Oct 2026, 10:15 PM',
+                amount: '+ ৳ 10,000',
+                status: 'pending'
+            }
+        ];
+
+        let activeFilter = 'all';
+
+        function toggleSearch() {
+            let searchContainer = document.getElementById('searchContainer');
+            let searchInput = document.getElementById('searchInput');
+            searchContainer.classList.toggle('active');
+            if (searchContainer.classList.contains('active')) {
+                searchInput.focus();
+            } else {
+                searchInput.value = '';
+                renderTransactions();
+            }
+        }
+
+        function renderTransactions() {
+            let container = document.getElementById('transactionListContainer');
+            let emptyState = document.getElementById('emptyState');
+            let searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            container.innerHTML = "";
+
+            let filtered = transactions.filter(item => {
+                let matchesTab = (activeFilter === 'all') || (item.type === activeFilter);
+                let matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
+                                    item.user.toLowerCase().includes(searchQuery) || 
+                                    item.status.toLowerCase().includes(searchQuery);
+                return matchesTab && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                emptyState.classList.add('active');
+                return;
+            } else {
+                emptyState.classList.remove('active');
+            }
+
+            filtered.forEach(item => {
+                let iconClass = item.type === 'deposit' ? 'fa-arrow-down-left-and-arrow-up-right-to-center deposit' : (item.type === 'withdraw' ? 'fa-arrow-up-right-dots withdraw' : 'fa-wallet deposit');
+                let amountClass = item.type === 'withdraw' ? 'withdraw' : 'deposit';
+                let iconBgType = item.type === 'withdraw' ? 'withdraw' : 'deposit';
+
+                container.innerHTML += `
+                    <div class="trx-card">
+                        <div class="trx-left">
+                            <div class="trx-icon ${iconBgType}">
+                                <i class="fa-solid ${iconClass}"></i>
+                            </div>
+                            <div class="trx-details">
+                                <div class="trx-title">${item.title}</div>
+                                <div class="trx-user-time">User: ${item.user} • ${item.time}</div>
+                            </div>
+                        </div>
+                        <div class="trx-right">
+                            <div class="trx-amount ${amountClass}">${item.amount}</div>
+                            <span class="trx-status ${item.status}">${item.status.toUpperCase()}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterTrx(type, element) {
+            activeFilter = type;
+            document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            renderTransactions();
+        }
+
+        window.onload = function() {
+            renderTransactions();
+        };
+    </script>
+</body>
+</html>
