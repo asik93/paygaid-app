@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Recent Activity - PayGaid Agent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 90px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top Navigation Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .filter-tab {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+        .filter-tab.active {
+            background: #0284c7;
+            border-color: #0284c7;
+            color: #ffffff;
+        }
+
+        /* Activity List */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .activity-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .activity-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .activity-icon.deposit {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .activity-icon.withdraw {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+        .activity-icon.commission {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+        }
+        .activity-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .activity-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .activity-user {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .activity-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .activity-amount {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .activity-amount.deposit {
+            color: #34d399;
+        }
+        .activity-amount.withdraw {
+            color: #f87171;
+        }
+        .activity-amount.commission {
+            color: #38bdf8;
+        }
+        .activity-time {
+            font-size: 11px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <div class="top-left">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="page-title">Recent Activity</div>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <div class="filter-tab active" onclick="filterActivity('all', this)">All</div>
+            <div class="filter-tab" onclick="filterActivity('deposit', this)">Deposits</div>
+            <div class="filter-tab" onclick="filterActivity('withdraw', this)">Withdrawals</div>
+            <div class="filter-tab" onclick="filterActivity('commission', this)">Commissions</div>
+        </div>
+
+        <!-- Activity Cards List -->
+        <div class="activity-list" id="activityList">
+            
+            <div class="activity-card" data-category="deposit">
+                <div class="activity-left">
+                    <div class="activity-icon deposit"><i class="fa-solid fa-arrow-down"></i></div>
+                    <div class="activity-info">
+                        <div class="activity-title">bKash Deposit Accepted</div>
+                        <div class="activity-user">User: @kamal</div>
+                    </div>
+                </div>
+                <div class="activity-right">
+                    <div class="activity-amount deposit">+ ৳ 5,000</div>
+                    <div class="activity-time">2 mins ago</div>
+                </div>
+            </div>
+
+            <div class="activity-card" data-category="withdraw">
+                <div class="activity-left">
+                    <div class="activity-icon withdraw"><i class="fa-solid fa-arrow-up"></i></div>
+                    <div class="activity-info">
+                        <div class="activity-title">Nagad Withdraw Sent</div>
+                        <div class="activity-user">User: @rahim</div>
+                    </div>
+                </div>
+                <div class="activity-right">
+                    <div class="activity-amount withdraw">- ৳ 2,500</div>
+                    <div class="activity-time">12 mins ago</div>
+                </div>
+            </div>
+
+            <div class="activity-card" data-category="commission">
+                <div class="activity-left">
+                    <div class="activity-icon commission"><i class="fa-solid fa-percent"></i></div>
+                    <div class="activity-info">
+                        <div class="activity-title">Commission Earned</div>
+                        <div class="activity-user">From bKash Trx #4829</div>
+                    </div>
+                </div>
+                <div class="activity-right">
+                    <div class="activity-amount commission">+ ৳ 150</div>
+                    <div class="activity-time">25 mins ago</div>
+                </div>
+            </div>
+
+            <div class="activity-card" data-category="deposit">
+                <div class="activity-left">
+                    <div class="activity-icon deposit"><i class="fa-solid fa-arrow-down"></i></div>
+                    <div class="activity-info">
+                        <div class="activity-title">Rocket Deposit Accepted</div>
+                        <div class="activity-user">User: @tanvir</div>
+                    </div>
+                </div>
+                <div class="activity-right">
+                    <div class="activity-amount deposit">+ ৳ 10,000</div>
+                    <div class="activity-time">45 mins ago</div>
+                </div>
+            </div>
+
+            <div class="activity-card" data-category="withdraw">
+                <div class="activity-left">
+                    <div class="activity-icon withdraw"><i class="fa-solid fa-arrow-up"></i></div>
+                    <div class="activity-info">
+                        <div class="activity-title">bKash Withdraw Sent</div>
+                        <div class="activity-user">User: @shakil</div>
+                    </div>
+                </div>
+                <div class="activity-right">
+                    <div class="activity-amount withdraw">- ৳ 4,200</div>
+                    <div class="activity-time">1 hour ago</div>
+                </div>
+            </div>
+
+            <div class="activity-card" data-category="commission">
+                <div class="activity-left">
+                    <div class="activity-icon commission"><i class="fa-solid fa-percent"></i></div>
+                    <div class="activity-info">
+                        <div class="activity-title">Commission Earned</div>
+                        <div class="activity-user">From Nagad Trx #3910</div>
+                    </div>
+                </div>
+                <div class="activity-right">
+                    <div class="activity-amount commission">+ ৳ 220</div>
+                    <div class="activity-time">2 hours ago</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function filterActivity(category, element) {
+            // Active tab styling change
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            element.classList.add('active');
+
+            // Show/Hide cards based on category
+            const cards = document.querySelectorAll('.activity-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
