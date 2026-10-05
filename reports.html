@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reports & Analytics - PayGaid Agent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 90px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top Navigation Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Filter Date Dropdown */
+        .filter-dropdown-wrapper {
+            position: relative;
+        }
+        .filter-date-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 36px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            width: 140px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 100;
+            overflow: hidden;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        .dropdown-item {
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dropdown-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+        }
+
+        /* Summary Cards Grid */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .summary-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .summary-title {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .summary-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .summary-value.profit {
+            color: #34d399;
+        }
+
+        /* Main Profit Card */
+        .profit-card {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+        .profit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .profit-header span {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .profit-badge {
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .profit-amount {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .profit-footer {
+            font-size: 11px;
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        /* Detailed Report List */
+        .report-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .report-item {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .report-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .report-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .report-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .report-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .report-date {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .report-item-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .report-earnings {
+            font-size: 13px;
+            font-weight: 700;
+            color: #34d399;
+        }
+        .report-count {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <div class="top-left">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="page-title">Earnings & Reports</div>
+            </div>
+            
+            <!-- Filter Date with Dropdown -->
+            <div class="filter-dropdown-wrapper">
+                <button class="filter-date-btn" onclick="toggleDropdown()">
+                    <span id="selectedFilterText">This Month</span> <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+                </button>
+                <div class="dropdown-menu" id="filterDropdown">
+                    <div class="dropdown-item" onclick="selectFilter('Today')">Today</div>
+                    <div class="dropdown-item" onclick="selectFilter('This Week')">This Week</div>
+                    <div class="dropdown-item" onclick="selectFilter('This Month')">This Month</div>
+                    <div class="dropdown-item" onclick="selectFilter('This Year')">This Year</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Net Profit Card -->
+        <div class="profit-card">
+            <div class="profit-header">
+                <span>Total Net Profit</span>
+                <span class="profit-badge"><i class="fa-solid fa-arrow-trend-up"></i> +14.2%</span>
+            </div>
+            <div class="profit-amount" id="profitAmount">৳ 15,500.00</div>
+            <div class="profit-footer">
+                <i class="fa-solid fa-circle-info"></i> Calculated from all commissions & bonuses
+            </div>
+        </div>
+
+        <!-- Summary Grid -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-title">Today Commission</div>
+                <div class="summary-value profit">৳ 1,250</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Total Commission</div>
+                <div class="summary-value">৳ 14,250</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Total Deposit Vol</div>
+                <div class="summary-value">৳ 250,000</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Total Withdraw Vol</div>
+                <div class="summary-value">৳ 120,000</div>
+            </div>
+        </div>
+
+        <!-- Breakdown Section -->
+        <div class="section-title">Category Wise Breakdown</div>
+        <div class="report-list">
+            <div class="report-item">
+                <div class="report-item-left">
+                    <div class="report-icon"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="report-info">
+                        <div class="report-name">bKash Transactions</div>
+                        <div class="report-date">142 Successful Trx</div>
+                    </div>
+                </div>
+                <div class="report-item-right">
+                    <div class="report-earnings">+ ৳ 7,850</div>
+                    <div class="report-count">Commission</div>
+                </div>
+            </div>
+
+            <div class="report-item">
+                <div class="report-item-left">
+                    <div class="report-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <div class="report-info">
+                        <div class="report-name">Nagad Transactions</div>
+                        <div class="report-date">98 Successful Trx</div>
+                    </div>
+                </div>
+                <div class="report-item-right">
+                    <div class="report-earnings">+ ৳ 5,200</div>
+                    <div class="report-count">Commission</div>
+                </div>
+            </div>
+
+            <div class="report-item">
+                <div class="report-item-left">
+                    <div class="report-icon"><i class="fa-solid fa-award"></i></div>
+                    <div class="report-info">
+                        <div class="report-name">System Bonuses</div>
+                        <div class="report-date">Weekly Target Achieved</div>
+                    </div>
+                </div>
+                <div class="report-item-right">
+                    <div class="report-earnings">+ ৳ 2,450</div>
+                    <div class="report-count">Bonus</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            let dropdown = document.getElementById('filterDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function selectFilter(filterName) {
+            document.getElementById('selectedFilterText').innerText = filterName;
+            document.getElementById('filterDropdown').classList.remove('active');
+
+            // ডেমো হিসেবে ফিল্টার পরিবর্তনের সাথে প্রফিট অ্যামাউন্ট আপডেট করার লজিক
+            let profitEl = document.getElementById('profitAmount');
+            if(filterName === 'Today') {
+                profitEl.innerText = '৳ 1,250.00';
+            } else if(filterName === 'This Week') {
+                profitEl.innerText = '৳ 4,800.00';
+            } else if(filterName === 'This Month') {
+                profitEl.innerText = '৳ 15,500.00';
+            } else if(filterName === 'This Year') {
+                profitEl.innerText = '৳ 128,400.00';
+            }
+        }
+
+        // উইন্ডোতে ক্লিক করলে ড্রপডাউন বন্ধ হয়ে যাবে
+        window.onclick = function(event) {
+            if (!event.target.closest('.filter-dropdown-wrapper')) {
+                let dropdown = document.getElementById('filterDropdown');
+                if (dropdown.classList.contains('active')) {
+                    dropdown.classList.remove('active');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
