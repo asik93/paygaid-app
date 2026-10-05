@@ -68,7 +68,6 @@
             font-weight: 700;
             font-size: 14px;
             color: white;
-            cursor: pointer;
             text-decoration: none;
         }
         .balance-card {
@@ -280,234 +279,22 @@
         .nav-item.active {
             color: #38bdf8;
         }
-
-        /* Sidebar Styling */
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(3px);
-            z-index: 1998;
-            display: none;
-        }
-        .sidebar-overlay.active {
-            display: block;
-        }
-        .sidebar-menu {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 290px;
-            height: 100%;
-            background: #1e293b;
-            border-right: 1px solid #334155;
-            z-index: 1999;
-            transition: 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 16px;
-            overflow-y: auto;
-        }
-        .sidebar-menu.active {
-            left: 0;
-        }
-        .sidebar-profile-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #334155;
-            margin-bottom: 12px;
-        }
-        .sidebar-user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: inherit;
-        }
-        .sidebar-avatar {
-            width: 42px;
-            height: 42px;
-            background: #0284c7;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .sidebar-user-details h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-        .sidebar-user-details p {
-            font-size: 11px;
-            color: #38bdf8;
-        }
-        .sidebar-close-btn {
-            background: none;
-            border: none;
-            font-size: 18px;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-        .sidebar-section-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 14px 0 8px 4px;
-        }
-        .sidebar-links {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .sidebar-link-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 10px 12px;
-            border-radius: 10px;
-            transition: 0.2s;
-        }
-        .sidebar-link-item:hover {
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-        }
-        .sidebar-link-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .sidebar-icon-box {
-            width: 32px;
-            height: 32px;
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-        }
-        .sidebar-icon-box.blue { background: rgba(2, 132, 199, 0.15); color: #0284c7; }
-        .sidebar-icon-box.purple { background: rgba(147, 51, 234, 0.15); color: #9333ea; }
-        .sidebar-icon-box.orange { background: rgba(234, 88, 12, 0.15); color: #ea580c; }
-
-        .sidebar-logout-btn {
-            margin-top: auto;
-            background: rgba(248, 113, 113, 0.15);
-            border: 1px solid rgba(248, 113, 113, 0.3);
-            color: #f87171;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 13px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .sidebar-logout-btn:hover {
-            background: rgba(248, 113, 113, 0.25);
-        }
     </style>
 </head>
 <body>
 
-<!-- Sidebar Overlay -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-<!-- Sidebar Menu (All requested pages added here) -->
-<div class="sidebar-menu" id="sidebarMenu">
-    <div class="sidebar-profile-header">
-        <a href="profile.html" class="sidebar-user-info">
-            <div class="sidebar-avatar">AG</div>
-            <div class="sidebar-user-details">
-                <h4>Agent Name</h4>
-                <p>ID: AG-88392</p>
-            </div>
-        </a>
-        <button class="sidebar-close-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-
-    <div class="sidebar-links">
-        <a href="deposit-requests.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box"><i class="fa-solid fa-arrow-down"></i></div>
-                <span>Deposit Request</span>
-            </div>
-        </a>
-        <a href="withdraw.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box orange"><i class="fa-solid fa-arrow-up"></i></div>
-                <span>Withdraw Request</span>
-            </div>
-        </a>
-        <a href="recent-activity.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box blue"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                <span>Recent Activity</span>
-            </div>
-        </a>
-        <a href="request.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box purple"><i class="fa-solid fa-list-check"></i></div>
-                <span>Requests</span>
-            </div>
-        </a>
-        <a href="transaction.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box blue"><i class="fa-solid fa-wallet"></i></div>
-                <span>Transaction</span>
-            </div>
-        </a>
-        <a href="reports.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box purple"><i class="fa-solid fa-chart-line"></i></div>
-                <span>Reports</span>
-            </div>
-        </a>
-        <a href="profile.html" class="sidebar-link-item">
-            <div class="sidebar-link-left">
-                <div class="sidebar-icon-box blue"><i class="fa-solid fa-user"></i></div>
-                <span>Profile</span>
-            </div>
-        </a>
-    </div>
-
-    <a href="login.html" class="sidebar-logout-btn">
-        <i class="fa-solid fa-right-from-bracket"></i> Logout
-    </a>
-</div>
-
 <div class="container">
-    <!-- Top Header Bar (Profile Avatar links to profile.html) -->
+    <!-- Top Header Bar -->
     <div class="top-bar">
-        <button class="menu-icon" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+        <button class="menu-icon" onclick="window.location.href='profile.html'"><i class="fa-solid fa-bars"></i></button>
         <div class="user-info" style="text-align: center;">
             <h3>Agent Name</h3>
             <p>ID: AG-88392</p>
         </div>
-        <a href="profile.html" class="user-avatar" title="View Profile">AG</a>
+        <a href="profile.html" class="user-avatar">AG</a>
     </div>
 
-    <!-- HOME SECTION -->
+    <!-- MAIN DASHBOARD CONTENT -->
     <div class="balance-card">
         <span class="balance-title">Available Balance</span>
         <div class="balance-amount">৳ 250,000.00</div>
@@ -534,7 +321,7 @@
         </a>
     </div>
 
-    <!-- Request Status (Links to deposit-requests.html and withdraw.html) -->
+    <!-- Request Status -->
     <div class="status-row">
         <a href="deposit-requests.html" class="status-card">
             <h4>Deposit Request</h4>
@@ -558,7 +345,7 @@
         </div>
     </div>
 
-    <!-- Recent Activity (Links to recent-activity.html) -->
+    <!-- Recent Activity -->
     <div class="section-header">
         <span class="section-title">Recent Activity</span>
         <a href="recent-activity.html" class="view-all-link">View All</a>
@@ -579,7 +366,7 @@
     </a>
 </div>
 
-<!-- Bottom Navigation Bar (Updated with correct links) -->
+<!-- Bottom Navigation Bar (Directly Linked to Separate HTML files) -->
 <div class="bottom-nav">
     <a href="agent-dashboard.html" class="nav-item active">
         <i class="fa-solid fa-house"></i>
@@ -608,13 +395,6 @@
     if (tg) {
         tg.ready();
         tg.expand();
-    }
-
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebarMenu');
-        const overlay = document.getElementById('sidebarOverlay');
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
     }
 
     function refreshBalance() {
