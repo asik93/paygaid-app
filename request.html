@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Requests - PayGaid Agent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 90px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top Navigation Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .filter-icon-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        /* Tabs Container */
+        .tabs-container {
+            display: flex;
+            gap: 15px;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-item {
+            font-size: 13px;
+            font-weight: 600;
+            color: #94a3b8;
+            padding-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab-item span {
+            background: #1e293b;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-size: 10px;
+            color: #94a3b8;
+        }
+        .tab-item.active {
+            color: #38bdf8;
+        }
+        .tab-item.active span {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+        }
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #38bdf8;
+        }
+
+        /* Request Card Style */
+        .request-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #334155;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-icon-bg {
+            width: 36px;
+            height: 36px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 14px;
+        }
+        .user-icon-bg.withdraw {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+        }
+        .serial-id {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .status-badge.pending {
+            background: rgba(234, 179, 8, 0.15);
+            color: #facc15;
+        }
+        .status-badge.approved {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .status-badge.rejected {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .grid-label {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .grid-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .grid-value.amount-deposit {
+            color: #34d399;
+        }
+        .grid-value.amount-withdraw {
+            color: #f87171;
+        }
+        .grid-value.commission {
+            color: #38bdf8;
+        }
+        .grid-value.trx-id {
+            color: #38bdf8;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-reject {
+            flex: 1;
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #f87171;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: 0.2s;
+        }
+        .btn-reject:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .btn-approve {
+            flex: 1.2;
+            background: transparent;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: 0.2s;
+        }
+        .btn-approve:hover {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .empty-state.active {
+            display: flex;
+        }
+        .empty-icon-bg {
+            width: 70px;
+            height: 70px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .empty-icon-bg i {
+            font-size: 28px;
+            color: #38bdf8;
+        }
+        .empty-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+        .empty-desc {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <div class="top-left">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="page-title">Requests</div>
+            </div>
+            <button class="filter-icon-btn"><i class="fa-solid fa-sliders"></i></button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tab-item active" onclick="switchTab('all', this)">All <span id="count-all">0</span></div>
+            <div class="tab-item" onclick="switchTab('deposit', this)">Deposit <span id="count-deposit">0</span></div>
+            <div class="tab-item" onclick="switchTab('withdraw', this)">Withdraw <span id="count-withdraw">0</span></div>
+        </div>
+
+        <!-- Requests List Container -->
+        <div id="requestsListContainer"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon-bg">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <div class="empty-title">No Requests Available</div>
+            <div class="empty-desc">New requests will appear here automatically.</div>
+        </div>
+    </div>
+
+    <script>
+        // ডেমো ডেটা: ডিপোজিটের ক্ষেত্রে ট্রানজেকশন আইডি (trxId) এবং উইথড্রর ক্ষেত্রে অ্যাকাউন্ট (account) রাখা হয়েছে
+        let allRequests = [
+            {
+                id: 1,
+                type: 'deposit',
+                serialId: "#DP-301",
+                amount: 5000,
+                commission: 100,
+                trxId: "TRX987654XYZ",
+                date: "06 Oct 2026",
+                time: "01:10 AM",
+                method: "bkash",
+                status: "pending"
+            },
+            {
+                id: 2,
+                type: 'withdraw',
+                serialId: "#WD-501",
+                amount: 2500,
+                commission: 50,
+                account: "01822223344",
+                date: "06 Oct 2026",
+                time: "01:15 AM",
+                method: "nagad",
+                status: "pending"
+            }
+        ];
+
+        let currentTab = 'all';
+
+        function renderRequests() {
+            let container = document.getElementById('requestsListContainer');
+            let emptyState = document.getElementById('emptyState');
+            container.innerHTML = "";
+
+            let filtered = allRequests.filter(item => {
+                if (currentTab === 'all') return true;
+                return item.type === currentTab;
+            });
+
+            // কাউন্ট আপডেট
+            document.getElementById('count-all').innerText = allRequests.length;
+            document.getElementById('count-deposit').innerText = allRequests.filter(i => i.type === 'deposit').length;
+            document.getElementById('count-withdraw').innerText = allRequests.filter(i => i.type === 'withdraw').length;
+
+            if (filtered.length === 0) {
+                emptyState.classList.add('active');
+                return;
+            } else {
+                emptyState.classList.remove('active');
+            }
+
+            filtered.forEach(item => {
+                let statusBadgeClass = item.status;
+                let statusText = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+                
+                let iconClass = item.type === 'deposit' ? 'fa-arrow-down-left-and-arrow-up-right-to-center' : 'fa-arrow-up-right-dots';
+                let iconBgClass = item.type === 'deposit' ? '' : 'withdraw';
+                let amountClass = item.type === 'deposit' ? 'amount-deposit' : 'amount-withdraw';
+                let amountSign = '৳ ';
+
+                // ডিপোজিট হলে ট্রানজেকশন আইডি এবং উইথড্র হলে অ্যাকাউন্ট নম্বর শো করবে
+                let thirdFieldLabel = item.type === 'deposit' ? 'Trx ID' : 'Account';
+                let thirdFieldValue = item.type === 'deposit' ? `<span class="grid-value trx-id">${item.trxId}</span>` : `<span class="grid-value">${item.account}</span>`;
+
+                let actionsHtml = '';
+                if (item.status === 'pending') {
+                    let approveText = item.type === 'withdraw' ? 'Approve & Pay' : 'Approve';
+                    let approveIcon = item.type === 'withdraw' ? 'fa-check-to-slot' : 'fa-check';
+                    
+                    actionsHtml = `
+                        <div class="card-actions">
+                            <button class="btn-reject" onclick="updateStatus(${item.id}, 'rejected')"><i class="fa-solid fa-xmark"></i> Reject</button>
+                            <button class="btn-approve" onclick="updateStatus(${item.id}, 'approved')"><i class="fa-solid ${approveIcon}"></i> ${approveText}</button>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="request-card">
+                        <div class="card-header-top">
+                            <div class="user-info">
+                                <div class="user-icon-bg ${iconBgClass}"><i class="fa-solid ${iconClass}"></i></div>
+                                <div class="serial-id">${item.serialId} (${item.type.toUpperCase()})</div>
+                            </div>
+                            <span class="status-badge ${statusBadgeClass}">${statusText}</span>
+                        </div>
+                        <div class="card-grid">
+                            <div class="grid-item">
+                                <span class="grid-label">Amount</span>
+                                <span class="grid-value ${amountClass}">${amountSign}${item.amount.toLocaleString()}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">${thirdFieldLabel}</span>
+                                ${thirdFieldValue}
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Method</span>
+                                <span class="grid-value" style="text-transform: uppercase;">${item.method}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Date</span>
+                                <span class="grid-value">${item.date}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Time</span>
+                                <span class="grid-value">${item.time}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Commission</span>
+                                <span class="grid-value commission">৳ ${item.commission.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        ${actionsHtml}
+                    </div>
+                `;
+            });
+        }
+
+        function updateStatus(id, newStatus) {
+            let req = allRequests.find(r => r.id === id);
+            if (req) {
+                req.status = newStatus;
+                renderRequests();
+            }
+        }
+
+        function switchTab(tab, element) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            renderRequests();
+        }
+
+        window.onload = function() {
+            renderRequests();
+        };
+    </script>
+</body>
+</html>
