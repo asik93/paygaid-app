@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Deposit Requests - PayGaid Agent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            color-scheme: dark !important;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0e1217 !important;
+            color: #e4e6eb !important;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        /* Top Navigation Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .filter-icon-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        /* Search Bar */
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .search-input {
+            width: 100%;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px 14px 12px 40px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s;
+        }
+        .search-input:focus {
+            border-color: #38bdf8;
+        }
+        /* Status Tabs */
+        .tabs-container {
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-item {
+            font-size: 13px;
+            font-weight: 600;
+            color: #94a3b8;
+            padding-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab-item span {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            color: #94a3b8;
+        }
+        .tab-item.active {
+            color: #10b981;
+        }
+        .tab-item.active span {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #10b981;
+        }
+        
+        /* Request Card Style */
+        .request-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #334155;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-icon-bg {
+            width: 36px;
+            height: 36px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 14px;
+        }
+        .serial-id {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .status-badge.pending {
+            background: rgba(234, 179, 8, 0.15);
+            color: #facc15;
+        }
+        .status-badge.approved {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .status-badge.rejected {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .grid-label {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .grid-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .grid-value.amount {
+            color: #38bdf8;
+        }
+        .grid-value.commission {
+            color: #34d399;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-reject {
+            flex: 1;
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #f87171;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .btn-reject:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .btn-approve {
+            flex: 1;
+            background: transparent;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .btn-approve:hover {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .empty-state.active {
+            display: flex;
+        }
+        .empty-icon-bg {
+            width: 70px;
+            height: 70px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .empty-icon-bg i {
+            font-size: 28px;
+            color: #10b981;
+        }
+        .empty-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+        .empty-desc {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* Modal Overlay for Filter */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(14, 18, 23, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
+            background: #1e293b;
+            border-top: 1px solid #334155;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+        .modal-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #334155;
+            cursor: pointer;
+        }
+        .filter-option:last-child {
+            border-bottom: none;
+        }
+        .filter-option-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .filter-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .filter-sub {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .radio-circle {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .filter-option.selected .radio-circle {
+            border-color: #10b981;
+        }
+        .filter-option.selected .radio-circle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-left">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="page-title">Deposit Requests</div>
+            </div>
+            <button class="filter-icon-btn" onclick="openFilterModal()"><i class="fa-solid fa-bars-staggered"></i></button>
+        </div>
+
+        <!-- Search Input -->
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by Serial ID or Transaction ID..." onkeyup="filterRequests()">
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tab-item active" onclick="switchTab('all', this)">All <span id="count-all">0</span></div>
+            <div class="tab-item" onclick="switchTab('pending', this)">Pending <span id="count-pending">0</span></div>
+            <div class="tab-item" onclick="switchTab('approved', this)">Approved <span id="count-approved">0</span></div>
+            <div class="tab-item" onclick="switchTab('rejected', this)">Rejected <span id="count-rejected">0</span></div>
+        </div>
+
+        <!-- Requests List Container -->
+        <div id="requestsListContainer"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon-bg">
+                <i class="fa-solid fa-receipt"></i>
+            </div>
+            <div class="empty-title">No Deposit Requests Found</div>
+            <div class="empty-desc">New requests will appear here automatically.</div>
+        </div>
+    </div>
+
+    <!-- Filter Bottom Sheet Modal -->
+    <div class="modal-overlay" id="filterModal" onclick="closeFilterModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-title">Filter By Amount</div>
+            
+            <div class="filter-option selected" onclick="selectFilter('all', this)">
+                <div class="filter-option-left">
+                    <span class="filter-name">All</span>
+                    <span class="filter-sub">Show all requests</span>
+                </div>
+                <div class="radio-circle"></div>
+            </div>
+
+            <div class="filter-option" onclick="selectFilter('high-low', this)">
+                <div class="filter-option-left">
+                    <span class="filter-name">High to Low</span>
+                    <span class="filter-sub">Sort by highest amount first</span>
+                </div>
+                <div class="radio-circle"></div>
+            </div>
+
+            <div class="filter-option" onclick="selectFilter('low-high', this)">
+                <div class="filter-option-left">
+                    <span class="filter-name">Low to High</span>
+                    <span class="filter-sub">Sort by lowest amount first</span>
+                </div>
+                <div class="radio-circle"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ডেমো ডেটা (যেখানে ফোন নম্বরের পরিবর্তে সিরিয়াল আইডি বা টোকেন রাখা হয়েছে)
+        let depositRequests = [
+            {
+                id: 1,
+                serialId: "#REQ-1001",
+                amount: 50000,
+                txId: "TXJCKgVg",
+                date: "06 Oct 2026",
+                time: "12:36 AM",
+                method: "bkash",
+                commission: 2500,
+                status: "pending" 
+            },
+            {
+                id: 2,
+                serialId: "#REQ-1002",
+                amount: 15000,
+                txId: "TX9876Ab",
+                date: "06 Oct 2026",
+                time: "12:10 AM",
+                method: "nagad",
+                commission: 750,
+                status: "pending"
+            }
+        ];
+
+        let currentTab = 'all';
+        let currentSort = 'all';
+
+        function renderRequests() {
+            let container = document.getElementById('requestsListContainer');
+            let emptyState = document.getElementById('emptyState');
+            container.innerHTML = "";
+
+            let searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            // ফিল্টারিং (সিরিয়াল আইডি এবং ট্রানজাকশন আইডি দিয়ে সার্চ করার ব্যবস্থা)
+            let filtered = depositRequests.filter(item => {
+                let matchesTab = (currentTab === 'all') || (item.status === currentTab);
+                let matchesSearch = item.txId.toLowerCase().includes(searchQuery) || item.serialId.toLowerCase().includes(searchQuery);
+                return matchesTab && matchesSearch;
+            });
+
+            // সর্টিং
+            if (currentSort === 'high-low') {
+                filtered.sort((a, b) => b.amount - a.amount);
+            } else if (currentSort === 'low-high') {
+                filtered.sort((a, b) => a.amount - b.amount);
+            }
+
+            // কাউন্ট আপডেট
+            document.getElementById('count-all').innerText = depositRequests.length;
+            document.getElementById('count-pending').innerText = depositRequests.filter(i => i.status === 'pending').length;
+            document.getElementById('count-approved').innerText = depositRequests.filter(i => i.status === 'approved').length;
+            document.getElementById('count-rejected').innerText = depositRequests.filter(i => i.status === 'rejected').length;
+
+            if (filtered.length === 0) {
+                emptyState.classList.add('active');
+                return;
+            } else {
+                emptyState.classList.remove('active');
+            }
+
+            filtered.forEach(item => {
+                let statusBadgeClass = item.status;
+                let statusText = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+                
+                let actionsHtml = '';
+                if (item.status === 'pending') {
+                    actionsHtml = `
+                        <div class="card-actions">
+                            <button class="btn-reject" onclick="updateStatus(${item.id}, 'rejected')"><i class="fa-solid fa-xmark"></i> Reject</button>
+                            <button class="btn-approve" onclick="updateStatus(${item.id}, 'approved')"><i class="fa-solid fa-check"></i> Approve</button>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="request-card">
+                        <div class="card-header-top">
+                            <div class="user-info">
+                                <div class="user-icon-bg"><i class="fa-solid fa-hashtag"></i></div>
+                                <div class="serial-id">${item.serialId}</div>
+                            </div>
+                            <span class="status-badge ${statusBadgeClass}">${statusText}</span>
+                        </div>
+                        <div class="card-grid">
+                            <div class="grid-item">
+                                <span class="grid-label">Amount</span>
+                                <span class="grid-value amount">৳ ${item.amount.toLocaleString()}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Transaction ID</span>
+                                <span class="grid-value">${item.txId}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Date</span>
+                                <span class="grid-value">${item.date}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Time</span>
+                                <span class="grid-value">${item.time}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Method</span>
+                                <span class="grid-value" style="text-transform: uppercase;">${item.method}</span>
+                            </div>
+                            <div class="grid-item">
+                                <span class="grid-label">Commission</span>
+                                <span class="grid-value commission">৳ ${item.commission.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        ${actionsHtml}
+                    </div>
+                `;
+            });
+        }
+
+        function updateStatus(id, newStatus) {
+            let req = depositRequests.find(r => r.id === id);
+            if (req) {
+                req.status = newStatus;
+                // ব্যাকএন্ডে API কল করে মেইন ব্যালেন্সে অ্যাড করার লজিক এখানে যুক্ত হবে
+                renderRequests();
+            }
+        }
+
+        function switchTab(tab, element) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            renderRequests();
+        }
+
+        function filterRequests() {
+            renderRequests();
+        }
+
+        function openFilterModal() {
+            document.getElementById('filterModal').classList.add('active');
+        }
+
+        function closeFilterModal(e) {
+            document.getElementById('filterModal').classList.remove('active');
+        }
+
+        function selectFilter(sortType, element) {
+            currentSort = sortType;
+            document.querySelectorAll('.filter-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            renderRequests();
+            setTimeout(() => {
+                closeFilterModal();
+            }, 200);
+        }
+
+        // পেজ লোড হলে রেন্ডার করা
+        window.onload = function() {
+            renderRequests();
+        };
+    </script>
+</body>
+</html>
