@@ -1,255 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Become an Agent - PayGaid</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --accent-blue: #2563eb;
-      --accent-green: #22c55e;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --border-color: #334155;
-      --input-bg: #0f172a;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become an Agent - PayGaid</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 16px;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        /* Top Header */
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .top-header h2 {
+            font-size: 18px;
+            color: #0f172a;
+        }
+        .back-btn, .menu-dots {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #475569;
+            cursor: pointer;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
-    .container { width: 100%; max-width: 480px; }
-    
-    /* Top Bar */
-    .top-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 18px; font-weight: 600; }
-    .back-btn { color: var(--text-main); text-decoration: none; font-size: 20px; }
+        /* Multi-step Form Sections */
+        .form-section {
+            display: none;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .form-section.active {
+            display: block;
+        }
+        .steps-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        .step-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .step-dot.active {
+            background: #2563eb;
+            color: #fff;
+        }
+        .step-dot.completed {
+            background: #10b981;
+            color: #fff;
+        }
+        .step-line {
+            flex-grow: 1;
+            height: 3px;
+            background: #e2e8f0;
+            margin: 0 8px;
+        }
+        .step-line.completed {
+            background: #10b981;
+        }
 
-    /* Stepper */
-    .stepper { display: flex; justify-content: space-between; align-items: center; position: relative; margin-bottom: 25px; padding: 0 40px; }
-    .stepper::before { content: ''; position: absolute; top: 50%; left: 60px; right: 60px; height: 2px; background: var(--border-color); z-index: 1; }
-    .step-node { width: 32px; height: 32px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; position: relative; z-index: 2; color: var(--text-sub); }
-    .step-node.active { background: var(--accent-blue); color: #fff; }
-    .step-node.completed { background: var(--accent-green); color: #fff; }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #0f172a;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: #2563eb;
+            background: #fff;
+        }
+        .upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 12px;
+        }
+        .upload-box i {
+            font-size: 20px;
+            color: #2563eb;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .file-name-display {
+            font-size: 12px;
+            color: #10b981;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            flex: 1;
+            padding: 11px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
 
-    /* Card Layout */
-    .card { background: var(--card-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); }
-    .step-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
-    .step-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 18px; }
-
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-main); margin-bottom: 6px; }
-    .form-control { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 14px; outline: none; }
-    .form-control:focus { border-color: var(--accent-blue); }
-
-    /* Gateway Grid */
-    .gateway-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-    .gateway-btn { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.2s; color: var(--text-main); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .gateway-btn.selected { border-color: var(--accent-blue); background: rgba(37,99,235,0.1); color: #60a5fa; font-weight: bold; }
-
-    /* Upload Box */
-    .upload-box { border: 2px dashed var(--border-color); border-radius: 10px; padding: 20px; text-align: center; color: var(--text-sub); cursor: pointer; background: var(--input-bg); font-size: 13px; }
-    .upload-box:hover { border-color: var(--accent-blue); }
-
-    /* Checkbox */
-    .checkbox-group { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-sub); margin-bottom: 15px; cursor: pointer; }
-    .checkbox-group input { width: 16px; height: 16px; accent-color: var(--accent-blue); }
-
-    /* Buttons */
-    .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-    .btn { flex: 1; padding: 14px 10px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 5px; text-align: center; }
-    .btn-primary { background: var(--accent-blue); color: white; }
-    .btn-success { background: var(--accent-green); color: white; }
-    .btn-secondary { background: var(--border-color); color: var(--text-main); }
-
-    .hidden { display: none; }
-  </style>
+        /* Status View Screen */
+        .status-box {
+            text-align: center;
+            padding: 20px 10px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+        .status-icon {
+            width: 64px;
+            height: 64px;
+            background: #d1fae5;
+            color: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+        }
+        .status-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: left;
+            margin-top: 16px;
+        }
+        .status-card p {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .status-card h4 {
+            font-size: 15px;
+            color: #0f172a;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <a href="index.html" class="back-btn">&#8592;</a>
-    <span>Become an Agent <span style="color: var(--accent-green);">✔</span></span>
-  </div>
-
-  <!-- Stepper Header -->
-  <div class="stepper">
-    <div class="step-node active" id="node-1">1</div>
-    <div class="step-node" id="node-2">2</div>
-    <div class="step-node" id="node-3">3</div>
-  </div>
-
-  <!-- Step 1: Personal Details -->
-  <div class="card" id="step-1">
-    <div class="step-title">Step 1: Personal Details</div>
-    <div class="step-sub">Provide your contact and identity details</div>
-
-    <div class="form-group">
-      <label>Full Name</label>
-      <input type="text" class="form-control" placeholder="e.g. John Doe">
+    <!-- Top Header -->
+    <div class="top-header">
+        <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+        <h2>Become an Agent</h2>
+        <button class="menu-dots"><i class="fa-solid fa-ellipsis-vertical"></i></button>
     </div>
 
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" class="form-control" placeholder="example@mail.com">
+    <!-- Multi-Step Form Container -->
+    <div id="formView">
+        <!-- Step Indicators -->
+        <div class="steps-indicator">
+            <div class="step-dot active" id="dot1">1</div>
+            <div class="step-line" id="line1"></div>
+            <div class="step-dot" id="dot2">2</div>
+            <div class="step-line" id="line2"></div>
+            <div class="step-dot" id="dot3">3</div>
+        </div>
+
+        <!-- Step 1: Personal Details -->
+        <div class="form-section active" id="step1Form">
+            <h3 style="font-size: 16px; margin-bottom: 4px; color: #0f172a;">Step 1: Personal Details</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Provide your contact and identity details</p>
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control" placeholder="e.g. John Doe">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="form-control" placeholder="example@mail.com">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="text" class="form-control" placeholder="+880 1700-000000">
+            </div>
+            <div class="form-group">
+                <label>WhatsApp Number</label>
+                <input type="text" class="form-control" placeholder="+880 1700-000000">
+            </div>
+            <div class="form-group">
+                <label>Telegram Username</label>
+                <input type="text" class="form-control" placeholder="@username">
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <select class="form-control">
+                    <option>Bangladesh</option>
+                    <option>India</option>
+                    <option>Pakistan</option>
+                    <option>Nepal</option>
+                    <option>Philippines</option>
+                    <option>Vietnam</option>
+                    <option>Thailand</option>
+                    <option>Malaysia</option>
+                    <option>Indonesia</option>
+                    <option>UAE</option>
+                    <option>Saudi Arabia</option>
+                    <option>Qatar</option>
+                </select>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="nextStep(2)">Next: Wallet Details →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Wallet Details -->
+        <div class="form-section" id="step2Form">
+            <h3 style="font-size: 16px; margin-bottom: 4px; color: #0f172a;">Step 2: Wallet & Financial Info</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Set up your receiving wallet & business capacity</p>
+            
+            <div class="form-group">
+                <label>Wallet Name</label>
+                <input type="text" class="form-control" placeholder="e.g. bKash / Nagad / USDT">
+            </div>
+            <div class="form-group">
+                <label>Wallet Number / Address</label>
+                <input type="text" class="form-control" placeholder="Account Number or Wallet Address">
+            </div>
+            <div class="form-group">
+                <label>Wallet Type</label>
+                <select class="form-control">
+                    <option>Personal</option>
+                    <option>Agent</option>
+                    <option>Merchant</option>
+                    <option>Bank Transfer</option>
+                    <option>Cryptocurrency</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Preferred Currency</label>
+                <select class="form-control">
+                    <option>BDT (৳) - Bangladesh</option>
+                    <option>INR (₹) - India</option>
+                    <option>PKR (₨) - Pakistan</option>
+                    <option>NPR (₨) - Nepal</option>
+                    <option>PHP (₱) - Philippines</option>
+                    <option>VND (₫) - Vietnam</option>
+                    <option>THB (฿) - Thailand</option>
+                    <option>MYR (RM) - Malaysia</option>
+                    <option>IDR (Rp) - Indonesia</option>
+                    <option>AED (د.إ) - UAE</option>
+                    <option>SAR (ر.س) - Saudi Arabia</option>
+                    <option>QAR (ر.ق) - Qatar</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Expected Daily Transaction Volume</label>
+                <input type="text" class="form-control" placeholder="e.g. $1,000 - $5,000">
+            </div>
+            <div class="form-group">
+                <label>Available Working Capital</label>
+                <input type="text" class="form-control" placeholder="e.g. $500 initial liquidity">
+            </div>
+
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="nextStep(1)">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep(3)">Next: Verification →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Verification & Submit -->
+        <div class="form-section" id="step3Form">
+            <h3 style="font-size: 16px; margin-bottom: 4px; color: #0f172a;">Step 3: Identity & Verification</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Upload document and state your experience</p>
+            
+            <div class="form-group">
+                <label>Previous Agent / Payment Experience</label>
+                <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking">
+            </div>
+            <div class="form-group">
+                <label>Identity Document Type</label>
+                <select class="form-control">
+                    <option>National ID (NID)</option>
+                    <option>Passport</option>
+                    <option>Trade License</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Document Number</label>
+                <input type="text" class="form-control" placeholder="Enter ID / Passport Number">
+            </div>
+            <div class="form-group">
+                <label>Upload Document Image</label>
+                <!-- Hidden file input for actual file selection -->
+                <input type="file" id="documentFile" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                <div class="upload-box" onclick="document.getElementById('documentFile').click()">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    <span>Tap to upload Front Side of Document (JPG/PNG)</span>
+                    <div id="fileDisplay" class="file-name-display"></div>
+                </div>
+            </div>
+            <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="terms" style="width: 16px; height: 16px;">
+                <label for="terms" style="font-size: 12px; margin-bottom: 0;">I agree to PayGaid Agent Terms & Conditions</label>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="nextStep(2)">← Back</button>
+                <button class="btn btn-primary" onclick="submitApplication()" style="background: #10b981;">Submit Application ✓</button>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-      <label>Mobile Number</label>
-      <input type="text" class="form-control" value="+880 1700-000000">
+    <!-- Application Status View (After Submission) -->
+    <div id="statusView" style="display: none;">
+        <div class="status-box">
+            <div class="status-icon"><i class="fa-solid fa-check"></i></div>
+            <h3 style="font-size: 18px; color: #0f172a; margin-bottom: 6px;">Application Submitted!</h3>
+            <p style="font-size: 12px; color: #64748b;">Thank you for applying to PayGaid Agent Program.</p>
+
+            <div class="status-card">
+                <p>Application Reference ID</p>
+                <h4 style="color: #2563eb; margin-bottom: 12px;">#PGA-88392</h4>
+                <p>Current Status:</p>
+                <h4 style="color: #f59e0b; margin-bottom: 12px;"><i class="fa-solid fa-clock"></i> Pending Review (24-48 hours)</h4>
+                <p style="font-size: 11px; color: #64748b;">Once approved by the admin, your agent account login credentials will be activated automatically.</p>
+            </div>
+
+            <div class="btn-container" style="margin-top: 24px;">
+                <button class="btn btn-primary" onclick="window.location.href='agent-dashboard.html'">Back to Dashboard</button>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-      <label>WhatsApp Number</label>
-      <input type="text" class="form-control" value="+880 1700-000000">
-    </div>
-
-    <div class="form-group">
-      <label>Telegram Username</label>
-      <input type="text" class="form-control" placeholder="@username">
-    </div>
-
-    <div class="form-group">
-      <label>Country</label>
-      <select class="form-control" id="countrySelect">
-        <option value="BD" selected>🇧🇩 Bangladesh</option>
-        <option value="IN">🇮🇳 India</option>
-        <option value="PK">🇵🇰 Pakistan</option>
-        <option value="TH">🇹🇭 Thailand</option>
-      </select>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="goToStep(2)" style="width: 100%;">Next: Wallet Details &rarr;</button>
-    </div>
-  </div>
-
-  <!-- Step 2: Payment Gateways -->
-  <div class="card hidden" id="step-2">
-    <div class="step-title">Step 2: Payment Gateways</div>
-    <div class="step-sub">Select popular local methods or crypto</div>
-
-    <div class="form-group">
-      <label>Select Payment Gateway</label>
-      <div class="gateway-grid">
-        <div class="gateway-btn selected" onclick="selectGateway(this)">PromptPay</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">TrueMoney</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">Rabbit LinePay</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">AirPay</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">Krungsri Pay</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">SCB Easy</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">🏦 Thai Bank Wire</div>
-        <div class="gateway-btn" onclick="selectGateway(this)">🪙 Crypto (USDT)</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Selected Account / Wallet Number</label>
-      <input type="text" class="form-control" placeholder="Account Number or Wallet Address">
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
-      <button class="btn btn-primary" onclick="goToStep(3)">Next: Verification &rarr;</button>
-    </div>
-  </div>
-
-  <!-- Step 3: Identity & Verification -->
-  <div class="card hidden" id="step-3">
-    <div class="step-title">Step 3: Identity & Verification</div>
-    <div class="step-sub">Upload document and state your experience</div>
-
-    <div class="form-group">
-      <label>Previous Agent / Payment Experience</label>
-      <input type="text" class="form-control" placeholder="e.g. 2 Years in Mobile Banking / P2P Exchange">
-    </div>
-
-    <div class="form-group">
-      <label>Identity Document Type</label>
-      <select class="form-control">
-        <option>NID / Passport / Trade License</option>
-        <option>National ID Card</option>
-        <option>Passport</option>
-        <option>Trade License</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Document Number</label>
-      <input type="text" class="form-control" placeholder="Enter ID / Passport Number">
-    </div>
-
-    <div class="form-group">
-      <label>Upload Document Image</label>
-      <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-        <span style="font-size: 22px;">&#8679;</span><br>
-        <span>Tap to upload Front Side of Document (JPG/PNG)</span>
-        <input type="file" id="fileInput" class="hidden">
-      </div>
-    </div>
-
-    <label class="checkbox-group">
-      <input type="checkbox" checked> I agree to PayGaid Agent Terms & Conditions
-    </label>
-
-    <div class="btn-group">
-      <button class="btn btn-secondary" onclick="goToStep(2)">Back</button>
-      <button class="btn btn-success" onclick="submitForm()">Submit Application</button>
-    </div>
-  </div>
-
-  <!-- Success Screen (Step 4) -->
-  <div class="card hidden" id="step-success" style="text-align: center;">
-    <div style="background: var(--input-bg); padding: 15px; border-radius: 12px; margin-bottom: 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--border-color);">
-      Application Status
-    </div>
-    
-    <div style="width: 70px; height: 70px; background: rgba(34,197,94,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--accent-green); font-size: 32px;">&#10004;</div>
-    
-    <div class="step-title" style="font-size: 20px;">Application Submitted!</div>
-    <div class="step-sub">Thank you for applying to PayGaid Agent Program.</div>
-
-    <div style="background: var(--input-bg); padding: 15px; border-radius: 12px; margin: 20px 0; text-align: left; border: 1px solid var(--border-color);">
-      <div style="font-size: 12px; color: var(--text-sub);">Application Reference ID</div>
-      <div style="font-size: 18px; font-weight: bold; color: #60a5fa; margin-bottom: 10px;">#PGA-883920</div>
-      <div style="font-size: 12px; color: var(--text-sub);">What happens next?</div>
-      <div style="font-size: 13px; color: var(--text-main); margin-top: 4px;">Our verification team will review your documents within 24-48 hours.</div>
-    </div>
-
-    <button class="btn btn-primary" onclick="window.location.href='index.html'" style="width: 100%;">Back to Dashboard</button>
-  </div>
-
 </div>
 
 <script>
-  function goToStep(stepNumber) {
-    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-    document.getElementById(`step-${stepNumber}`).classList.remove('hidden');
+    function nextStep(step) {
+        document.getElementById('step1Form').classList.remove('active');
+        document.getElementById('step2Form').classList.remove('active');
+        document.getElementById('step3Form').classList.remove('active');
 
-    for(let i=1; i<=3; i++) {
-      const node = document.getElementById(`node-${i}`);
-      node.classList.remove('active', 'completed');
-      if (i < stepNumber) node.classList.add('completed');
-      else if (i === stepNumber) node.classList.add('active');
+        document.getElementById('dot1').className = 'step-dot';
+        document.getElementById('dot2').className = 'step-dot';
+        document.getElementById('dot3').className = 'step-dot';
+        document.getElementById('line1').className = 'step-line';
+        document.getElementById('line2').className = 'step-line';
+
+        if (step === 1) {
+            document.getElementById('step1Form').classList.add('active');
+            document.getElementById('dot1').classList.add('active');
+        } else if (step === 2) {
+            document.getElementById('step1Form').classList.add('active');
+            document.getElementById('step2Form').classList.add('active');
+            document.getElementById('dot1').className = 'step-dot completed';
+            document.getElementById('line1').className = 'step-line completed';
+            document.getElementById('dot2').classList.add('active');
+        } else if (step === 3) {
+            document.getElementById('step3Form').classList.add('active');
+            document.getElementById('dot1').className = 'step-dot completed';
+            document.getElementById('line1').className = 'step-line completed';
+            document.getElementById('dot2').className = 'step-dot completed';
+            document.getElementById('line2').className = 'step-line completed';
+            document.getElementById('dot3').classList.add('active');
+        }
     }
-  }
 
-  function selectGateway(element) {
-    document.querySelectorAll('.gateway-btn').forEach(btn => btn.classList.remove('selected'));
-    element.classList.add('selected');
-  }
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            document.getElementById('fileDisplay').innerText = "Selected File: " + file.name;
+        }
+    }
 
-  function submitForm() {
-    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-    document.getElementById('step-success').classList.remove('hidden');
-  }
-
-  if (window.Telegram && window.Telegram.WebApp) {
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
-  }
+    function submitApplication() {
+        document.getElementById('formView').style.display = 'none';
+        document.getElementById('statusView').style.display = 'block';
+    }
 </script>
 
 </body>
