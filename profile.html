@@ -185,10 +185,10 @@
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="profile-hero-info">
-                <div class="profile-name">Alla</div>
+                <div class="profile-name" id="profileName">Loading...</div>
                 <div class="profile-id-row">
-                    ID: 112233 
-                    <button class="copy-btn" onclick="alert('Agent ID Copied!')"><i class="fa-regular fa-copy"></i></button>
+                    <span id="profileId">ID: --</span> 
+                    <button class="copy-btn" onclick="copyAgentId()"><i class="fa-regular fa-copy"></i></button>
                 </div>
                 <div class="verified-badge">
                     <i class="fa-solid fa-circle-check"></i> Verified Agent
@@ -204,7 +204,7 @@
                     <div class="info-icon"><i class="fa-regular fa-user"></i></div>
                     <div class="info-label">Full Name</div>
                 </div>
-                <div class="info-value">Alla</div>
+                <div class="info-value" id="fullNameField">--</div>
             </div>
 
             <div class="info-card">
@@ -212,7 +212,7 @@
                     <div class="info-icon"><i class="fa-solid fa-hashtag"></i></div>
                     <div class="info-label">Agent ID</div>
                 </div>
-                <div class="info-value">112233</div>
+                <div class="info-value" id="agentIdField">--</div>
             </div>
 
             <div class="info-card">
@@ -220,7 +220,7 @@
                     <div class="info-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
                     <div class="info-label">Phone Number</div>
                 </div>
-                <div class="info-value">+8801586587458</div>
+                <div class="info-value" id="phoneField">--</div>
             </div>
 
             <div class="info-card">
@@ -228,7 +228,7 @@
                     <div class="info-icon"><i class="fa-regular fa-envelope"></i></div>
                     <div class="info-label">Email Address</div>
                 </div>
-                <div class="info-value">website26apk@gmail.com</div>
+                <div class="info-value" id="emailField">--</div>
             </div>
 
             <div class="info-card">
@@ -236,10 +236,45 @@
                     <div class="info-icon"><i class="fa-regular fa-calendar"></i></div>
                     <div class="info-label">Registration Date</div>
                 </div>
-                <div class="info-value">9 Aug, 2026</div>
+                <div class="info-value" id="regDateField">--</div>
             </div>
         </div>
     </div>
 
+    <script>
+        async function loadProfile() {
+            const username = localStorage.getItem('logged_agent_username');
+            if (!username) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/agent/profile/${username}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('profileName').innerText = data.agent_name;
+                    document.getElementById('profileId').innerText = `ID: ${data.agent_id}`;
+                    document.getElementById('fullNameField').innerText = data.agent_name;
+                    document.getElementById('agentIdField').innerText = data.agent_id;
+                    document.getElementById('phoneField').innerText = data.phone_number;
+                    document.getElementById('emailField').innerText = data.email_address;
+                    document.getElementById('regDateField').innerText = data.registration_date;
+                } else {
+                    alert("Failed to load profile data.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        function copyAgentId() {
+            const idText = document.getElementById('profileId').innerText.replace('ID: ', '');
+            navigator.clipboard.writeText(idText);
+            alert('Agent ID Copied!');
+        }
+
+        loadProfile();
+    </script>
 </body>
 </html>

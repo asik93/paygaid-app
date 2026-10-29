@@ -250,9 +250,36 @@
             tg.expand?.();
         }
 
-        function handleComplain(event) {
+        async function handleComplain(event) {
             event.preventDefault();
-            document.getElementById('successModal').classList.add('active');
+            
+            const agentUsername = localStorage.getItem('agent_username') || localStorage.getItem('agent_id') || localStorage.getItem('username') || 'ab112';
+            const category = document.querySelector('select.form-control').value;
+            const transactionId = document.querySelector('input[type="text"].form-control').value || 'N/A';
+            const description = document.querySelector('textarea.form-control').value;
+
+            try {
+                const response = await fetch('/api/agent/complain', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: agentUsername,
+                        category: category,
+                        transaction_id: transactionId,
+                        description: description
+                    })
+                });
+
+                if(response.ok) {
+                    document.getElementById('successModal').classList.add('active');
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    alert("Failed to submit complain: " + (errorData.detail || "Please try again."));
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Server connection error.");
+            }
         }
 
         function closeModal() {

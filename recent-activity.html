@@ -30,7 +30,6 @@
             max-width: 450px;
             margin: 0 auto;
         }
-        /* Top Navigation Bar */
         .top-bar {
             display: flex;
             align-items: center;
@@ -55,8 +54,6 @@
             color: #ffffff;
             letter-spacing: 0.5px;
         }
-
-        /* Filter Tabs */
         .filter-tabs {
             display: flex;
             gap: 8px;
@@ -81,8 +78,6 @@
             border-color: #0284c7;
             color: #ffffff;
         }
-
-        /* Activity List */
         .activity-list {
             display: flex;
             flex-direction: column;
@@ -161,6 +156,12 @@
             font-size: 11px;
             color: #64748b;
         }
+        .no-activity {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 40px;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -184,112 +185,116 @@
 
         <!-- Activity Cards List -->
         <div class="activity-list" id="activityList">
-            
-            <div class="activity-card" data-category="deposit">
-                <div class="activity-left">
-                    <div class="activity-icon deposit"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="activity-info">
-                        <div class="activity-title">bKash Deposit Accepted</div>
-                        <div class="activity-user">User: @kamal</div>
-                    </div>
-                </div>
-                <div class="activity-right">
-                    <div class="activity-amount deposit">+ ৳ 5,000</div>
-                    <div class="activity-time">2 mins ago</div>
-                </div>
-            </div>
-
-            <div class="activity-card" data-category="withdraw">
-                <div class="activity-left">
-                    <div class="activity-icon withdraw"><i class="fa-solid fa-arrow-up"></i></div>
-                    <div class="activity-info">
-                        <div class="activity-title">Nagad Withdraw Sent</div>
-                        <div class="activity-user">User: @rahim</div>
-                    </div>
-                </div>
-                <div class="activity-right">
-                    <div class="activity-amount withdraw">- ৳ 2,500</div>
-                    <div class="activity-time">12 mins ago</div>
-                </div>
-            </div>
-
-            <div class="activity-card" data-category="commission">
-                <div class="activity-left">
-                    <div class="activity-icon commission"><i class="fa-solid fa-percent"></i></div>
-                    <div class="activity-info">
-                        <div class="activity-title">Commission Earned</div>
-                        <div class="activity-user">From bKash Trx #4829</div>
-                    </div>
-                </div>
-                <div class="activity-right">
-                    <div class="activity-amount commission">+ ৳ 150</div>
-                    <div class="activity-time">25 mins ago</div>
-                </div>
-            </div>
-
-            <div class="activity-card" data-category="deposit">
-                <div class="activity-left">
-                    <div class="activity-icon deposit"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="activity-info">
-                        <div class="activity-title">Rocket Deposit Accepted</div>
-                        <div class="activity-user">User: @tanvir</div>
-                    </div>
-                </div>
-                <div class="activity-right">
-                    <div class="activity-amount deposit">+ ৳ 10,000</div>
-                    <div class="activity-time">45 mins ago</div>
-                </div>
-            </div>
-
-            <div class="activity-card" data-category="withdraw">
-                <div class="activity-left">
-                    <div class="activity-icon withdraw"><i class="fa-solid fa-arrow-up"></i></div>
-                    <div class="activity-info">
-                        <div class="activity-title">bKash Withdraw Sent</div>
-                        <div class="activity-user">User: @shakil</div>
-                    </div>
-                </div>
-                <div class="activity-right">
-                    <div class="activity-amount withdraw">- ৳ 4,200</div>
-                    <div class="activity-time">1 hour ago</div>
-                </div>
-            </div>
-
-            <div class="activity-card" data-category="commission">
-                <div class="activity-left">
-                    <div class="activity-icon commission"><i class="fa-solid fa-percent"></i></div>
-                    <div class="activity-info">
-                        <div class="activity-title">Commission Earned</div>
-                        <div class="activity-user">From Nagad Trx #3910</div>
-                    </div>
-                </div>
-                <div class="activity-right">
-                    <div class="activity-amount commission">+ ৳ 220</div>
-                    <div class="activity-time">2 hours ago</div>
-                </div>
-            </div>
-
+            <div class="no-activity">Loading activities...</div>
         </div>
     </div>
 
     <script>
+        let allActivities = [];
+        let currentFilter = 'all';
+        let agentCurrencySymbol = '৳'; // Default fallback
+
+        function getLoggedInAgentId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlAgentId = urlParams.get('agent_id') || urlParams.get('username');
+            if (urlAgentId) return urlAgentId;
+
+            return localStorage.getItem("logged_agent_username") || 
+                   sessionStorage.getItem("logged_agent_username") || 
+                   localStorage.getItem("agent_id") || 
+                   sessionStorage.getItem("agent_id") || 
+                   localStorage.getItem("username") || 
+                   sessionStorage.getItem("username") || "";
+        }
+
+        async function fetchActivities() {
+            const agentId = getLoggedInAgentId();
+            if (!agentId) {
+                document.getElementById('activityList').innerHTML = `<div class="no-activity">No agent logged in.</div>`;
+                return;
+            }
+
+            try {
+                // Fetch agent profile to get accurate region currency symbol
+                const profileRes = await fetch(`/api/agent/profile/${agentId}`);
+                if (profileRes.ok) {
+                    const profileData = await profileRes.json();
+                    if (profileData.currency_symbol) {
+                        agentCurrencySymbol = profileData.currency_symbol;
+                    }
+                }
+
+                const response = await fetch(`/api/agent/recent-activities/${agentId}`);
+                const data = await response.json();
+                allActivities = data;
+                renderActivities(currentFilter);
+            } catch (err) {
+                console.error("Failed to load activities:", err);
+                document.getElementById('activityList').innerHTML = `<div class="no-activity">Failed to load recent activity.</div>`;
+            }
+        }
+
+        function renderActivities(filter) {
+            currentFilter = filter;
+            const container = document.getElementById('activityList');
+            container.innerHTML = '';
+
+            let filtered = allActivities.filter(item => {
+                if (filter === 'all') return true;
+                return item.type === filter;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="no-activity">No recent activity found.</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                let iconClass = item.type;
+                let iconSymbol = 'fa-arrow-down';
+                let sign = '+';
+                
+                if (item.type === 'withdraw') {
+                    iconSymbol = 'fa-arrow-up';
+                    sign = '-';
+                } else if (item.type === 'commission') {
+                    iconSymbol = 'fa-percent';
+                    sign = '+';
+                }
+
+                // Use item's own currency symbol if available, otherwise use fetched agentCurrencySymbol
+                let currSym = item.currency_symbol || agentCurrencySymbol;
+                let timeFormatted = item.created_at ? new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+
+                container.innerHTML += `
+                    <div class="activity-card" data-category="${item.type}">
+                        <div class="activity-left">
+                            <div class="activity-icon ${iconClass}"><i class="fa-solid ${iconSymbol}"></i></div>
+                            <div class="activity-info">
+                                <div class="activity-title">${item.title}</div>
+                                <div class="activity-user">${item.subtitle}</div>
+                            </div>
+                        </div>
+                        <div class="activity-right">
+                            <div class="activity-amount ${iconClass}">${sign} ${currSym} ${item.amount.toLocaleString()}</div>
+                            <div class="activity-time">${timeFormatted}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
         function filterActivity(category, element) {
-            // Active tab styling change
             document.querySelectorAll('.filter-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             element.classList.add('active');
-
-            // Show/Hide cards based on category
-            const cards = document.querySelectorAll('.activity-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            renderActivities(category);
         }
+
+        window.onload = function() {
+            fetchActivities();
+        };
     </script>
 </body>
 </html>

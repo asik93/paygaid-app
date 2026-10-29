@@ -10,411 +10,111 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            color-scheme: dark !important;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            background-color: #0e1217 !important;
-            color: #e4e6eb !important;
-            padding: 12px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 80px;
-        }
-        .container {
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        .back-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            background: #1e293b;
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-        }
-        .back-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .back-btn {
-            background: none;
-            border: none;
-            color: #38bdf8;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .page-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            text-transform: uppercase;
-        }
-        .add-wallet-btn {
-            background: #16a34a;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .form-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 14px;
-        }
-        .form-group {
-            margin-bottom: 12px;
-        }
-        .form-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            margin-bottom: 5px;
-            display: block;
-            text-transform: uppercase;
-        }
-        .form-control {
-            width: 100%;
-            background: #0e1217;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 10px 12px;
-            color: #ffffff;
-            font-size: 13px;
-            outline: none;
-            transition: 0.2s;
-        }
-        .form-control:focus {
-            border-color: #38bdf8;
-        }
-        .row-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .section-header {
-            font-size: 13px;
-            font-weight: 700;
-            color: #94a3b8;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .wallet-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-            position: relative;
-            transition: 0.2s;
-        }
-        .wallet-card.inactive {
-            opacity: 0.6;
-            border-color: #475569;
-        }
-        .wallet-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .wallet-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .brand-logo {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-            border-radius: 6px;
-            background: #ffffff;
-            padding: 2px;
-        }
-        .wallet-badge {
-            font-size: 10px;
-            color: #38bdf8;
-            background: rgba(56, 189, 248, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-        .wallet-details {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        .wallet-details strong {
-            color: #e2e8f0;
-        }
-        .wallet-limits {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #4ade80;
-            background: rgba(74, 222, 128, 0.05);
-            padding: 6px 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            border: 1px dashed rgba(74, 222, 128, 0.2);
-        }
-        .commission-box {
-            background: rgba(245, 158, 11, 0.05);
-            border: 1px dashed rgba(245, 158, 11, 0.3);
-            border-radius: 8px;
-            padding: 8px 10px;
-            margin-bottom: 10px;
-        }
-        .commission-title {
-            font-size: 10px;
-            font-weight: 700;
-            color: #f59e0b;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .commission-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-            text-align: center;
-        }
-        .comm-item {
-            background: rgba(14, 18, 23, 0.5);
-            padding: 4px;
-            border-radius: 6px;
-        }
-        .comm-label {
-            font-size: 9px;
-            color: #94a3b8;
-            display: block;
-        }
-        .comm-val {
-            font-size: 11px;
-            font-weight: 700;
-            color: #f59e0b;
-        }
-        .wallet-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #334155;
-            padding-top: 10px;
-        }
-        .action-group-right {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .btn-delete {
-            background: rgba(248, 113, 113, 0.1);
-            border: 1px solid rgba(248, 113, 113, 0.2);
-            color: #f87171;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-delete:hover {
-            background: #f87171;
-            color: white;
-        }
-        .toggle-switch {
-            width: 36px;
-            height: 20px;
-            background: #334155;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            padding: 2px;
-        }
-        .toggle-switch.active {
-            background: #16a34a;
-        }
-        .toggle-thumb {
-            width: 16px;
-            height: 16px;
-            background: white;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-        .toggle-switch.active .toggle-thumb {
-            transform: translateX(16px);
-        }
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(14, 18, 23, 0.85);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-box {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
-            max-height: 90vh;
-            overflow-y: auto;
-            transform: scale(0.8);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .modal-overlay.active .modal-box {
-            transform: scale(1);
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-        .modal-header h3 {
-            font-size: 15px;
-            color: #ffffff;
-            font-weight: 700;
-        }
-        .close-modal {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: #16a34a;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 6px;
-        }
+        :root { color-scheme: dark !important; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: linear-gradient(135deg, #090d16 0%, #0f172a 100%) !important; color: #f1f5f9 !important; padding: 16px; min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 90px; }
+        .container { width: 100%; max-width: 450px; margin: 0 auto; }
+        
+        .back-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); padding: 14px 18px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .back-left { display: flex; align-items: center; gap: 12px; }
+        .back-btn { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; width: 34px; height: 34px; border-radius: 10px; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .page-title { font-size: 13px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; }
+        
+        .add-wallet-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+
+        .country-banner { background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 14px; padding: 14px 18px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .country-info span { font-size: 10px; color: #94a3b8; display: block; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
+        .country-info h4 { font-size: 14px; color: #38bdf8; margin-top: 3px; font-weight: 800; }
+
+        .section-header { font-size: 12px; font-weight: 800; color: #94a3b8; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.8px; display: flex; justify-content: space-between; align-items: center; }
+
+        .wallet-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 16px; padding: 16px; margin-bottom: 14px; position: relative; }
+        .wallet-card.inactive { opacity: 0.55; }
+        .wallet-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .wallet-name { font-size: 14px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 10px; }
+        .wallet-badge { font-size: 10px; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.2); padding: 3px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 700; }
+        
+        .wallet-details { font-size: 12px; color: #94a3b8; margin-bottom: 10px; line-height: 1.5; background: rgba(15, 23, 42, 0.4); padding: 10px 12px; border-radius: 10px; }
+        .wallet-details strong { color: #f8fafc; font-weight: 700; }
+        
+        .wallet-limits { display: flex; justify-content: space-between; font-size: 11px; color: #4ade80; background: rgba(74, 222, 128, 0.08); padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; border: 1px dashed rgba(74, 222, 128, 0.25); font-weight: 700; }
+        
+        .wallet-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 12px; }
+        .action-group-right { display: flex; gap: 10px; align-items: center; }
+        .btn-delete { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.2); color: #f87171; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+        .toggle-switch { width: 42px; height: 22px; background: #334155; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; padding: 2px; }
+        .toggle-switch.active { background: #10b981; }
+        .toggle-thumb { width: 18px; height: 18px; background: white; border-radius: 50%; transition: 0.3s; }
+        .toggle-switch.active .toggle-thumb { transform: translateX(20px); }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 13, 22, 0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; width: 92%; max-width: 410px; padding: 22px; max-height: 90vh; overflow-y: auto; }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; }
+        .modal-header h3 { font-size: 15px; color: #ffffff; font-weight: 800; }
+        .close-modal { background: rgba(255,255,255,0.05); border: none; color: #94a3b8; width: 30px; height: 30px; border-radius: 50%; font-size: 15px; cursor: pointer; }
+
+        .form-group { margin-bottom: 14px; }
+        .form-label { font-size: 11px; font-weight: 800; color: #94a3b8; margin-bottom: 6px; display: block; text-transform: uppercase; }
+        .form-control { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 11px 14px; color: #ffffff; font-size: 13px; outline: none; }
+        .row-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        
+        .btn-submit { width: 100%; padding: 13px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; border-radius: 12px; color: white; font-weight: 800; font-size: 13px; cursor: pointer; text-transform: uppercase; margin-top: 8px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Back Bar -->
         <div class="back-bar">
             <div class="back-left">
                 <button class="back-btn" onclick="window.location.href='agent-dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
                 <div class="page-title">Gateway Management</div>
             </div>
-            <button class="add-wallet-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add New</button>
+            <button class="add-wallet-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> ADD NEW</button>
         </div>
 
-        <!-- Account Country Profile Selector (Testing & Dynamic Verification Switcher) -->
-        <div class="form-card">
-            <label class="form-label">Account Country Profile (Auto-Assigned / Switchable for Testing)</label>
-            <select class="form-control" id="accountCountrySelector" onchange="changeAccountCountry(this.value)">
-                <option value="Bangladesh">🇧🇩 Bangladesh</option>
-                <option value="India">🇮🇳 India</option>
-                <option value="Pakistan">🇵🇰 Pakistan</option>
-                <option value="Nepal">🇳🇵 Nepal</option>
-                <option value="Philippines">🇵🇭 Philippines</option>
-                <option value="Vietnam">🇻🇳 Vietnam</option>
-                <option value="Thailand">🇹🇭 Thailand</option>
-                <option value="Malaysia">🇲🇾 Malaysia</option>
-                <option value="Indonesia">🇮🇩 Indonesia</option>
-                <option value="UAE">🇦🇪 UAE</option>
-                <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
-                <option value="Qatar">🇶🇦 Qatar</option>
-            </select>
+        <div class="country-banner">
+            <div class="country-info">
+                <span>Assigned Region / Country</span>
+                <h4 id="assignedCountryDisplay">Loading Country...</h4>
+            </div>
+            <i class="fa-solid fa-earth-asia" style="color: #38bdf8; font-size: 22px;"></i>
         </div>
 
-        <!-- Active Wallets List Header -->
         <div class="section-header">
-            <span>Configured Wallets & Gateways</span>
-            <span style="font-size: 11px; color: #38bdf8;" id="totalCount">3 Active</span>
+            <span>Configured Gateways</span>
+            <span style="font-size: 11px; color: #38bdf8;" id="totalCount">0 Active</span>
         </div>
 
-        <!-- Dynamic Gateway List Container -->
-        <div id="walletListContainer">
-            <!-- Wallets rendered dynamically based on account country -->
-        </div>
+        <div id="walletListContainer"></div>
     </div>
 
-    <!-- Modal: Add New Wallet / Gateway -->
+    <!-- Modal: Add New Gateway -->
     <div class="modal-overlay" id="addWalletModal">
         <div class="modal-box">
             <div class="modal-header">
-                <h3>Add New Wallet / Gateway</h3>
+                <h3>Add Gateway</h3>
                 <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Gateway Category</label>
                 <select class="form-control" id="gatewayCategory" onchange="handleCategoryChange()">
-                    <option value="mobile">Local Wallet / Mobile Money (6 Options)</option>
-                    <option value="bank">Bank Account Transfer (6 Options)</option>
-                    <option value="crypto">Cryptocurrency Network (6 Options)</option>
+                    <option value="mobile">Local Wallet / Mobile Money</option>
+                    <option value="bank">Bank Account Transfer</option>
+                    <option value="crypto">Cryptocurrency Network</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Method Name / Provider</label>
-                <select class="form-control" id="methodName">
-                    <!-- Automatically filled with 6 specific options for the account's country -->
-                </select>
+                <select class="form-control" id="methodName"></select>
             </div>
 
-            <!-- Account Type Field -->
-            <div class="form-group" id="groupAccountType">
+            <!-- Shown ONLY for Bangladesh Mobile Money -->
+            <div class="form-group" id="groupAccountType" style="display: none;">
                 <label class="form-label">Account Type</label>
                 <select class="form-control" id="accountTypeSelect">
                     <option value="Personal">Personal</option>
@@ -423,242 +123,327 @@
                 </select>
             </div>
 
-            <!-- Dynamic Input Fields -->
+            <div class="form-group" id="groupHolderName">
+                <label class="form-label">Account Holder Name</label>
+                <input type="text" id="inputHolderName" class="form-control" placeholder="Enter account holder name">
+            </div>
+
             <div class="form-group" id="groupField1">
-                <label class="form-label" id="labelField1">Wallet / Mobile Number</label>
-                <input type="text" id="inputField1" class="form-control" placeholder="Enter mobile number">
+                <label class="form-label" id="labelField1">Account Identifier / Number</label>
+                <input type="text" id="inputField1" class="form-control" placeholder="Enter details">
             </div>
 
             <div class="form-group" id="groupField2" style="display: none;">
-                <label class="form-label" id="labelField2">Account Number</label>
+                <label class="form-label" id="labelField2">Account Number / IBAN</label>
                 <input type="text" id="inputField2" class="form-control" placeholder="Enter account number">
             </div>
 
-            <div class="form-group" id="groupField3" style="display: none;">
-                <label class="form-label" id="labelField3">Email / Account ID</label>
-                <input type="text" id="inputField3" class="form-control" placeholder="Enter email or account id">
-            </div>
-
-            <!-- QR Code Image Upload Field -->
-            <div class="form-group" id="qrGroup">
-                <label class="form-label">Upload QR Code Image (Optional)</label>
-                <input type="file" id="qrCodeFile" class="form-control" accept="image/*" style="padding: 7px;">
-            </div>
-
-            <!-- Limit Fields -->
             <div class="row-group">
                 <div class="form-group">
                     <label class="form-label">Min Limit</label>
-                    <input type="number" id="minDeposit" class="form-control" placeholder="e.g. 500">
+                    <input type="number" id="minDeposit" class="form-control" placeholder="e.g. 100">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Max Limit</label>
-                    <input type="number" id="maxDeposit" class="form-control" placeholder="e.g. 25000">
+                    <input type="number" id="maxDeposit" class="form-control" placeholder="e.g. 50000">
                 </div>
             </div>
 
-            <!-- Real Time Commission Box -->
-            <div class="commission-box" style="margin-top: 10px; margin-bottom: 14px;">
-                <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
-                <div class="commission-grid">
-                    <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">1.5%</span></div>
-                    <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">1.0%</span></div>
-                    <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">0.5%</span></div>
-                </div>
-            </div>
-
-            <button class="btn-submit" onclick="saveNewWallet()">Save & Activate Gateway</button>
+            <button class="btn-submit" onclick="saveNewWallet()">Save & Activate</button>
         </div>
     </div>
 
     <script>
-        let tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.ready?.();
-            tg.expand?.();
-        }
-
-        // --- ACCOUNT COUNTRY SETTING ---
-        let userCountry = localStorage.getItem('user_country') || 'Bangladesh'; 
-
-        // দেশ অনুযায়ী কারেন্সি সাইন ম্যাপিং
-        const countryMeta = {
-            'Bangladesh': { currency: '৳ ' },
-            'India': { currency: '₹ ' },
-            'Pakistan': { currency: '₨ ' },
-            'Nepal': { currency: '₨ ' },
-            'Philippines': { currency: '₱ ' },
-            'Vietnam': { currency: '₫ ' },
-            'Thailand': { currency: '฿ ' },
-            'Malaysia': { currency: 'RM ' },
-            'Indonesia': { currency: 'Rp ' },
-            'UAE': { currency: 'AED ' },
-            'Saudi Arabia': { currency: 'ر.س ' },
-            'Qatar': { currency: 'ر.ق ' }
+        const countryToSymbol = {
+            'India': '₹',
+            'Pakistan': 'Rs',
+            'UAE': 'AED',
+            'Saudi Arabia': 'SAR',
+            'Bangladesh': '৳',
+            'Nepal': 'NPR',
+            'Philippines': '₱',
+            'Vietnam': '₫',
+            'Thailand': '฿',
+            'Malaysia': 'RM',
+            'Indonesia': 'Rp',
+            'Qatar': 'QAR'
         };
 
-        // প্রতিটি দেশের জন্য সুনির্দিষ্ট ৬টি করে লোকাল ওয়ালেট, ৬টি ব্যাংক এবং ৬টি ক্রিপ্টো নেটওয়ার্ক
-        const countryGatewaysData = {
-            'Bangladesh': {
-                mobile: ['bKash Wallet', 'Nagad Wallet', 'Rocket Mobile', 'Upay App', 'Cellfin Account', 'M-Cash Service'],
-                bank: ['Dutch-Bangla Bank PLC', 'BRAC Bank PLC', 'Eastern Bank PLC', 'City Bank Limited', 'Islami Bank Bangladesh', 'Prime Bank PLC'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Ethereum (ETH)']
-            },
+        const globalGatewaysData = {
             'India': {
-                mobile: ['Paytm UPI Wallet', 'PhonePe Gateway', 'Google Pay UPI', 'BHIM UPI App', 'Mobikwik Wallet', 'Amazon Pay India'],
-                bank: ['State Bank of India', 'HDFC Bank Ltd', 'ICICI Bank Ltd', 'Axis Bank Ltd', 'Kotak Mahindra Bank', 'Punjab National Bank'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Polygon (POL)', 'Solana (SOL)']
+                mobile: ['Paytm UPI', 'PhonePe UPI', 'Google Pay (GPay)', 'BHIM UPI', 'Mobikwik Wallet', 'Airtel Payments Bank'],
+                bank: ['State Bank of India (SBI)', 'HDFC Bank Ltd', 'ICICI Bank Ltd', 'Axis Bank Ltd', 'Kotak Mahindra Bank', 'Punjab National Bank (PNB)'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'USDT (ERC20)', 'Binance Pay ID', 'TRX (TRON)', 'BTC (Bitcoin)']
             },
             'Pakistan': {
-                mobile: ['EasyPaisa Mobile', 'JazzCash Wallet', 'SadaPay Digital', 'NayaPay Account', 'Upaisa Wallet', 'FirstPay Account'],
-                bank: ['HBL (Habib Bank)', 'Meezan Bank', 'Allied Bank Limited', 'UBL (United Bank)', 'Bank Alfalah', 'National Bank of Pakistan'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Litecoin (LTC)', 'Dogecoin (DOGE)']
-            },
-            'Nepal': {
-                mobile: ['eSewa Digital Wallet', 'Khalti Digital Wallet', 'IME Pay Wallet', 'Prabhu Pay App', 'FonePay Direct', 'CellPay Nepal'],
-                bank: ['Global IME Bank', 'Nabil Bank', 'Nepal Investment Mega Bank', 'NIC Asia Bank', 'Prabhu Bank', 'Standard Chartered Nepal'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Cardano (ADA)']
-            },
-            'Philippines': {
-                mobile: ['GCash Wallet', 'Maya (PayMaya)', 'GrabPay PH', 'ShopeePay Wallet', 'Coins.ph App', 'PalawanPay'],
-                bank: ['BDO Unibank', 'Bank of the Philippine Islands', 'Land Bank of the Philippines', 'Metrobank PH', 'Security Bank', 'China Banking Corporation'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Ripple (XRP)', 'Solana (SOL)']
-            },
-            'Vietnam': {
-                mobile: ['MoMo E-Wallet', 'ZaloPay Wallet', 'ViettelPay App', 'ShopeePay VN', 'VNPay QR', 'Moca GrabPay'],
-                bank: ['Vietcombank', 'Techcombank', 'BIDV Bank', 'VietinBank', 'Military Commercial Bank (MB)', 'ACB Vietnam'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Polygon (POL)', 'BNB Smart Chain']
-            },
-            'Thailand': {
-                mobile: ['PromptPay QR', 'TrueMoney Wallet', 'Rabbit LINE Pay', 'ShopeePay TH', 'AirPay Thailand', 'mPay AIS'],
-                bank: ['Bangkok Bank', 'Kasikornbank (KBank)', 'Siam Commercial Bank (SCB)', 'Krungthai Bank', 'Krungsri Bank', 'TMBThanachart Bank (TTB)'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Ethereum (ETH)']
-            },
-            'Malaysia': {
-                mobile: ['Touch \'n Go eWallet', 'GrabPay Malaysia', 'Boost E-Wallet', 'ShopeePay MY', 'BigPay Account', 'MAE by Maybank2u'],
-                bank: ['Maybank (Malayan Banking)', 'CIMB Bank', 'Public Bank Berhad', 'RHB Bank', 'Hong Leong Bank', 'AmBank Malaysia'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Solana (SOL)', 'Polygon (POL)']
-            },
-            'Indonesia': {
-                mobile: ['DANA E-Wallet', 'OVO Digital Wallet', 'GoPay Indonesia', 'ShopeePay IDR', 'LinkAja Wallet', 'DOKI Wallet'],
-                bank: ['Bank Central Asia (BCA)', 'Bank Mandiri', 'Bank Rakyat Indonesia (BRI)', 'Bank Negara Indonesia (BNI)', 'Bank CIMB Niaga', 'Bank Danamon'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Dogecoin (DOGE)']
+                mobile: ['JazzCash Wallet', 'EasyPaisa Mobile', 'SadaPay Account', 'NayaPay Digital', 'UPaisa Wallet'],
+                bank: ['Habib Bank Limited (HBL)', 'Meezan Bank', 'United Bank Limited (UBL)', 'Allied Bank Limited', 'MCB Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID', 'BTC (Bitcoin)']
             },
             'UAE': {
-                mobile: ['PayBy / e& money', 'Botim Wallet', 'seamless Pay', 'Zand Pay', 'Klarna UAE', 'Apple Pay UAE'],
-                bank: ['First Abu Dhabi Bank (FAB)', 'Emirates NBD', 'Abu Dhabi Commercial Bank (ADCB)', 'Dubai Islamic Bank (DIB)', 'Mashreq Bank', 'Sharjah Islamic Bank'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Ethereum (ETH)', 'Ripple (XRP)']
+                mobile: ['PayBy / e& money', 'Botim Pay', 'Careem Pay', 'Pyypl Digital Card'],
+                bank: ['First Abu Dhabi Bank (FAB)', 'Emirates NBD', 'Abu Dhabi Commercial Bank (ADCB)', 'Mashreq Bank', 'Dubai Islamic Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'BTC (Bitcoin)']
             },
             'Saudi Arabia': {
-                mobile: ['STC Pay Wallet', 'Urpay Digital', 'Mobily Pay', 'Al Rajhi Pay', 'Apple Pay KSA', 'LimbPay'],
-                bank: ['Al Rajhi Bank', 'National Commercial Bank (SNB)', 'Riyad Bank', 'Saudi British Bank (SABB)', 'Arab National Bank', 'Alinma Bank'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Tron (TRX)', 'Cardano (ADA)']
+                mobile: ['STC Pay', 'Urpay Wallet', 'Mobily Pay', 'Friendi Pay', 'Tiqmo Wallet'],
+                bank: ['Al Rajhi Bank', 'SNB (Saudi National Bank)', 'Riyad Bank', 'Alinma Bank', 'ANB (Arab National Bank)'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID']
+            },
+            'Bangladesh': {
+                mobile: ['bKash Mobile', 'Nagad Account', 'Rocket Wallet', 'Upay Wallet', 'Cellfin Account', 'Tap Mobile'],
+                bank: ['Dutch-Bangla Bank PLC', 'BRAC Bank PLC', 'Eastern Bank PLC', 'City Bank Limited', 'Islami Bank Bangladesh', 'Prime Bank PLC'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID', 'TRX (TRON)']
+            },
+            'Nepal': {
+                mobile: ['eSewa Digital Wallet', 'Khalti Wallet', 'IME Pay Account', 'Prabhu Pay'],
+                bank: ['Global IME Bank', 'Nabil Bank', 'NIC Asia Bank', 'Everest Bank', 'Rastriya Banijya Bank'],
+                crypto: ['USDT (TRC20)', 'Binance Pay ID']
+            },
+            'Philippines': {
+                mobile: ['GCash Wallet', 'Maya (PayMaya)', 'Coins.ph', 'GrabPay Philippines'],
+                bank: ['BDO Unibank', 'BPI (Bank of the Philippine Islands)', 'Metrobank', 'Landbank', 'UnionBank'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID']
+            },
+            'Vietnam': {
+                mobile: ['MoMo Wallet', 'ZaloPay', 'Viettel Money', 'VNPay Wallet'],
+                bank: ['Vietcombank', 'BIDV Bank', 'VietinBank', 'Techcombank', 'MB Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID']
+            },
+            'Thailand': {
+                mobile: ['TrueMoney Wallet', 'PromptPay QR', 'Rabbit LINE Pay', 'ShopeePay TH'],
+                bank: ['Kasikornbank (KBank)', 'Siam Commercial Bank (SCB)', 'Bangkok Bank', 'Krungthai Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID']
+            },
+            'Malaysia': {
+                mobile: ['Touch \'n Go eWallet', 'GrabPay MY', 'Boost E-Wallet', 'ShopeePay MY', 'MAE by Maybank2u'],
+                bank: ['Maybank (Malayan Banking)', 'CIMB Bank', 'Public Bank Berhad', 'RHB Bank', 'Hong Leong Bank'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID']
+            },
+            'Indonesia': {
+                mobile: ['Dana Wallet', 'OVO Wallet', 'GoPay Indonesia', 'ShopeePay ID', 'LinkAja'],
+                bank: ['Bank Central Asia (BCA)', 'Bank Mandiri', 'Bank Rakyat Indonesia (BRI)', 'Bank Negara Indonesia (BNI)'],
+                crypto: ['USDT (TRC20)', 'USDT (BEP20)', 'Binance Pay ID']
             },
             'Qatar': {
-                mobile: ['QIB Mobile Pay', 'Vodafone Cash QR', 'Ooredoo Money', 'Doha Bank Pay', 'Commercial Bank Mobile', 'Apple Pay Qatar'],
-                bank: ['Qatar National Bank (QNB)', 'Qatar Islamic Bank (QIB)', 'Commercial Bank of Qatar', 'Doha Bank', 'Masraf Al Rayan', 'Ahlibank Qatar'],
-                crypto: ['USDT (TRC20)', 'USDT (ERC20)', 'Binance Pay ID', 'Bitcoin (BTC)', 'Solana (SOL)', 'Polygon (POL)']
+                mobile: ['Ooredoo Money', 'iPay Qatar', 'CBQ Mobile Wallet'],
+                bank: ['Qatar National Bank (QNB)', 'Commercial Bank of Qatar', 'Doha Bank', 'Qatar Islamic Bank (QIB)'],
+                crypto: ['USDT (TRC20)', 'Binance Pay ID']
             }
         };
 
-        // ডিফল্ট ডেমো গেটওয়ে লিস্ট
-        let walletData = [
-            { id: 1, region: 'Bangladesh', type: 'mobile', name: 'bKash Wallet (Personal)', logo: 'https://images.seeklogo.com/logo-png/44/2/bkash-logo-png_seeklogo-449337.png', details: 'Number: 01712345678', min: '৳ 500', max: '৳ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
-            { id: 2, region: 'Bangladesh', type: 'bank', name: 'Dutch-Bangla Bank PLC', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'Branch: Motijheel<br>Acc No: <strong>1234567890123</strong>', min: '৳ 1,000', max: '৳ 100,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Bank Transfer', active: true },
-            { id: 3, region: 'Bangladesh', type: 'crypto', name: 'USDT (TRC20)', logo: 'https://assets.coingecko.com/coins/images/325/large/Tether.png', details: 'Address: <strong>TXyz9...GlobalWalletAddr</strong>', min: '$ 10', max: '$ 5,000', commDep: '2.0%', commWd: '1.5%', commSub: '0.5%', badge: 'Crypto Network', active: true },
-            
-            // কিছু স্যাম্পল ডাটা অন্যান্য দেশের জন্য যাতে সুইচ করলে লিস্ট খালি না দেখায়
-            { id: 4, region: 'India', type: 'mobile', name: 'Paytm UPI Wallet', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'UPI ID: 9876543210@paytm', min: '₹ 500', max: '₹ 25,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true },
-            { id: 5, region: 'Pakistan', type: 'mobile', name: 'EasyPaisa Mobile', logo: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', details: 'Number: 03001234567', min: '₨ 1,000', max: '₨ 50,000', commDep: '1.5%', commWd: '1.0%', commSub: '0.5%', badge: 'Local Wallet', active: true }
-        ];
+        let currentCountry = 'India';
+        let currentCurrency = '₹';
+        let walletData = [];
 
-        function initAccountCountry() {
-            let selector = document.getElementById('accountCountrySelector');
-            if (countryGatewaysData[userCountry]) {
-                selector.value = userCountry;
-            } else {
-                userCountry = 'Bangladesh';
-                selector.value = 'Bangladesh';
+        async function initPage() {
+            let username = localStorage.getItem('logged_agent_username') || 'rasel';
+            try {
+                let res = await fetch(`/api/agent/profile/${username}`);
+                if (res.ok) {
+                    let data = await res.json();
+                    if (data.country) {
+                        currentCountry = data.country;
+                    }
+                }
+            } catch (err) {
+                console.log("Using profile country fallback");
             }
+
+            currentCurrency = countryToSymbol[currentCountry] || '₹';
+            document.getElementById('assignedCountryDisplay').innerText = `${currentCountry} (${currentCurrency})`;
+            
+            await fetchGatewaysFromBackend();
         }
 
-        function changeAccountCountry(selectedCountry) {
-            userCountry = selectedCountry;
-            localStorage.setItem('user_country', userCountry);
+        async function fetchGatewaysFromBackend() {
+            let username = localStorage.getItem('logged_agent_username') || 'rasel';
+            try {
+                let res = await fetch(`/api/agent/gateways/${username}`);
+                if (res.ok) {
+                    walletData = await res.json();
+                }
+            } catch (err) {
+                console.error("Error fetching gateways:", err);
+            }
             renderWallets();
-        }
-
-        function openModal() {
-            document.getElementById('addWalletModal').classList.add('active');
-            handleCategoryChange();
-        }
-
-        function closeModal() {
-            document.getElementById('addWalletModal').classList.remove('active');
         }
 
         function handleCategoryChange() {
             let cat = document.getElementById('gatewayCategory').value;
             let nameSelect = document.getElementById('methodName');
             let groupAccountType = document.getElementById('groupAccountType');
+            let groupHolder = document.getElementById('groupHolderName');
             let label1 = document.getElementById('labelField1');
             let input1 = document.getElementById('inputField1');
             let group2 = document.getElementById('groupField2');
             let label2 = document.getElementById('labelField2');
-            let group3 = document.getElementById('groupField3');
 
             nameSelect.innerHTML = "";
-            let countryData = countryGatewaysData[userCountry] || countryGatewaysData['Bangladesh'];
-            let optionsList = [];
+            let countryOptions = globalGatewaysData[currentCountry] || globalGatewaysData['India'];
+            let list = countryOptions[cat] || [];
 
-            if (cat === 'mobile') {
+            list.forEach(item => {
+                nameSelect.innerHTML += `<option value="${item}">${item}</option>`;
+            });
+
+            // Show Personal/Agent/Merchant ONLY for Bangladesh Mobile Money
+            if (currentCountry === 'Bangladesh' && cat === 'mobile') {
                 groupAccountType.style.display = "block";
-                group2.style.display = "none";
-                group3.style.display = "none";
-                label1.innerText = "Wallet / Mobile Number / ID";
-                input1.placeholder = "Enter mobile number";
-                optionsList = countryData.mobile;
-            } else if (cat === 'bank') {
+            } else {
                 groupAccountType.style.display = "none";
-                label1.innerText = "Branch Name / SWIFT / Sort Code";
-                input1.placeholder = "Enter branch name or code";
-                group2.style.display = "block";
-                label2.innerText = "Account Number / IBAN";
-                group3.style.display = "block";
-                optionsList = countryData.bank;
-            } else if (cat === 'crypto') {
-                groupAccountType.style.display = "none";
-                label1.innerText = "Wallet Address / ID / Tag";
-                input1.placeholder = "Enter crypto wallet address";
-                group2.style.display = "none";
-                group3.style.display = "none";
-                optionsList = countryData.crypto;
             }
 
-            optionsList.forEach(m => {
-                nameSelect.innerHTML += `<option value="${m}">${m}</option>`;
+            if (cat === 'mobile') {
+                groupHolder.style.display = "block";
+                group2.style.display = "none";
+                label1.innerText = (currentCountry === 'India') ? "UPI ID / Mobile Number" : "Mobile Number / Wallet ID";
+                input1.placeholder = (currentCountry === 'India') ? "e.g. name@paytm or 9876543210" : "Enter mobile number";
+            } else if (cat === 'bank') {
+                groupHolder.style.display = "block";
+                group2.style.display = "block";
+                label1.innerText = (currentCountry === 'India') ? "IFSC Code / Branch" : "Branch Name / Routing Code";
+                input1.placeholder = "Enter IFSC / Branch / Code";
+                label2.innerText = "Bank Account Number / IBAN";
+            } else if (cat === 'crypto') {
+                groupHolder.style.display = "none";
+                group2.style.display = "none";
+                label1.innerText = "Crypto Wallet Address / Pay ID";
+                input1.placeholder = "Enter wallet address or Binance Pay ID";
+            }
+        }
+
+        function openModal() { 
+            document.getElementById('addWalletModal').classList.add('active'); 
+            handleCategoryChange(); 
+        }
+
+        function closeModal() { 
+            document.getElementById('addWalletModal').classList.remove('active'); 
+        }
+
+        async function saveNewWallet() {
+            let cat = document.getElementById('gatewayCategory').value;
+            let name = document.getElementById('methodName').value;
+            let accType = document.getElementById('accountTypeSelect').value;
+            let holder = document.getElementById('inputHolderName').value.trim();
+            let val1 = document.getElementById('inputField1').value.trim();
+            let val2 = document.getElementById('inputField2').value.trim();
+            let min = document.getElementById('minDeposit').value;
+            let max = document.getElementById('maxDeposit').value;
+
+            if (!name || !val1 || !min || !max) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            let currencySign = currentCurrency + ' ';
+            let badgeText = 'Local Gateway';
+            
+            if (cat === 'bank') badgeText = 'Bank Transfer';
+            if (cat === 'crypto') { badgeText = 'Crypto Gateway'; currencySign = '$ '; }
+
+            let displayName = name;
+            let detailsHtml = "";
+
+            if (cat === 'mobile') {
+                if (currentCountry === 'Bangladesh') displayName = `${name} (${accType})`;
+                detailsHtml = `Holder: <strong>${holder || 'N/A'}</strong><br>Identifier: <strong>${val1}</strong>`;
+            } else if (cat === 'bank') {
+                detailsHtml = `Holder: <strong>${holder || 'N/A'}</strong><br>Code/Branch: <strong>${val1}</strong> | A/C: <strong>${val2 || 'N/A'}</strong>`;
+            } else if (cat === 'crypto') {
+                detailsHtml = `Address/ID: <strong style="word-break:break-all;">${val1}</strong>`;
+            }
+
+            let username = localStorage.getItem('logged_agent_username') || 'rasel';
+
+            let payload = {
+                username: username,
+                region: currentCountry,
+                type: cat,
+                name: displayName,
+                details: detailsHtml,
+                min: currencySign + min,
+                max: currencySign + max,
+                badge: badgeText,
+                active: true
+            };
+
+            try {
+                let res = await fetch('/api/agent/gateways', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) {
+                    closeModal();
+                    await fetchGatewaysFromBackend();
+                    document.getElementById('inputHolderName').value = "";
+                    document.getElementById('inputField1').value = "";
+                    document.getElementById('inputField2').value = "";
+                    document.getElementById('minDeposit').value = "";
+                    document.getElementById('maxDeposit').value = "";
+                } else {
+                    // Fallback to local array in case API endpoint is missing
+                    walletData.push({ id: walletData.length + 1, ...payload });
+                    closeModal();
+                    renderWallets();
+                }
+            } catch (err) {
+                walletData.push({ id: walletData.length + 1, ...payload });
+                closeModal();
+                renderWallets();
+            }
+        }
+
+        function renderWallets() {
+            let container = document.getElementById('walletListContainer');
+            container.innerHTML = "";
+
+            if (walletData.length === 0) {
+                container.innerHTML = `<div style="text-align: center; color: #94a3b8; font-size: 13px; padding: 25px; background: rgba(30, 41, 59, 0.4); border-radius: 16px; border: 1px dashed rgba(255,255,255,0.1);">No gateways configured for ${currentCountry}. Click 'ADD NEW' button above to add gateways.</div>`;
+                document.getElementById('totalCount').innerText = `0 Active`;
+                return;
+            }
+
+            walletData.forEach(w => {
+                let cardClass = w.active ? 'wallet-card' : 'wallet-card inactive';
+                let toggleClass = w.active ? 'toggle-switch active' : 'toggle-switch';
+                let statusColor = w.active ? '#4ade80' : '#f87171';
+                let statusText = w.active ? 'Active' : 'Inactive';
+
+                container.innerHTML += `
+                    <div class="${cardClass}" id="wallet-${w.id}">
+                        <div class="wallet-top">
+                            <div class="wallet-name"><i class="fa-solid fa-wallet" style="color:#38bdf8;"></i> ${w.name}</div>
+                            <span class="wallet-badge">${w.badge}</span>
+                        </div>
+                        <div class="wallet-details">${w.details}</div>
+                        <div class="wallet-limits">
+                            <span>Min: ${w.min}</span>
+                            <span>Max: ${w.max}</span>
+                        </div>
+                        <div class="wallet-actions">
+                            <span style="font-size: 11px; color: ${statusColor}; font-weight: 700;" id="status-text-${w.id}">${statusText}</span>
+                            <div class="action-group-right">
+                                <div class="${toggleClass}" onclick="toggleWallet(${w.id})">
+                                    <div class="toggle-thumb"></div>
+                                </div>
+                                <button class="btn-delete" onclick="deleteWallet(${w.id})"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
             });
+
+            document.getElementById('totalCount').innerText = `${walletData.filter(w => w.active).length} Active`;
         }
 
         function toggleWallet(id) {
-            let card = document.getElementById('wallet-' + id);
-            let statusText = document.getElementById('status-text-' + id);
-            let toggleBtn = card.querySelector('.toggle-switch');
-            
             let item = walletData.find(w => w.id === id);
             if (item) {
                 item.active = !item.active;
-                if (item.active) {
-                    toggleBtn.classList.add('active');
-                    card.classList.remove('inactive');
-                    statusText.innerText = "Active";
-                    statusText.style.color = "#4ade80";
-                } else {
-                    toggleBtn.classList.remove('active');
-                    card.classList.add('inactive');
-                    statusText.innerText = "Inactive";
-                    statusText.style.color = "#f87171";
-                }
+                renderWallets();
             }
         }
 
@@ -669,134 +454,8 @@
             }
         }
 
-        function saveNewWallet() {
-            let cat = document.getElementById('gatewayCategory').value;
-            let name = document.getElementById('methodName').value;
-            let accType = document.getElementById('accountTypeSelect').value;
-            let val1 = document.getElementById('inputField1').value;
-            let val2 = document.getElementById('inputField2').value;
-            let qrFile = document.getElementById('qrCodeFile').files[0];
-            let min = document.getElementById('minDeposit').value;
-            let max = document.getElementById('maxDeposit').value;
-
-            if (!val1 || !min || !max) {
-                alert('Please fill all required fields!');
-                return;
-            }
-
-            let meta = countryMeta[userCountry] || { currency: '৳ ' };
-            let currencySign = meta.currency;
-            let badgeText = 'Local Wallet';
-            let logoUrl = "https://cdn-icons-png.flaticon.com/512/2830/2830284.png";
-            
-            if (cat === 'bank') badgeText = 'Bank Transfer';
-            else if (cat === 'crypto') {
-                badgeText = 'Crypto Network';
-                currencySign = '$ ';
-                logoUrl = "https://assets.coingecko.com/coins/images/325/large/Tether.png";
-            }
-
-            let displayName = name;
-            let detailsHtml = "";
-            if (cat === 'mobile') {
-                displayName = `${name} (${accType})`;
-                detailsHtml = `Number/ID: <strong>${val1}</strong>`;
-            } else if (cat === 'bank') {
-                detailsHtml = `Branch/Code: <strong>${val1}</strong><br>Acc No: <strong>${val2 || 'N/A'}</strong>`;
-            } else if (cat === 'crypto') {
-                detailsHtml = `Address: <strong style="word-break:break-all;">${val1}</strong>`;
-            }
-
-            if (qrFile) {
-                detailsHtml += `<br>QR Code: <strong>Uploaded</strong>`;
-            }
-
-            let newId = walletData.length > 0 ? Math.max(...walletData.map(w => w.id)) + 1 : 1;
-            
-            walletData.push({
-                id: newId,
-                region: userCountry,
-                type: cat,
-                name: displayName,
-                logo: logoUrl,
-                details: detailsHtml,
-                min: currencySign + min,
-                max: currencySign + max,
-                commDep: '1.5%', 
-                commWd: '1.0%',
-                commSub: '0.5%',
-                badge: badgeText,
-                active: true
-            });
-
-            closeModal();
-            renderWallets();
-            
-            document.getElementById('inputField1').value = "";
-            document.getElementById('inputField2').value = "";
-            document.getElementById('minDeposit').value = "";
-            document.getElementById('maxDeposit').value = "";
-        }
-
-        function renderWallets() {
-            let container = document.getElementById('walletListContainer');
-            container.innerHTML = "";
-            
-            // শুধু বর্তমান সিলেক্ট করা বা অ্যাকাউন্ট কান্ট্রির গেটওয়েগুলো ফিল্টার হবে
-            let filteredWallets = walletData.filter(w => w.region === userCountry);
-
-            if (filteredWallets.length === 0) {
-                container.innerHTML = `<div style="text-align: center; color: #94a3b8; font-size: 13px; padding: 20px; background: #1e293b; border-radius: 12px; border: 1px solid #334155;">No gateways configured for ${userCountry}. Click 'Add New' to add gateways.</div>`;
-            }
-
-            filteredWallets.forEach(w => {
-                let cardClass = w.active ? 'wallet-card' : 'wallet-card inactive';
-                let toggleClass = w.active ? 'toggle-switch active' : 'toggle-switch';
-                let statusColor = w.active ? '#4ade80' : '#f87171';
-                let statusText = w.active ? 'Active' : 'Inactive';
-
-                container.innerHTML += `
-                    <div class="${cardClass}" id="wallet-${w.id}">
-                        <div class="wallet-top">
-                            <div class="wallet-name">
-                                <img src="${w.logo}" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2830/2830284.png'" alt="${w.name}"> ${w.name}
-                            </div>
-                            <span class="wallet-badge">${w.badge}</span>
-                        </div>
-                        <div class="wallet-details">
-                            ${w.details}
-                        </div>
-                        <div class="wallet-limits">
-                            <span>Min: ${w.min}</span>
-                            <span>Max: ${w.max}</span>
-                        </div>
-                        <div class="commission-box">
-                            <div class="commission-title"><i class="fa-solid fa-percent"></i> Real Time Commission</div>
-                            <div class="commission-grid">
-                                <div class="comm-item"><span class="comm-label">Deposit</span><span class="comm-val">${w.commDep}</span></div>
-                                <div class="comm-item"><span class="comm-label">Withdraw</span><span class="comm-val">${w.commWd}</span></div>
-                                <div class="comm-item"><span class="comm-label">Subagent</span><span class="comm-val">${w.commSub}</span></div>
-                            </div>
-                        </div>
-                        <div class="wallet-actions">
-                            <span style="font-size: 11px; color: ${statusColor}; font-weight: 600;" id="status-text-${w.id}">${statusText}</span>
-                            <div class="action-group-right">
-                                <div class="${toggleClass}" onclick="toggleWallet(${w.id})">
-                                    <div class="toggle-thumb"></div>
-                                </div>
-                                <button class="btn-delete" onclick="deleteWallet(${w.id})"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('totalCount').innerText = `${filteredWallets.filter(w => w.active).length} Active`;
-        }
-
         window.onload = function() {
-            initAccountCountry();
-            renderWallets();
+            initPage();
         };
     </script>
 </body>

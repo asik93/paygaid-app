@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- ক্যাশ সমস্যা দূর করার মেটা ট্যাগ -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -11,182 +10,33 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            color-scheme: dark !important;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            background-color: #0f172a !important; 
-            color: #f8fafc !important;
-            padding: 20px 16px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        .back-btn {
-            background: none; 
-            border: none; 
-            color: #38bdf8;
-            font-size: 14px; 
-            font-weight: 600; 
-            cursor: pointer;
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            margin-bottom: 24px;
-        }
-        .header {
-            margin-bottom: 24px;
-            text-align: center;
-        }
-        .logo-box {
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center;
-            gap: 8px; 
-            margin-bottom: 14px;
-            background: rgba(56, 189, 248, 0.1);
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-        .logo-text { 
-            font-size: 20px; 
-            font-weight: 800; 
-            color: #38bdf8; 
-            letter-spacing: 0.5px; 
-        }
-        .welcome-title { 
-            font-size: 24px; 
-            font-weight: 700; 
-            color: #ffffff; 
-            margin-bottom: 6px; 
-        }
-        .welcome-sub { 
-            font-size: 13px; 
-            color: #94a3b8; 
-            line-height: 1.4; 
-        }
-
-        .content-card {
-            background: #1e293b; 
-            border: 1px solid #334155;
-            border-radius: 14px; 
-            padding: 20px; 
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-        .form-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #cbd5e1;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .form-control {
-            width: 100%;
-            padding: 12px 14px;
-            background: #0f172a;
-            border: 1px solid #475569;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.2s;
-        }
-        .form-control:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-        }
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-        .forgot-link {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
-        .btn-action {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 15px;
-            text-align: center;
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
-            color: white;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-            transition: opacity 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-action:active {
-            opacity: 0.85;
-        }
-        .support-box {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 13px;
-            color: #94a3b8;
-        }
-        .support-box a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .support-box a:hover {
-            text-decoration: underline;
-        }
-        .footer-note {
-            text-align: center;
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 24px;
-        }
+        :root { color-scheme: dark !important; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0f172a !important; color: #f8fafc !important; padding: 20px 16px; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
+        .container { width: 100%; max-width: 400px; margin: 0 auto; }
+        .back-btn { background: none; border: none; color: #38bdf8; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; margin-bottom: 24px; }
+        .header { margin-bottom: 24px; text-align: center; }
+        .logo-box { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px; background: rgba(56, 189, 248, 0.1); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(56, 189, 248, 0.2); }
+        .logo-text { font-size: 20px; font-weight: 800; color: #38bdf8; letter-spacing: 0.5px; }
+        .welcome-title { font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+        .welcome-sub { font-size: 13px; color: #94a3b8; line-height: 1.4; }
+        .content-card { background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; color: #cbd5e1; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control { width: 100%; padding: 12px 14px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #ffffff; font-size: 14px; outline: none; transition: all 0.2s; }
+        .form-control:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+        .form-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 13px; }
+        .remember-me { display: flex; align-items: center; gap: 6px; color: #94a3b8; cursor: pointer; }
+        .forgot-link { color: #38bdf8; text-decoration: none; font-weight: 600; }
+        .btn-action { width: 100%; padding: 13px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 15px; text-align: center; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: white; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); text-transform: uppercase; letter-spacing: 0.5px; }
+        .support-box { text-align: center; margin-top: 16px; font-size: 13px; color: #94a3b8; }
+        .support-box a { color: #38bdf8; text-decoration: none; font-weight: 600; cursor: pointer; }
+        .footer-note { text-align: center; font-size: 11px; color: #64748b; margin-top: 24px; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- ব্যাক বাটন -->
-        <button class="back-btn" onclick="window.location.href='index.html'">
-            <i class="fa-solid fa-arrow-left"></i> Back to Home
-        </button>
-
+        <button class="back-btn" onclick="window.location.href='index.html'"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
         <div class="header">
             <div class="logo-box">
                 <i class="fa-solid fa-user-shield" style="color: #38bdf8;"></i>
@@ -195,51 +45,34 @@
             <h1 class="welcome-title">Welcome Back</h1>
             <p class="welcome-sub">Sign in with your agent credentials to access your portal dashboard.</p>
         </div>
-
         <div class="content-card">
             <div class="form-group">
                 <label>Agent ID / Username</label>
                 <input type="text" class="form-control" id="agentId" placeholder="Enter your ID">
             </div>
-
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" class="form-control" id="agentPass" placeholder="Enter your password">
             </div>
-
             <div class="form-row">
-                <label class="remember-me">
-                    <input type="checkbox" style="accent-color: #38bdf8;"> Remember me
-                </label>
+                <label class="remember-me"><input type="checkbox" style="accent-color: #38bdf8;"> Remember me</label>
                 <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
             </div>
-
             <button class="btn-action" onclick="handleLogin()">Sign In</button>
-
-            <!-- কন্টাক্ট সাপোর্ট লিঙ্ক -->
-            <div class="support-box">
-                Having trouble? <a onclick="openContact(event)">Contact Support</a>
-            </div>
+            <div class="support-box">Having trouble? <a onclick="openContact(event)">Contact Support</a></div>
         </div>
-
-        <div class="footer-note">
-            Secure Telegram Mini App Authentication &bull; PayGaid Agent Portal
-        </div>
+        <div class="footer-note">Secure Telegram Mini App Authentication &bull; PayGaid Agent Portal</div>
     </div>
-
     <script>
         let tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.ready();
-            tg.expand();
-        }
+        if (tg) { tg.ready(); tg.expand(); }
 
         function openContact(e) {
             e.preventDefault();
             window.location.href = 'contact.html?t=' + new Date().getTime();
         }
 
-        function handleLogin() {
+        async function handleLogin() {
             const id = document.getElementById('agentId').value.trim();
             const pass = document.getElementById('agentPass').value.trim();
 
@@ -248,8 +81,24 @@
                 return;
             }
 
-            // সঠিক ড্যাশবোর্ড ফাইলের নাম (agent-dashboard.html) এ রিডাইরেক্ট করবে
-            window.location.href = 'agent-dashboard.html?t=' + new Date().getTime();
+            try {
+                const response = await fetch('/api/agents/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ agent_username: id, agent_password: pass })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('logged_agent_username', id);
+                    window.location.href = 'agent-dashboard.html?t=' + new Date().getTime();
+                } else {
+                    alert(data.detail || 'Login failed.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection error.');
+            }
         }
     </script>
 </body>

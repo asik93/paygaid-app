@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayGaid - Check Application Status</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto px-4 py-12 max-w-xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">PayGaid Agent Status</h1>
+            <p class="text-gray-600 mt-2">Apnar application ID diye bortoman obostha o inbox check korun</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="appId">Application ID</label>
+                <input type="text" id="appId" value="" autocomplete="off" placeholder="Udahoron: PG-AG-735905" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button onclick="checkStatus()" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Status Check Korun</button>
+        </div>
+
+        <!-- Error Box (Hidden by default) -->
+        <div id="errorBox" class="bg-red-50 border border-red-200 p-4 rounded-lg shadow-md hidden mb-6 text-center text-red-700">
+            <p class="font-bold">Application ID not found.</p>
+            <p class="text-xs mt-1">Sothik ID diye abar chesta korun (jeon: PG-AG-735905).</p>
+        </div>
+
+        <!-- Result Box (Hidden by default) -->
+        <div id="resultBox" class="bg-white p-6 rounded-lg shadow-md hidden space-y-4">
+            <h3 class="text-xl font-bold text-gray-800 border-b pb-2">Abedoner Biboron</h3>
+            
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <span class="text-gray-500 block">Purno Nam:</span>
+                    <span id="resName" class="font-semibold text-gray-800"></span>
+                </div>
+                <div>
+                    <span class="text-gray-500 block">Main Status:</span>
+                    <span id="resStatus" class="inline-px px-2 py-1 text-xs font-semibold rounded-full"></span>
+                </div>
+                <div>
+                    <span class="text-gray-500 block">Assigned Manager:</span>
+                    <span id="resManager" class="font-semibold text-blue-600">Nei</span>
+                </div>
+                <div>
+                    <span class="text-gray-500 block">Payment Gateway:</span>
+                    <span id="resGateway" class="font-semibold text-gray-800"></span>
+                </div>
+            </div>
+
+            <!-- Separate Lines for Deposit, Withdrawal & Security Status -->
+            <div class="mt-4 border-t pt-4 space-y-2 text-sm">
+                <div class="flex justify-between items-center bg-gray-50 p-2.5 rounded border">
+                    <span class="text-gray-600 font-medium">Deposit Limit Status:</span>
+                    <span id="resDepStatus" class="px-2 py-1 text-xs font-bold rounded">Pending</span>
+                </div>
+                <div class="flex justify-between items-center bg-gray-50 p-2.5 rounded border">
+                    <span class="text-gray-600 font-medium">Withdrawal Limit Status:</span>
+                    <span id="resWithStatus" class="px-2 py-1 text-xs font-bold rounded">Pending</span>
+                </div>
+                <div class="flex justify-between items-center bg-gray-50 p-2.5 rounded border">
+                    <span class="text-gray-600 font-medium">Security Deposit Status:</span>
+                    <span id="resSecStatus" class="px-2 py-1 text-xs font-bold rounded">Pending</span>
+                </div>
+            </div>
+
+            <!-- Inbox / Messages Section -->
+            <div class="mt-4 border-t pt-4">
+                <h4 class="text-md font-bold text-gray-800 mb-2">Inbox / Notification</h4>
+                <div id="resMessage" class="bg-gray-50 p-3 rounded border text-sm text-gray-700">
+                    Kono notun message nei.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkStatus() {
+            const appIdInput = document.getElementById('appId').value.trim();
+            const resultBox = document.getElementById('resultBox');
+            const errorBox = document.getElementById('errorBox');
+
+            if (!appIdInput) {
+                alert("Doya kore apnar application ID likhun.");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/agents");
+                const agents = await response.json();
+
+                const agent = agents.find(a => a.application_id && a.application_id.trim().toUpperCase() === appIdInput.toUpperCase());
+
+                if (!agent) {
+                    errorBox.classList.remove('hidden');
+                    resultBox.classList.add('hidden');
+                    return;
+                }
+
+                errorBox.classList.add('hidden');
+
+                document.getElementById('resName').innerText = agent.full_name || 'N/A';
+                document.getElementById('resGateway').innerText = (agent.payment_gateway || '') + " (" + (agent.account_number || '') + ")";
+                
+                const managerSpan = document.getElementById('resManager');
+                managerSpan.innerText = agent.assigned_manager ? agent.assigned_manager : "Kaoke assign kora hoyni";
+
+                // Main Status (Pending, Under Review, Active, Rejected)
+                const statusSpan = document.getElementById('resStatus');
+                const mainStatus = agent.status || 'Pending';
+                statusSpan.innerText = mainStatus;
+                
+                let statusClass = 'bg-yellow-100 text-yellow-800';
+                if (mainStatus === 'Active') statusClass = 'bg-green-100 text-green-800';
+                else if (mainStatus === 'Under Review') statusClass = 'bg-blue-100 text-blue-800';
+                else if (mainStatus === 'Rejected') statusClass = 'bg-red-100 text-red-800';
+                statusSpan.className = "px-2 py-1 text-xs font-semibold rounded-full " + statusClass;
+
+                // Helper function to style limit status (Pending, Under Review, Active, Rejected, Approved etc.)
+                function setBadgeStyle(element, value) {
+                    element.innerText = value;
+                    let cls = 'bg-yellow-100 text-yellow-800';
+                    if (value === 'Active' || value === 'Approved') cls = 'bg-green-100 text-green-800';
+                    else if (value === 'Under Review') cls = 'bg-blue-100 text-blue-800';
+                    else if (value === 'Rejected') cls = 'bg-red-100 text-red-800';
+                    element.className = "px-2 py-1 text-xs font-bold rounded " + cls;
+                }
+
+                // Deposit Limit Status Line
+                setBadgeStyle(document.getElementById('resDepStatus'), agent.deposit_limit_status || 'Pending');
+
+                // Withdrawal Limit Status Line
+                setBadgeStyle(document.getElementById('resWithStatus'), agent.withdrawal_limit_status || 'Pending');
+
+                // Security Deposit Status Line
+                setBadgeStyle(document.getElementById('resSecStatus'), agent.security_deposit_status || 'Pending');
+
+                // Inbox / Notification Message
+                const msgBox = document.getElementById('resMessage');
+                if (agent.message && agent.message.trim() !== "") {
+                    msgBox.innerText = agent.message;
+                } else {
+                    msgBox.innerText = "Admin er pokkho theke kono message nei.";
+                }
+
+                resultBox.classList.remove('hidden');
+
+            } catch (error) {
+                console.error("Truṭi:", error);
+                alert("Server er sathe songjog sthapon korte somossha hocche.");
+            }
+        }
+    </script>
+</body>
+</html>

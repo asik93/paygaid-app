@@ -10,289 +10,63 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            color-scheme: dark !important;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            background-color: #0e1217 !important; 
-            color: #e4e6eb !important;
-            padding: 12px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .container {
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        .back-bar {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            background: #1e293b;
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-        }
-        .back-btn {
-            background: none;
-            border: none;
-            color: #38bdf8;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .page-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            text-transform: uppercase;
-        }
-        .balance-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-        .balance-title {
-            font-size: 11px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-            display: block;
-        }
-        .balance-amount {
-            font-size: 24px;
-            font-weight: 800;
-            color: #4ade80;
-        }
-        .form-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 16px;
-        }
-        .form-group {
-            margin-bottom: 14px;
-            position: relative;
-        }
-        .form-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            margin-bottom: 6px;
-            display: block;
-            text-transform: uppercase;
-        }
-        .form-control {
-            width: 100%;
-            background: #0e1217;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 12px 14px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: 0.2s;
-        }
-        .form-control:focus {
-            border-color: #38bdf8;
-        }
+        :root { color-scheme: dark !important; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0e1217 !important; color: #e4e6eb !important; padding: 12px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 450px; margin: 0 auto; }
+        .back-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; background: #1e293b; padding: 10px 14px; border-radius: 12px; border: 1px solid #334155; }
+        .back-btn { background: none; border: none; color: #38bdf8; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .page-title { font-size: 14px; font-weight: 700; color: #ffffff; text-transform: uppercase; }
+        .balance-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .balance-title { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
+        .balance-amount { font-size: 24px; font-weight: 800; color: #4ade80; }
+        .form-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; }
+        .form-group { margin-bottom: 14px; position: relative; }
+        .form-label { font-size: 11px; font-weight: 700; color: #94a3b8; margin-bottom: 6px; display: block; text-transform: uppercase; }
+        .form-control { width: 100%; background: #0e1217; border: 1px solid #334155; border-radius: 10px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; transition: 0.2s; }
+        .form-control:focus { border-color: #38bdf8; }
 
-        /* Custom Select Styling with Logos */
-        .custom-select-box {
-            position: relative;
-            cursor: pointer;
-        }
-        .select-selected {
-            background: #0e1217;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: #ffffff;
-            font-size: 14px;
-        }
-        .select-selected img {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-            vertical-align: middle;
-            border-radius: 50%;
-        }
-        .selected-value {
-            display: flex;
-            align-items: center;
-        }
-        .select-items {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #0e1217;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            margin-top: 4px;
-            z-index: 99;
-            display: none;
-            max-height: 220px;
-            overflow-y: auto;
-        }
-        .select-items.show {
-            display: block;
-        }
-        .select-option {
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border-bottom: 1px solid #1e293b;
-            font-size: 13px;
-            color: #e4e6eb;
-            transition: 0.2s;
-        }
-        .select-option:hover {
-            background: #1e293b;
-        }
-        .select-option img {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-        }
+        .custom-select-box { position: relative; cursor: pointer; }
+        .select-selected { background: #0e1217; border: 1px solid #334155; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; color: #ffffff; font-size: 14px; }
+        .select-selected img { width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; border-radius: 50%; }
+        .selected-value { display: flex; align-items: center; }
+        .select-items { position: absolute; top: 100%; left: 0; right: 0; background: #0e1217; border: 1px solid #334155; border-radius: 10px; margin-top: 4px; z-index: 99; display: none; max-height: 220px; overflow-y: auto; }
+        .select-items.show { display: block; }
+        .select-option { padding: 10px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; border-bottom: 1px solid #1e293b; font-size: 13px; color: #e4e6eb; transition: 0.2s; }
+        .select-option:hover { background: #1e293b; }
+        .select-option img { width: 22px; height: 22px; border-radius: 50%; }
 
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: #0284c7;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 6px;
-            transition: 0.2s;
-        }
-        .btn-submit:hover {
-            background: #0369a1;
-        }
+        .btn-submit { width: 100%; padding: 14px; background: #0284c7; border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; margin-top: 6px; transition: 0.2s; }
+        .btn-submit:hover { background: #0369a1; }
 
-        /* Success Modal Design */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(14, 18, 23, 0.85);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-box {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 360px;
-            padding: 24px;
-            text-align: center;
-            transform: scale(0.8);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .modal-overlay.active .modal-box {
-            transform: scale(1);
-        }
-        .success-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(74, 222, 128, 0.1);
-            border: 2px solid #4ade80;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px auto;
-            color: #4ade80;
-            font-size: 28px;
-        }
-        .modal-box h3 {
-            font-size: 18px;
-            color: #ffffff;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        .modal-box p {
-            font-size: 13px;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .modal-btn {
-            background: #16a34a;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .modal-btn:hover {
-            background: #15803d;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(14, 18, 23, 0.85); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: #1e293b; border: 1px solid #334155; border-radius: 16px; width: 90%; max-width: 360px; padding: 24px; text-align: center; transform: scale(0.8); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        .success-icon { width: 64px; height: 64px; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; color: #4ade80; font-size: 28px; }
+        .modal-box h3 { font-size: 18px; color: #ffffff; margin-bottom: 8px; font-weight: 700; }
+        .modal-box p { font-size: 13px; color: #94a3b8; margin-bottom: 20px; line-height: 1.5; }
+        .modal-btn { background: #16a34a; color: white; border: none; width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .modal-btn:hover { background: #15803d; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Back Bar -->
         <div class="back-bar">
             <button class="back-btn" onclick="window.location.href='agent-dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
             <div class="page-title">Withdraw Funds</div>
         </div>
 
-        <!-- Main Balance Card -->
         <div class="balance-card">
             <span class="balance-title">Main Balance</span>
-            <div class="balance-amount">৳ 250,000.00</div>
+            <div class="balance-amount" id="mainBalance">৳ 0.00</div>
         </div>
 
-        <!-- Withdraw Form Card -->
         <div class="form-card">
             <form onsubmit="handleWithdraw(event)">
                 <div class="form-group">
                     <label class="form-label">Select Crypto Method</label>
-                    
-                    <!-- Custom Select Dropdown -->
                     <div class="custom-select-box" id="customSelect">
                         <div class="select-selected" onclick="toggleDropdown()">
                             <div class="selected-value" id="selectedValue">
@@ -326,25 +100,22 @@
 
                 <div class="form-group">
                     <label class="form-label">Withdraw Amount (BDT)</label>
-                    <input type="number" class="form-control" placeholder="Enter amount" required>
+                    <input type="number" id="withdrawAmount" class="form-control" placeholder="Enter amount" required>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Wallet Address</label>
-                    <input type="text" class="form-control" placeholder="Enter wallet address" required>
+                    <input type="text" id="walletAddress" class="form-control" placeholder="Enter wallet address" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Submit Withdrawal</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Submit Withdrawal</button>
             </form>
         </div>
     </div>
 
-    <!-- Success Popup Modal -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
-            <div class="success-icon">
-                <i class="fa-solid fa-check"></i>
-            </div>
+            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
             <h3>Withdrawal Successful!</h3>
             <p>Your withdrawal request has been submitted successfully and is pending admin approval.</p>
             <button class="modal-btn" onclick="closeModal()">Back to Dashboard</button>
@@ -353,10 +124,27 @@
 
     <script>
         let tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.ready?.();
-            tg.expand?.();
+        if (tg) { tg.ready?.(); tg.expand?.(); }
+
+        const username = localStorage.getItem('logged_agent_username');
+
+        async function fetchBalance() {
+            if (!username) {
+                window.location.href = 'login.html';
+                return;
+            }
+            try {
+                const res = await fetch(`/api/agent/profile/${username}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('mainBalance').innerText = `৳ ${(data.balance || 0).toFixed(2)}`;
+                }
+            } catch (err) {
+                console.error("Error loading balance:", err);
+            }
         }
+
+        fetchBalance();
 
         function toggleDropdown() {
             document.getElementById('selectItems').classList.toggle('show');
@@ -374,9 +162,37 @@
             }
         }
 
-        function handleWithdraw(event) {
+        async function handleWithdraw(event) {
             event.preventDefault();
-            document.getElementById('successModal').classList.add('active');
+            const method = document.getElementById('cryptoMethod').value;
+            const amount = document.getElementById('withdrawAmount').value;
+            const wallet_address = document.getElementById('walletAddress').value;
+            const btn = document.getElementById('submitBtn');
+
+            btn.disabled = true;
+            btn.innerText = "Submitting...";
+
+            try {
+                const response = await fetch('/api/agent/withdraw', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, method, amount, wallet_address })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById('successModal').classList.add('active');
+                } else {
+                    alert(result.detail || "Withdrawal failed");
+                    btn.disabled = false;
+                    btn.innerText = "Submit Withdrawal";
+                }
+            } catch (err) {
+                console.error("Error:", err);
+                alert("Network error occurred.");
+                btn.disabled = false;
+                btn.innerText = "Submit Withdrawal";
+            }
         }
 
         function closeModal() {

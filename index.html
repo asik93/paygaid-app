@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- ক্যাশ সমস্যা চিরতরে দূর করার মেটা ট্যাগ -->
+    <!-- kash shomossha chirotore dur korar meta tag -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -221,7 +221,7 @@
         </div>
     </div>
 
-    <!-- 2. Language Selection Screen[cite: 4] -->
+    <!-- 2. Language Selection Screen -->
     <div id="page-lang" class="page">
         <button class="back-btn" onclick="goPage('page-country')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
@@ -245,7 +245,7 @@
         </div>
     </div>
 
-    <!-- 3. Main Dashboard Screen[cite: 4] -->
+    <!-- 3. Main Dashboard Screen -->
     <div id="page-dashboard" class="page">
         <svg class="dashboard-bg-globe" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="350" cy="150" r="200" fill="#3b82f6" opacity="0.12"/>
@@ -381,8 +381,11 @@
         <h2 style="margin-bottom:6px;font-size:20px;">Check Application Status</h2>
         <p style="font-size:12px;color:#64748b;margin-bottom:14px;">Enter your Application ID to check your application.</p>
         <div class="content-card">
-            <div class="form-group"><label>Application ID</label><input type="text" class="form-control" id="standalone-status-id-input" placeholder="e.g. AG547512" maxlength="8" style="text-transform:uppercase;"></div>
-            <div id="standalone-status-result" style="display:none;margin:15px 0;padding:15px;border-radius:12px;text-align:center;"></div>
+            <div class="form-group">
+                <label>Application ID</label>
+                <input type="text" class="form-control" id="standalone-status-id-input" placeholder="e.g. PG-AG-735905" autocomplete="off">
+            </div>
+            <div id="standalone-status-result" style="display:none; margin: 15px 0; padding: 15px; border-radius: 12px; text-align: left;"></div>
             <button class="btn-action btn-primary" onclick="checkStandaloneApplicationStatus()" style="width:100%;">Check Status</button>
         </div>
         <div class="footer-divider"><div class="footer-line"></div><div class="footer-text">POWERED BY PAYGAID</div><div class="footer-line"></div></div>
@@ -402,7 +405,7 @@
         <div class="footer-divider"><div class="footer-line"></div><div class="footer-text">POWERED BY PAYGAID</div><div class="footer-line"></div></div>
     </div>
 
-    <!-- 4. Inner Detail Page[cite: 4] -->
+    <!-- 4. Inner Detail Page -->
     <div id="page-detail" class="page">
         <button class="back-btn" onclick="goPage('page-dashboard')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
@@ -418,7 +421,7 @@
         </div>
     </div>
 
-    <!-- 5. Become an Agent 3-Step Registration Form Page[cite: 4] -->
+    <!-- 5. Become an Agent 3-Step Registration Form Page -->
     <div id="page-agent-form" class="page">
         <button class="back-btn" onclick="goPage('page-dashboard')">
             <i class="fa-solid fa-arrow-left"></i> <span class="btn-back-txt">Back</span>
@@ -541,21 +544,6 @@
             <div class="btn-flex" style="margin-top: 20px;">
                 <button class="btn-action btn-primary" onclick="openStatusPage()" id="btn-check-status-after-submit">Check Application Status</button>
                 <button class="btn-action btn-secondary" onclick="goPage('page-dashboard')">Back to Dashboard</button>
-            </div>
-        </div>
-
-        <!-- Application Status Page -->
-        <div class="content-card hidden" id="form-status-page">
-            <h3 id="status-title" style="font-size: 18px; font-weight: 700; margin-bottom: 5px;">Check Application Status</h3>
-            <p id="status-sub" style="font-size: 12px; color: #64748b; margin-bottom: 15px;">Enter your Application ID to check your application.</p>
-            <div class="form-group">
-                <label id="status-id-label">Application ID</label>
-                <input type="text" class="form-control" id="status-id-input" placeholder="e.g. AG547512" maxlength="8" style="text-transform: uppercase;">
-            </div>
-            <div id="status-result" style="display:none; margin: 15px 0; padding: 15px; border-radius: 12px; text-align:center;"></div>
-            <div class="btn-flex">
-                <button class="btn-action btn-primary" onclick="checkApplicationStatus()" id="btn-status-check">Check Status</button>
-                <button class="btn-action btn-secondary" onclick="goPage('page-dashboard')" id="btn-status-back">Back</button>
             </div>
         </div>
 
@@ -694,7 +682,7 @@
                 back: "واپس", welcome: "خوش آمدید", sub1: "آپ کا قابل اعتماد Payment Gateway اور<br>E-Wallet Agent Platform۔", sub2: "پروگرام دیکھیں، ضروریات چیک کریں،<br>یا اپنی درخواست جمع کریں۔",
                 m1_title: "ایجنٹ بنیں", m1_sub: "مزید معلومات حاصل کریں اور درخواست جمع کریں۔", m2_title: "ایجنٹ لاگ ان", m2_sub: "اپنے ایجنٹ پینل میں داخل ہوں۔", m3_title: "پروگرام کا جائزہ", m3_sub: "PayGaid Agent Program کے بارے میں جانیں۔", m4_title: "اہلیت کے معیار", m4_sub: "اہلیت اور مطلوبہ معلومات دیکھیں۔", m5_title: "شرائط و ضوابط", m5_sub: "پروگرام کی شرائط پڑھیں۔", m6_title: "اکثر پوچھے گئے سوالات", m6_sub: "عام سوالات کے جوابات حاصل کریں۔", m7_title: "سپورٹ سے رابطہ", m7_sub: "ہماری سپورٹ ٹیم سے مدد لیں۔", m8_title: "زبان تبدیل کریں", m8_sub: "اپنی پسندیدہ زبان منتخب کریں۔",
                 m3_content: "PayGaid آپ کو ایک آفیشل پیمنٹ ایجنٹ کے طور پر کام کرنے کی سہولت دیتا ہے۔", m4_content: "ضروریات: درست NID/پاسپورٹ، فعال موبائل نمبر اور تصدیق۔", m5_content: "تمام شرائط مالیاتی سیکیورٹی کے معیارات کے مطابق لاگو ہوں گی۔", m6_content: "سوال: منظوری میں کتنا وقت لگتا ہے؟<br>جواب: عام طور پر 24-48 کاروباری گھنٹے۔", m7_content: "مدد چاہیے؟ support@paygaid.com سے رابطہ کریں۔",
-                formHead: "ایجنٹ رجسٹریشن", formS1Title: "مرحلہ 1: ذاتی معلومات", formS1Sub: "اپنی رابطے کی معلومات دیں", lblFullname: "پورا نام", phFullname: "مثال: John Doe", lblEmail: "ای میل ایڈریس", phEmail: "example@mail.com", lblPhone: "موبائل نمبر", phPhone: "موبائل نمبر", lblWhatsapp: "WhatsApp نمبر", phWhatsapp: "WhatsApp نمبر", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "اگلا \u2192",
+                formHead: "ایجنٹ رجسٹریشن", formS1Title: "مرحلہ 1: ذاتی معلومات", formS1Sub: "اپنی رابطے کی معلومات دیں", lblFullname: "پورا نام", phFullname: "مثال: John Doe", lblEmail: "ای میل ایڈریس", phEmail: "example@mail.com", lblPhone: "موبাইল نمبر", phPhone: "موبائل نمبر", lblWhatsapp: "WhatsApp نمبر", phWhatsapp: "WhatsApp نمبر", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "اگلا \u2192",
                 formS2Title: "مرحلہ 2: پیمنٹ گیٹ ویز", formS2Sub: "مقامی طریقہ یا کرپٹو منتخب کریں", lblSelectGw: "پیمنٹ گیٹ وے منتخب کریں", lblAccNum: "منتخب اکاؤنٹ / والٹ ایڈریس", phAccNum: "اکاؤنٹ نمبر یا والٹ ایڈریس", btnBack: "\u2190 واپس", btnNext2: "اگلا \u2192",
                 formS3Title: "مرحلہ 3: شناخت اور تصدیق", formS3Sub: "تصدیق کے لیے دستاویزات کی تصاویر اپ لوڈ کریں", lblDocType: "دستاویز کی قسم منتخب کریں", lblDocNum: "دستاویز نمبر", phDocNum: "دستاویز نمبر", lblUploadFront: "دستاویز کا سامنے والا حصہ اپ لوڈ کریں", txtUploadFront: "Front Side اپ لوڈ کرنے کے لیے ٹیپ کریں (JPG/PNG)", lblUploadBack: "دستاویز کا پچھلا حصہ اپ لوڈ کریں", txtUploadBack: "Back Side اپ لوڈ کرنے کے لیے ٹیپ کریں (JPG/PNG)", lblTerms: "میں PayGaid Agent Terms & Conditions سے متفق ہوں", btnSubmit: "درخواست جمع کریں \u2714", sucTitle: "درخواست جمع ہو گئی!", sucSub: "PayGaid Agent Program میں درخواست دینے کا شکریہ۔"
             },
@@ -707,7 +695,7 @@
                 formS3Title: "الخطوة 3: الهوية والتحقق", formS3Sub: "ارفع صور الوثائق للتحقق", lblDocType: "اختر نوع الوثيقة", lblDocNum: "رقم الوثيقة", phDocNum: "رقم الوثيقة", lblUploadFront: "رفع الوجه الأمامي للوثيقة", txtUploadFront: "اضغط لرفع الوجه الأمامي (JPG/PNG)", lblUploadBack: "رفع الوجه الخلفي للوثيقة", txtUploadBack: "اضغط لرفع الوجه الخلفي (JPG/PNG)", lblTerms: "أوافق على شروط وأحكام وكيل PayGaid", btnSubmit: "إرسال الطلب \u2714", sucTitle: "تم إرسال الطلب!", sucSub: "شكراً لتقديم طلبك إلى برنامج PayGaid Agent."
             },
             ne: {
-                back: "पछाडि", welcome: "स्वागत छ", sub1: "तपाईंको विश्वसनीय Payment Gateway र<br>E-Wallet Agent Platform।", sub2: "हाम्रो कार्यक्रम हेर्नुहोस्, आवश्यकताहरू जाँच गर्नुहोस्,<br>वा आवेदन पठाउनुहोस्।", m1_title: "एजेन्ट बन्नुहोस्", m1_sub: "थप जानकारी लिनुहोस् र आवेदन पठाउनुहोस्।", m2_title: "एजेन्ट लगइन", m2_sub: "आफ्नो एजेन्ट प्यानलमा प्रवेश गर्नुहोस्।", m3_title: "कार्यक्रम अवलोकन", m3_sub: "PayGaid Agent Program कसरी काम गर्छ जान्नुहोस्।", m4_title: "योग्यता", m4_sub: "योग्यता र आवश्यक जानकारी हेर्नुहोस्।", m5_title: "नियम तथा सर्तहरू", m5_sub: "कार्यक्रमका नियमहरू पढ्नुहोस्।", m6_title: "सोधिने प्रश्नहरू", m6_sub: "सामान्य प्रश्नका उत्तर पाउनुहोस्।", m7_title: "सपोर्ट सम्पर्क", m7_sub: "हाम्रो सपोर्ट टिमबाट सहयोग लिनुहोस्।", m8_title: "भाषा परिवर्तन", m8_sub: "आफ्नो भाषा छान्नुहोस्।", m3_content: "PayGaid ले तपाईंलाई आधिकारिक भुक्तानी एजेन्टको रूपमा काम गर्ने सुविधा दिन्छ।", m4_content: "आवश्यकता: मान्य NID/पासपोर्ट, सक्रिय मोबाइल नम्बर र प्रमाणीकरण।", m5_content: "सबै सर्तहरू वित्तीय सुरक्षा मापदण्डअनुसार लागू हुन्छन्।", m6_content: "प्रश्न: स्वीकृति कति समय लाग्छ?<br>उत्तर: सामान्यतया 24-48 कार्य घण्टा।", m7_content: "सहयोग चाहिन्छ? support@paygaid.com मा सम्पर्क गर्नुहोस्।", formHead: "एजेन्ट दर्ता", formS1Title: "चरण १: व्यक्तिगत जानकारी", formS1Sub: "आफ्नो सम्पर्क जानकारी दिनुहोस्", lblFullname: "पूरा नाम", phFullname: "जस्तै: John Doe", lblEmail: "इमेल ठेगाना", phEmail: "example@mail.com", lblPhone: "मोबाइल नम्बर", phPhone: "मोबाइल नम्बर", lblWhatsapp: "WhatsApp नम्बर", phWhatsapp: "WhatsApp नम्बर", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "अर्को \u2192", formS2Title: "चरण २: भुक्तानी गेटवे", formS2Sub: "स्थानीय विधि वा क्रिप्टो छान्नुहोस्", lblSelectGw: "भुक्तानी गेटवे छान्नुहोस्", lblAccNum: "छानिएको खाता / वालेट ठेगाना", phAccNum: "खाता नम्बर वा वालेट ठेगाना", btnBack: "\u2190 पछाडि", btnNext2: "अर्को \u2192", formS3Title: "चरण ३: पहिचान र प्रमाणीकरण", formS3Sub: "प्रमाणीकरणका लागि कागजातका फोटो अपलोड गर्नुहोस्", lblDocType: "कागजातको प्रकार छान्नुहोस्", lblDocNum: "कागजात नम्बर", phDocNum: "कागजात नम्बर", lblUploadFront: "कागजातको अगाडिको भाग अपलोड गर्नुहोस्", txtUploadFront: "अगाडिको भाग अपलोड गर्न ट्याप गर्नुहोस् (JPG/PNG)", lblUploadBack: "कागजातको पछाडिको भाग अपलोड गर्नुहोस्", txtUploadBack: "पछाडिको भाग अपलोड गर्न ट्याप गर्नुहोस् (JPG/PNG)", lblTerms: "म PayGaid Agent का नियम तथा सर्तमा सहमत छु", btnSubmit: "आवेदन पठाउनुहोस् \u2714", sucTitle: "आवेदन पठाइयो!", sucSub: "PayGaid Agent Program मा आवेदन दिएकोमा धन्यवाद।"
+                back: "पछाडि", welcome: "स्वागत छ", sub1: "तपाईंको विश्वसनीय Payment Gateway र<br>E-Wallet Agent Platform।", sub2: "हाम्रो कार्यक्रम हेर्नुहोस्, आवश्यकताहरू जाँच गर्नुहोस्,<br>वा आवेदन पठाउनुहोस्।", m1_title: "एजेन्ट बन्नुहोस्", m1_sub: "थप जानकारी लिनुहोस् र आवेदन पठाउनुहोस्।", m2_title: "एजेन्ट लगइन", m2_sub: "आफ्नो एजेन्ट प्यानलमा प्रवेश गर्नुहोस्।", m3_title: "कार्यक्रम अवलोकन", m3_sub: "PayGaid Agent Program कसरी काम गर्छ जान्नुहोस्।", m4_title: "योग्यता", m4_sub: "योग्यता र आवश्यक जानकारी हेर्नुहोस्।", m5_title: "नियम तथा सर्तहरू", m5_sub: "कार्यक्रमका नियमहरू पढ्नुहोस्।", m6_title: "सोधिने प्रश्नहरू", m6_sub: "सामान्य प्रश्नका उत्तर पाउनुहोस्।", m7_title: "सपोर्ट सम्पर्क", m7_sub: "हाम्रो सपोर्ट टिमबाट सहयोग लिनुहोस्।", m8_title: "भाषा परिवर्तन", m8_sub: "आफ्नो भाषा छान्नुहोस्।", m3_content: "PayGaid ले तपाईंलाई आधिकारिक भुक्तानी एजेन्टको रूपमा काम गर्ने सुविधा दिन्छ।", m4_content: "आवश्यकता: मान्य NID/पासपोर्ट, सक्रिय मोबाइल नम्बर र प्रमाणीकरण।", m5_content: "सबै सर्तहरू वित्तीय सुरक्षा मापदण्डअनुसार लागू हुन्छन्।", m6_content: "प्रश्न: स्वीकृति कति समय लाग्छ?<br>उत्तर: सामान्यतया 24-48 कार्य घण्टा।", m7_content: "सहयोग चाहिन्छ? support@paygaid.com मा सम्पर्क गर्नुहोस्।", formHead: "एजेन्ट दर्ता", formS1Title: "चरण १: व्यक्तिगत जानकारी", formS1Sub: "आफ्नो सम्पर्क जानकारी दिनुहोस्", lblFullname: "पूरा नाम", phFullname: "जस्तै: John Doe", lblEmail: "इमेल ठेगाना", phEmail: "example@mail.com", lblPhone: "मोबाइल नम्बर", phPhone: "मोबाइल नम्बर", lblWhatsapp: "WhatsApp नम्बर", phWhatsapp: "WhatsApp नम्बर", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "अर्को \u2192", formS2Title: "चरण २: भुक्तानी गेटवे", formS2Sub: "स्थानीय विधि वा क्रिप्टो छान्नुहोस्", lblSelectGw: "भुक्तानी गेटवे छान्नुहोस्", lblAccNum: "छानिएको खाता / वालेट ठेगाना", phAccNum: "खाता नम्बर वा वालेट ठेगाना", btnBack: "\u2190 पछाडि", btnNext2: "अर्को \u2192", formS3Title: "चरण ३: पहिचान र प्रमाणीकरण", formS3Sub: "प्र प्रमाणीकरणका लागि कागजातका फोटो अपलोड गर्नुहोस्", lblDocType: "कागजातको प्रकार छान्नुहोस्", lblDocNum: "कागजात नम्बर", phDocNum: "कागजात नम्बर", lblUploadFront: "कागजातको अगाडिको भाग अपलोड गर्नुहोस्", txtUploadFront: "अगाडिको भाग अपलोड गर्न ट्याप गर्नुहोस् (JPG/PNG)", lblUploadBack: "कागजातको पछाडिको भाग अपलोड गर्नुहोस्", txtUploadBack: "पछाडिको भाग अपलोड गर्न ट्याप गर्नुहोस् (JPG/PNG)", lblTerms: "म PayGaid Agent का नियम तथा सर्तमा सहमत छु", btnSubmit: "आवेदन पठाउनुहोस् \u2714", sucTitle: "आवेदन पठाइयो!", sucSub: "PayGaid Agent Program मा आवेदन दिएकोमा धन्यवाद।"
             },
             fil: {
                 back: "Bumalik", welcome: "Maligayang pagdating", sub1: "Ang iyong mapagkakatiwalaang Payment Gateway at<br>E-Wallet Agent Platform.", sub2: "Tingnan ang programa, suriin ang requirements,<br>o isumite ang iyong application.", m1_title: "Maging Agent", m1_sub: "Alamin pa at isumite ang application.", m2_title: "Agent Login", m2_sub: "Pumasok sa iyong agent panel.", m3_title: "Pangkalahatang-ideya", m3_sub: "Alamin kung paano gumagana ang PayGaid Agent Program.", m4_title: "Eligibility Criteria", m4_sub: "Suriin ang eligibility at kinakailangang impormasyon.", m5_title: "Terms & Conditions", m5_sub: "Basahin ang terms ng programa.", m6_title: "Mga Madalas Itanong", m6_sub: "Hanapin ang sagot sa mga karaniwang tanong.", m7_title: "Makipag-ugnayan sa Support", m7_sub: "Humingi ng tulong sa aming support team.", m8_title: "Palitan ang Wika", m8_sub: "Piliin ang iyong gustong wika.", m3_content: "Pinapayagan ka ng PayGaid na mag-operate bilang opisyal na payment agent.", m4_content: "Requirements: Valid government ID/passport, active mobile number at verification.", m5_content: "Ang lahat ng terms ay naaayon sa payment processing at security standards.", m6_content: "Q: Gaano katagal ang approval?<br>A: Karaniwang 24-48 business hours.", m7_content: "Kailangan ng tulong? Makipag-ugnayan sa support@paygaid.com", formHead: "Agent Registration", formS1Title: "Step 1: Personal Details", formS1Sub: "Ilagay ang iyong contact information", lblFullname: "Buong Pangalan", phFullname: "hal. John Doe", lblEmail: "Email Address", phEmail: "example@mail.com", lblPhone: "Mobile Number", phPhone: "Mobile Number", lblWhatsapp: "WhatsApp Number", phWhatsapp: "WhatsApp Number", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "Susunod \u2192", formS2Title: "Step 2: Payment Gateways", formS2Sub: "Pumili ng local method o crypto", lblSelectGw: "Pumili ng Payment Gateway", lblAccNum: "Napiling Account / Wallet Address", phAccNum: "Account Number o Wallet Address", btnBack: "\u2190 Bumalik", btnNext2: "Susunod \u2192", formS3Title: "Step 3: Identity & Verification", formS3Sub: "Mag-upload ng document images para sa verification", lblDocType: "Piliin ang Document Type", lblDocNum: "Document Number", phDocNum: "Document Number", lblUploadFront: "I-upload ang Front Side", txtUploadFront: "I-tap para mag-upload ng Front Side (JPG/PNG)", lblUploadBack: "I-upload ang Back Side", txtUploadBack: "I-tap para mag-upload ng Back Side (JPG/PNG)", lblTerms: "Sumasang-ayon ako sa PayGaid Agent Terms & Conditions", btnSubmit: "Isumite ang Application \u2714", sucTitle: "Naisumite ang Application!", sucSub: "Salamat sa pag-apply sa PayGaid Agent Program."
@@ -719,10 +707,10 @@
                 back: "ย้อนกลับ", welcome: "ยินดีต้อนรับ", sub1: "แพลตฟอร์ม Payment Gateway และ<br>E-Wallet Agent ที่เชื่อถือได้ของคุณ", sub2: "ดูโปรแกรม ตรวจสอบข้อกำหนด<br>หรือส่งใบสมัครของคุณ", m1_title: "เป็นตัวแทน", m1_sub: "ดูรายละเอียดและส่งใบสมัคร", m2_title: "เข้าสู่ระบบตัวแทน", m2_sub: "เข้าสู่แผงตัวแทนของคุณ", m3_title: "ภาพรวมโปรแกรม", m3_sub: "เรียนรู้การทำงานของ PayGaid Agent Program", m4_title: "คุณสมบัติ", m4_sub: "ตรวจสอบคุณสมบัติและข้อมูลที่ต้องใช้", m5_title: "ข้อกำหนดและเงื่อนไข", m5_sub: "อ่านข้อกำหนดของโปรแกรม", m6_title: "คำถามที่พบบ่อย", m6_sub: "ดูคำตอบสำหรับคำถามทั่วไป", m7_title: "ติดต่อฝ่ายสนับสนุน", m7_sub: "รับความช่วยเหลือจากทีมสนับสนุน", m8_title: "เปลี่ยนภาษา", m8_sub: "เลือกภาษาที่ต้องการ", m3_content: "PayGaid ช่วยให้คุณทำงานเป็นตัวแทนชำระเงินอย่างเป็นทางการ", m4_content: "ข้อกำหนด: NID/พาสปอร์ตที่ถูกต้อง เบอร์มือถือที่ใช้งาน และการยืนยันตัวตน", m5_content: "ข้อกำหนดทั้งหมดเป็นไปตามมาตรฐานการชำระเงินและความปลอดภัยทางการเงิน", m6_content: "ถาม: ใช้เวลาตรวจสอบนานเท่าไร?<br>ตอบ: โดยทั่วไป 24-48 ชั่วโมงทำการ", m7_content: "ต้องการความช่วยเหลือ? ติดต่อ support@paygaid.com", formHead: "ลงทะเบียนตัวแทน", formS1Title: "ขั้นตอนที่ 1: ข้อมูลส่วนตัว", formS1Sub: "กรอกข้อมูลติดต่อของคุณ", lblFullname: "ชื่อ-นามสกุล", phFullname: "เช่น John Doe", lblEmail: "อีเมล", phEmail: "example@mail.com", lblPhone: "หมายเลขมือถือ", phPhone: "หมายเลขมือถือ", lblWhatsapp: "หมายเลข WhatsApp", phWhatsapp: "หมายเลข WhatsApp", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "ถัดไป \u2192", formS2Title: "ขั้นตอนที่ 2: ช่องทางการชำระเงิน", formS2Sub: "เลือกวิธีท้องถิ่นหรือคริปโต", lblSelectGw: "เลือกช่องทางการชำระเงิน", lblAccNum: "บัญชี / ที่อยู่กระเป๋าที่เลือก", phAccNum: "หมายเลขบัญชีหรือที่อยู่กระเป๋า", btnBack: "\u2190 ย้อนกลับ", btnNext2: "ถัดไป \u2192", formS3Title: "ขั้นตอนที่ 3: ยืนยันตัวตน", formS3Sub: "อัปโหลดรูปเอกสารเพื่อยืนยัน", lblDocType: "เลือกประเภทเอกสาร", lblDocNum: "หมายเลขเอกสาร", phDocNum: "หมายเลขเอกสาร", lblUploadFront: "อัปโหลดด้านหน้าเอกสาร", txtUploadFront: "แตะเพื่ออัปโหลดด้านหน้า (JPG/PNG)", lblUploadBack: "อัปโหลดด้านหลังเอกสาร", txtUploadBack: "แตะเพื่ออัปโหลดด้านหลัง (JPG/PNG)", lblTerms: "ฉันยอมรับข้อกำหนดและเงื่อนไขของ PayGaid Agent", btnSubmit: "ส่งใบสมัคร \u2714", sucTitle: "ส่งใบสมัครแล้ว!", sucSub: "ขอบคุณที่สมัคร PayGaid Agent Program"
             },
             ms: {
-                back: "Kembali", welcome: "Selamat datang", sub1: "Platform Payment Gateway dan<br>E-Wallet Agent yang dipercayai.", sub2: "Terokai program, semak keperluan,<br>atau hantar permohonan anda.", m1_title: "Jadi Ejen", m1_sub: "Ketahui lebih lanjut dan hantar permohonan.", m2_title: "Log Masuk Ejen", m2_sub: "Akses panel ejen anda.", m3_title: "Gambaran Program", m3_sub: "Ketahui cara PayGaid Agent Program berfungsi.", m4_title: "Kriteria Kelayakan", m4_sub: "Semak kelayakan dan maklumat diperlukan.", m5_title: "Terma & Syarat", m5_sub: "Baca terma program.", m6_title: "Soalan Lazim", m6_sub: "Cari jawapan kepada soalan biasa.", m7_title: "Hubungi Sokongan", m7_sub: "Dapatkan bantuan daripada pasukan sokongan.", m8_title: "Tukar Bahasa", m8_sub: "Pilih bahasa pilihan anda.", m3_content: "PayGaid membolehkan anda beroperasi sebagai ejen pembayaran rasmi.", m4_content: "Keperluan: NID/pasport sah, nombor mudah alih aktif dan pengesahan.", m5_content: "Semua terma tertakluk kepada standard pemprosesan pembayaran dan keselamatan kewangan.", m6_content: "S: Berapa lama kelulusan?<br>J: Biasanya 24-48 jam bekerja.", m7_content: "Perlukan bantuan? Hubungi support@paygaid.com", formHead: "Pendaftaran Ejen", formS1Title: "Langkah 1: Maklumat Peribadi", formS1Sub: "Masukkan maklumat hubungan anda", lblFullname: "Nama Penuh", phFullname: "contoh: John Doe", lblEmail: "Alamat Emel", phEmail: "example@mail.com", lblPhone: "Nombor Mudah Alih", phPhone: "Nombor Mudah Alih", lblWhatsapp: "Nombor WhatsApp", phWhatsapp: "Nombor WhatsApp", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "Seterusnya \u2192", formS2Title: "Langkah 2: Payment Gateway", formS2Sub: "Pilih kaedah tempatan atau kripto", lblSelectGw: "Pilih Payment Gateway", lblAccNum: "Akaun / Alamat Wallet Dipilih", phAccNum: "Nombor akaun atau alamat wallet", btnBack: "\u2190 Kembali", btnNext2: "Seterusnya \u2192", formS3Title: "Langkah 3: Identiti & Pengesahan", formS3Sub: "Muat naik gambar dokumen untuk pengesahan", lblDocType: "Pilih Jenis Dokumen", lblDocNum: "Nombor Dokumen", phDocNum: "Nombor Dokumen", lblUploadFront: "Muat Naik Bahagian Depan", txtUploadFront: "Tekan untuk muat naik bahagian depan (JPG/PNG)", lblUploadBack: "Muat Naik Bahagian Belakang", txtUploadBack: "Tekan untuk muat naik bahagian belakang (JPG/PNG)", lblTerms: "Saya bersetuju dengan Terma & Syarat PayGaid Agent", btnSubmit: "Hantar Permohonan \u2714", sucTitle: "Permohonan Dihantar!", sucSub: "Terima kasih kerana memohon PayGaid Agent Program."
+                back: "Kembali", welcome: "Selamat datang", sub1: "Platform Payment Gateway dan<br>E-Wallet Agent yang dipercayai.", sub2: "Terokai program, semak keperluan,<br>atau hantar permohonan anda.", m1_title: "Jadi Ejen", m1_sub: "Ketahui lebih lanjut dan hantar permohonan.", m2_title: "Log Masuk Ejen", m2_sub: "Akses panel ejen anda.", m3_title: "Gambaran Program", m3_sub: "Ketahui cara PayGaid Agent Program berfungsi.", m4_title: "Kriteria Kelayakan", m4_sub: "Semak kelayakan dan maklumat diperlukan.", m5_title: "Terma & Syarat", m5_sub: "Baca terma program.", m6_title: "Soalan Lazim", m6_sub: "Cari jawapan kepada soalan biasa.", m7_title: "Hubungi Sokongan", m7_sub: "Dapatkan bantuan daripada pasukan sokongan.", m8_title: "Tukar Bahasa", m8_sub: "Pilih bahasa pilihan anda.", m3_content: "PayGaid membolehkan anda beroperasi sebagai ejen pembayaran rasmi.", m4_content: "Keperluan: NID/pasport sah, nombor mudah alih aktif dan pengesahan.", m5_content: "Semua terma tertakluk kepada standard pemprosesan pembayaran dan keselamatan kewangan.", m6_content: "S: Berapa lama kelulusan?<br>J: Biasanya 24-48 jam bekerja.", m7_content: "Perlukan bantuan? Hubungi support@paygaid.com", formHead: "Pendaftaran Ejen", formS1Title: "Langkah 1: Maklumat Peribadi", formS1Sub: "Masukkan maklumat hubungan anda", lblFullname: "Nama Penuh", phFullname: "contoh: John Doe", lblEmail: "Alamat Emel", phEmail: "example@mail.com", lblPhone: "Nombor Mudah Alih", phPhone: "Nombor Mudah Alih", lblWhatsapp: "Nombor WhatsApp", phWhatsapp: "WhatsApp Number", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "Seterusnya \u2192", formS2Title: "Langkah 2: Payment Gateway", formS2Sub: "Pilih kaedah tempatan atau kripto", lblSelectGw: "Pilih Payment Gateway", lblAccNum: "Akaun / Alamat Wallet Dipilih", phAccNum: "Nombor akaun atau alamat wallet", btnBack: "\u2190 Kembali", btnNext2: "Seterusnya \u2192", formS3Title: "Langkah 3: Identiti & Pengesahan", formS3Sub: "Muat naik gambar dokumen untuk pengesahan", lblDocType: "Pilih Jenis Dokumen", lblDocNum: "Nombor Dokumen", phDocNum: "Nombor Dokumen", lblUploadFront: "Muat Naik Bahagian Depan", txtUploadFront: "Tekan untuk muat naik bahagian depan (JPG/PNG)", lblUploadBack: "Muat Naik Bahagian Belakang", txtUploadBack: "Tekan untuk muat naik bahagian belakang (JPG/PNG)", lblTerms: "Saya bersetuju dengan Terma & Syarat PayGaid Agent", btnSubmit: "Hantar Permohonan \u2714", sucTitle: "Permohonan Dihantar!", sucSub: "Terima kasih kerana memohon PayGaid Agent Program."
             },
             id: {
-                back: "Kembali", welcome: "Selamat datang", sub1: "Platform Payment Gateway dan<br>E-Wallet Agent terpercaya Anda.", sub2: "Jelajahi program, periksa persyaratan,<br>atau kirim aplikasi Anda.", m1_title: "Menjadi Agen", m1_sub: "Pelajari lebih lanjut dan kirim aplikasi.", m2_title: "Login Agen", m2_sub: "Akses panel agen Anda.", m3_title: "Ikhtisar Program", m3_sub: "Pelajari cara kerja PayGaid Agent Program.", m4_title: "Kriteria Kelayakan", m4_sub: "Periksa kelayakan dan informasi yang diperlukan.", m5_title: "Syarat & Ketentuan", m5_sub: "Baca syarat program.", m6_title: "Pertanyaan Umum", m6_sub: "Temukan jawaban atas pertanyaan umum.", m7_title: "Hubungi Dukungan", m7_sub: "Dapatkan bantuan dari tim dukungan kami.", m8_title: "Ganti Bahasa", m8_sub: "Pilih bahasa pilihan Anda.", m3_content: "PayGaid memungkinkan Anda beroperasi sebagai agen pembayaran resmi.", m4_content: "Persyaratan: NID/paspor yang valid, nomor seluler aktif dan verifikasi.", m5_content: "Semua syarat berlaku sesuai standar pemrosesan pembayaran dan keamanan keuangan.", m6_content: "T: Berapa lama persetujuan?<br>J: Biasanya 24-48 jam kerja.", m7_content: "Butuh bantuan? Hubungi support@paygaid.com", formHead: "Pendaftaran Agen", formS1Title: "Langkah 1: Data Pribadi", formS1Sub: "Masukkan informasi kontak Anda", lblFullname: "Nama Lengkap", phFullname: "contoh: John Doe", lblEmail: "Alamat Email", phEmail: "example@mail.com", lblPhone: "Nomor Ponsel", phPhone: "Nomor Ponsel", lblWhatsapp: "Nomor WhatsApp", phWhatsapp: "Nomor WhatsApp", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "Berikutnya \u2192", formS2Title: "Langkah 2: Payment Gateway", formS2Sub: "Pilih metode lokal atau kripto", lblSelectGw: "Pilih Payment Gateway", lblAccNum: "Akun / Alamat Wallet Terpilih", phAccNum: "Nomor akun atau alamat wallet", btnBack: "\u2190 Kembali", btnNext2: "Berikutnya \u2192", formS3Title: "Langkah 3: Identitas & Verifikasi", formS3Sub: "Unggah gambar dokumen untuk verifikasi", lblDocType: "Pilih Jenis Dokumen", lblDocNum: "Nomor Dokumen", phDocNum: "Nomor Dokumen", lblUploadFront: "Unggah Sisi Depan Dokumen", txtUploadFront: "Ketuk untuk mengunggah sisi depan (JPG/PNG)", lblUploadBack: "Unggah Sisi Belakang Dokumen", txtUploadBack: "Ketuk untuk mengunggah sisi belakang (JPG/PNG)", lblTerms: "Saya menyetujui Syarat & Ketentuan PayGaid Agent", btnSubmit: "Kirim Aplikasi \u2714", sucTitle: "Aplikasi Terkirim!", sucSub: "Terima kasih telah mendaftar PayGaid Agent Program."
+                back: "Kembali", welcome: "Selamat datang", sub1: "Platform Payment Gateway dan<br>E-Wallet Agent terpercaya Anda.", sub2: "Jelajahi program, periksa persyaratan,<br>atau kirim aplikasi Anda.", m1_title: "Menjadi Agen", m1_sub: "Pelajari lebih lanjut dan kirim aplikasi.", m2_title: "Login Agen", m2_sub: "Akses panel agen Anda.", m3_title: "Ikhtisar Program", m3_sub: "Pelajari cara kerja PayGaid Agent Program.", m4_title: "Kriteria Kelayakan", m4_sub: "Periksa kelayakan dan informasi yang diperlukan.", m5_title: "Syarat & Ketentuan", m5_sub: "Baca syarat program.", m6_title: "Pertanyaan Umum", m6_sub: "Temukan jawaban atas pertanyaan umum.", m7_title: "Hubungi Dukungan", m7_sub: "Dapatkan bantuan dari tim dukungan kami.", m8_title: "Ganti Bahasa", m8_sub: "Pilih bahasa pilihan Anda.", m3_content: "PayGaid memungkinkan Anda beroperasi sebagai agen pembayaran resmi.", m4_content: "Persyaratan: NID/paspor yang valid, nomor seluler aktif dan verifikasi.", m5_content: "Semua syarat berlaku sesuai standar pemrosesan pembayaran dan keamanan keuangan.", m6_content: "T: Berapa lama persetujuan?<br>J: Biasanya 24-48 jam kerja.", m7_content: "Butuh bantuan? Hubungi support@paygaid.com", formHead: "Pendaftaran Agen", formS1Title: "Langkah 1: Data Pribadi", formS1Sub: "Masukkan informasi kontak Anda", lblFullname: "Nama Lengkap", phFullname: "contoh: John Doe", lblEmail: "Alamat Email", phEmail: "example@mail.com", lblPhone: "Nomor Ponsel", phPhone: "Nomor Ponsel", lblWhatsapp: "Nomor WhatsApp", phWhatsapp: "WhatsApp Number", lblTelegram: "Telegram ID", phTelegram: "Telegram ID", btnNext1: "Berikutnya \u2192", formS2Title: "Langkah 2: Payment Gateway", formS2Sub: "Pilih metode lokal atau kripto", lblSelectGw: "Pilih Payment Gateway", lblAccNum: "Akun / Alamat Wallet Terpilih", phAccNum: "Nomor akun atau alamat wallet", btnBack: "\u2190 Kembali", btnNext2: "Berikutnya \u2192", formS3Title: "Langkah 3: Identitas & Verifikasi", formS3Sub: "Unggah gambar dokumen untuk verifikasi", lblDocType: "Pilih Jenis Dokumen", lblDocNum: "Nombor Dokumen", phDocNum: "Nomor Dokumen", lblUploadFront: "Unggah Sisi Depan Dokumen", txtUploadFront: "Ketuk untuk mengunggah sisi depan (JPG/PNG)", lblUploadBack: "Unggah Sisi Belakang Dokumen", txtUploadBack: "Ketuk untuk mengunggah sisi belakang (JPG/PNG)", lblTerms: "Saya menyetujui Syarat & Ketentuan PayGaid Agent", btnSubmit: "Kirim Aplikasi \u2714", sucTitle: "Aplikasi Terkirim!", sucSub: "Terima kasih telah mendaftar PayGaid Agent Program."
             }
         };
 
@@ -741,7 +729,6 @@
             document.getElementById('local-flag').innerText = flag;
             document.getElementById('local-lang-name').innerText = langName;
             
-            // Sync with Step 1 dropdown
             const countryDropdown = document.getElementById('select-country-dropdown');
             if(countryDropdown) {
                 countryDropdown.value = country;
@@ -824,15 +811,6 @@
 
             document.getElementById('suc-title').innerText = langData.sucTitle || "Submitted!";
             document.getElementById('suc-sub').innerText = langData.sucSub || "Thank you.";
-            if (document.getElementById('suc-id-label')) document.getElementById('suc-id-label').innerText = langData.sucIdLabel || "Your Application ID";
-            if (document.getElementById('suc-id-note')) document.getElementById('suc-id-note').innerText = langData.sucIdNote || "Save this ID to check your application status later.";
-            if (document.getElementById('btn-check-status-after-submit')) document.getElementById('btn-check-status-after-submit').innerText = langData.checkAfterSubmit || "Check Application Status";
-            if (document.getElementById('status-title')) document.getElementById('status-title').innerText = langData.statusTitle || "Check Application Status";
-            if (document.getElementById('status-sub')) document.getElementById('status-sub').innerText = langData.statusSub || "Enter your Application ID to check your application.";
-            if (document.getElementById('status-id-label')) document.getElementById('status-id-label').innerText = langData.statusIdLabel || "Application ID";
-            if (document.getElementById('status-id-input')) document.getElementById('status-id-input').placeholder = langData.statusIdPlaceholder || "e.g. AG547512";
-            if (document.getElementById('btn-status-check')) document.getElementById('btn-status-check').innerText = langData.statusCheck || "Check Status";
-            if (document.getElementById('btn-status-back')) document.getElementById('btn-status-back').innerText = langData.statusBack || "Back";
         }
 
         function openBecomeAgentForm() {
@@ -855,7 +833,6 @@
             const box = document.getElementById('gatewayBox');
             box.innerHTML = '';
             
-            // Use the country selected on the country selection page
             const list = gateways[currentCountryCode] || gateways['BD'];
 
             list.forEach((gw, idx) => {
@@ -886,77 +863,165 @@
             }
         }
 
-        function generateApplicationId() {
-            let id;
-            do {
-                id = "AG" + Math.floor(100000 + Math.random() * 900000);
-            } while (localStorage.getItem("paygaid_app_" + id));
-            return id;
-        }
-
-        function submitForm() {
+        async function submitForm() {
             const terms = document.getElementById('terms-checkbox');
             if(terms && !terms.checked) {
                 alert("Please agree to PayGaid Agent Terms & Conditions.");
                 return;
             }
 
-            const applicationId = generateApplicationId();
-            const applicationData = {
-                id: applicationId,
-                status: "Pending Review",
-                submittedAt: new Date().toISOString()
+            const fullName = document.getElementById('ph-fullname').value;
+            const email = document.getElementById('ph-email').value;
+            const mobile = document.getElementById('ph-phone').value;
+            const whatsapp = document.getElementById('ph-whatsapp').value;
+            const telegram = document.getElementById('ph-telegram').value;
+            const accountNum = document.getElementById('ph-acc-num').value;
+            const docType = document.getElementById('select-doc-type').value;
+            const docNum = document.getElementById('ph-doc-num').value;
+
+            const selectedGateway = document.querySelector('.gateway-btn.selected');
+            const paymentGateway = selectedGateway ? selectedGateway.innerText : 'bKash';
+
+            const requestData = {
+                country: currentCountry,
+                currency_symbol: "৳",
+                language: currentLocalLangName,
+                full_name: fullName,
+                email: email,
+                mobile: mobile,
+                whatsapp: whatsapp,
+                telegram: telegram,
+                payment_gateway: paymentGateway,
+                account_number: accountNum,
+                doc_type: docType,
+                doc_number: docNum,
+                front_image: "front.jpg",
+                back_image: "back.jpg"
             };
 
-            // Saves the application on this browser/Telegram WebApp for status checking.
-            localStorage.setItem("paygaid_app_" + applicationId, JSON.stringify(applicationData));
-            localStorage.setItem("paygaid_last_application_id", applicationId);
+            try {
+                const response = await fetch('/api/agents/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
 
-            document.getElementById('generated-app-id').innerText = applicationId;
-            document.getElementById('form-step-1').classList.add('hidden');
-            document.getElementById('form-step-2').classList.add('hidden');
-            document.getElementById('form-step-3').classList.add('hidden');
-            document.getElementById('form-status-page').classList.add('hidden');
-            document.getElementById('form-step-success').classList.remove('hidden');
+                const result = await response.json();
+                if (!response.ok) {
+                    const errorMsg = typeof result.detail === 'string' ? result.detail : JSON.stringify(result.detail || 'Registration failed.');
+                    throw new Error(errorMsg);
+                }
+
+                const applicationId = result.application_id;
+
+                document.getElementById('generated-app-id').innerText = applicationId;
+                document.getElementById('form-step-1').classList.add('hidden');
+                document.getElementById('form-step-2').classList.add('hidden');
+                document.getElementById('form-step-3').classList.add('hidden');
+                document.getElementById('form-step-success').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert("Error: " + error.message);
+            }
         }
 
         function openStatusPage() {
             goPage('page-status');
-            const input=document.getElementById('standalone-status-id-input');
-            const result=document.getElementById('standalone-status-result');
-            const lastId=localStorage.getItem('paygaid_last_application_id');
-            if(input) input.value=lastId||'';
-            if(result) result.style.display='none';
+            const input = document.getElementById('standalone-status-id-input');
+            const result = document.getElementById('standalone-status-result');
+            if(input) input.value = '';
+            if(result) result.style.display = 'none';
         }
 
-        // In production, load this list from the secure Admin Panel / database.
-        const VERIFIED_MANAGERS = ['manager01','manager02','paygaid_support'];
+        async function checkStandaloneApplicationStatus() {
+            const input = document.getElementById('standalone-status-id-input');
+            const result = document.getElementById('standalone-status-result');
+            const appIdInput = (input?.value || '').trim();
+            
+            result.style.display = 'block';
 
-        function checkStandaloneApplicationStatus() {
-            const input=document.getElementById('standalone-status-id-input');
-            const result=document.getElementById('standalone-status-result');
-            const id=(input?.value||'').trim().toUpperCase();
-            result.style.display='block';
-            if(!/^AG\d{6}$/.test(id)){
-                result.style.background='#fef2f2';result.style.border='1px solid #fecaca';result.style.color='#b91c1c';
-                result.innerHTML='<strong>Application ID not found.</strong><div style="font-size:11px;margin-top:6px;">Enter a valid ID such as AG547512.</div>';return;
+            if (!appIdInput) {
+                result.style.background = '#fef2f2';
+                result.style.border = '1px solid #fecaca';
+                result.style.color = '#b91c1c';
+                result.innerHTML = '<strong>Please enter your Application ID.</strong>';
+                return;
             }
-            const saved=localStorage.getItem('paygaid_app_'+id);
-            if(!saved){
-                result.style.background='#fef2f2';result.style.border='1px solid #fecaca';result.style.color='#b91c1c';
-                result.innerHTML='<strong>Application ID not found.</strong><div style="font-size:11px;margin-top:6px;">Please check the ID and try again.</div>';return;
+
+            try {
+                const response = await fetch("/api/agents");
+                if (!response.ok) {
+                    throw new Error('Server connection failed.');
+                }
+                const agents = await response.json();
+
+                const agent = agents.find(a => a.application_id && a.application_id.trim().toUpperCase() === appIdInput.toUpperCase());
+
+                if (!agent) {
+                    result.style.background = '#fef2f2';
+                    result.style.border = '1px solid #fecaca';
+                    result.style.color = '#b91c1c';
+                    result.innerHTML = '<strong>Application ID not found.</strong><div style="font-size:11px;margin-top:6px;">Please check the ID and try again.</div>';
+                    return;
+                }
+
+                let statusColor = '#2563eb';
+                let statusBg = '#eff6ff';
+
+                const st = agent.status || 'Pending';
+                if (st === 'Active' || st === 'Approved' || st === 'Verification Completed') {
+                    statusColor = '#047857';
+                    statusBg = '#ecfdf5';
+                } else if (st === 'Under Review' || st === 'In Progress' || st === 'Processing') {
+                    statusColor = '#1d4ed8';
+                    statusBg = '#eff6ff';
+                } else if (st === 'Pending' || st === 'Action Required / On Hold' || st === 'Additional Information') {
+                    statusColor = '#b45309';
+                    statusBg = '#fef3c7';
+                } else if (st === 'Rejected' || st === 'Suspended / Blocked' || st === 'Deposit Limit' || st === 'Withdrawal Limit' || st === 'Security Deposit') {
+                    statusColor = '#b91c1c';
+                    statusBg = '#fef2f2';
+                }
+
+                result.style.background = statusBg;
+                result.style.border = '1px solid #cbd5e1';
+                result.style.color = '#0f172a';
+                result.innerHTML = `
+                    <div style="font-size: 16px; font-weight: 800; border-bottom: 1px solid #cbd5e1; padding-bottom: 8px; margin-bottom: 8px; color: ${statusColor};">
+                        Application Details ✓
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.6;">
+                        <div><strong>Full Name:</strong> ${agent.full_name || 'N/A'}</div>
+                        <div><strong>Status:</strong> <span style="font-weight: 700; color: ${statusColor};">${st}</span></div>
+                        <div><strong>Assigned Manager:</strong> <span style="color: #2563eb; font-weight: 700;">${agent.assigned_manager ? agent.assigned_manager : 'Not Assigned'}</span></div>
+                        <div><strong>Payment Gateway:</strong> ${agent.payment_gateway || ''} (${agent.account_number || ''})</div>
+                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #cbd5e1;">
+                            <strong>Inbox / Notification:</strong><br>
+                            <span style="color: #475569;">${agent.message ? agent.message : 'No message from admin.'}</span>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error:', error);
+                result.style.background = '#fef2f2';
+                result.style.border = '1px solid #fecaca';
+                result.style.color = '#b91c1c';
+                result.innerHTML = '<strong>Server connection error.</strong><div style="font-size:11px;margin-top:6px;">Please check if FastAPI server is running.</div>';
             }
-            let app;try{app=JSON.parse(saved);}catch(e){app={status:'Pending Review'};}
-            result.style.background='#ecfdf5';result.style.border='1px solid #a7f3d0';result.style.color='#047857';
-            result.innerHTML='<strong>Application Found ✓</strong><div style="margin-top:8px;font-size:15px;font-weight:700;">'+(app.status||'Pending Review')+'</div><div style="font-size:11px;margin-top:6px;">Application ID: '+id+'</div>';
         }
+
+        const VERIFIED_MANAGERS = ['manager01','manager02','paygaid_support', 'paygaid'];
 
         function checkManager() {
-            const input=document.getElementById('manager-username-input');
-            const result=document.getElementById('manager-result');
-            const entered=normalizeTelegramUsername(input?input.value:'');
+            const input = document.getElementById('manager-username-input');
+            const result = document.getElementById('manager-result');
+            const entered = normalizeTelegramUsername(input?input.value:'');
             if(!entered){result.style.display='block';result.style.background='#fff7ed';result.style.border='1px solid #fed7aa';result.style.color='#c2410c';result.innerHTML='<strong>Please enter a Telegram username.</strong>';return;}
-            const isVerified=VERIFIED_MANAGERS.map(normalizeTelegramUsername).includes(entered);
+            const isVerified = VERIFIED_MANAGERS.map(normalizeTelegramUsername).includes(entered);
             result.style.display='block';
             if(isVerified){
                 result.style.background='#ecfdf5';result.style.border='1px solid #a7f3d0';result.style.color='#047857';
@@ -971,18 +1036,18 @@
 
         const professionalContent = {
             en: {
-                m3: `<h3>PayGaid Agent Program Overview</h3><p>PayGaid is a specialized high-risk payment gateway with expertise in iGaming and international high-risk payment processing.</p><p>The Agent Program is designed to support online businesses that need fast, secure and reliable payment processing.</p><h4>Key Features</h4><ul><li><strong>Fast Transactions:</strong> Processing designed for fast transaction handling, with transaction speed of under 1 second where supported.</li><li><strong>Multi-Currency Support:</strong> Support for up to 200 currencies, including GBP, NOK, SEK, PLN, HUF, AUD, CAD and NZD.</li><li><strong>Advanced Fraud Protection:</strong> AI-powered fraud protection and risk controls.</li><li><strong>Easy Integration:</strong> API integration with technical documentation and SDK support.</li><li><strong>24/7 Support:</strong> Support assistance for operational and integration needs.</li></ul><h4>High-Risk Industries</h4><ul><li>iGaming & Online Gambling</li><li>Sportsbook & Betting</li><li>Nutraceuticals</li><li>Travel & Tourism</li><li>Forex & Trading</li><li>Adult Services</li><li>CBD & Cannabis</li><li>Telemarketing</li><li>E-Commerce</li></ul><h4>Application Process</h4><ol><li>Apply Online</li><li>Account Review</li><li>Integration</li><li>Start Processing</li></ol>`,
-                m4: `<h3>Eligibility Criteria</h3><p>Applicants should provide complete and accurate information so the PayGaid team can review the application.</p><h4>Required Information</h4><ul><li>Full Name</li><li>Email Address</li><li>Mobile Number</li><li>WhatsApp Number</li><li>Telegram ID</li><li>Payment Gateway / Account or Wallet Information</li><li>Identity Document: NID Card, Passport or Driving License</li><li>Document Number</li><li>Front and Back document images in JPG/PNG format</li></ul><h4>Review Requirements</h4><ul><li>Information must be accurate and complete.</li><li>Uploaded documents must be clear and readable.</li><li>The proposed activity must be suitable for the PayGaid high-risk payment model.</li><li>Additional information or documents may be requested during review.</li></ul><div class="info-box"><strong>Important:</strong> Submitting an application does not guarantee approval. Approval is subject to account review and applicable compliance requirements.</div>`,
-                m5: `<h3>Terms &amp; Conditions</h3><ol><li>All information submitted through the Agent Portal must be accurate and current.</li><li>False, misleading or unauthorized information must not be submitted.</li><li>PayGaid may request additional documents or information for identity, security, risk or compliance review.</li><li>Applicants are responsible for protecting their account, identity information and login credentials.</li><li>Fraudulent, suspicious or unauthorized activity may result in review, restriction or termination.</li><li>Payment activity must comply with applicable laws, regulations and PayGaid requirements.</li><li>Only authorized payment methods, accounts and wallets may be used.</li><li>High-risk transactions may be subject to additional review and risk controls.</li><li>API integration must follow the applicable technical and security requirements.</li><li>Support is available 24/7 for operational and integration assistance.</li></ol><div class="info-box">This portal summary is provided for the PayGaid Agent Program and does not replace any separate merchant, legal or compliance agreement.</div>`,
-                m6: `<h3>Frequently Asked Questions</h3><h4>What is PayGaid?</h4><p>PayGaid is a specialized high-risk payment gateway focused on iGaming and international high-risk payment processing.</p><h4>Which industries are supported?</h4><p>Supported industries include iGaming, online gambling, sportsbook and betting, nutraceuticals, travel and tourism, forex and trading, adult services, CBD and cannabis, telemarketing and e-commerce.</p><h4>How many currencies are supported?</h4><p>The supplied PayGaid information states support for up to 200 currencies.</p><h4>How many payment methods are supported?</h4><p>The supplied program information references 200+ payment methods.</p><h4>What documents are required?</h4><p>Applicants should provide identity information such as NID Card, Passport or Driving License, including the document number and clear front/back images.</p><h4>What is the application process?</h4><p>Apply Online → Account Review → Integration → Start Processing.</p><h4>Does PayGaid provide API integration?</h4><p>Yes. The supplied information includes API integration with technical documentation and SDK support.</p><h4>Is support available 24/7?</h4><p>Yes, the supplied PayGaid information states 24/7 support.</p><h4>Does applying guarantee approval?</h4><p>No. Applications are subject to account review and applicable requirements.</p>`,
-                m7: `<h3>Contact Support</h3><div class="step-box"><strong>Email:</strong><br>support@paygaid.com</div><h4>For Faster Assistance</h4><ul><li>Contact support 24/7.</li><li>Include your Application ID when asking about an application.</li><li>Clearly describe the issue or request.</li><li>Do not send passwords, OTPs or confidential login credentials.</li></ul>`
+                m3: `<h3>PayGaid Agent Program Overview</h3><p>PayGaid is a specialized high-risk payment gateway with expertise in iGaming and international high-risk payment processing.</p>`,
+                m4: `<h3>Eligibility Criteria</h3><p>Applicants should provide complete and accurate information.</p>`,
+                m5: `<h3>Terms &amp; Conditions</h3><ol><li>All information submitted must be accurate.</li></ol>`,
+                m6: `<h3>Frequently Asked Questions</h3><h4>What is PayGaid?</h4><p>PayGaid is a specialized high-risk payment gateway.</p>`,
+                m7: `<h3>Contact Support</h3><div class="step-box"><strong>Email:</strong><br>support@paygaid.com</div>`
             },
             bn: {
-                m3: `<h3>PayGaid Agent Program Overview</h3><p>PayGaid একটি specialized high-risk payment gateway, যার iGaming এবং international high-risk payment processing-এ expertise রয়েছে।</p><h4>মূল বৈশিষ্ট্য</h4><ul><li>Fast Transactions</li><li>Up to 200 currencies support</li><li>AI-powered fraud protection</li><li>API integration, documentation ও SDK support</li><li>24/7 support</li></ul><h4>Application Process</h4><ol><li>Apply Online</li><li>Account Review</li><li>Integration</li><li>Start Processing</li></ol>`,
-                m4: `<h3>Eligibility Criteria</h3><p>Application review-এর জন্য সঠিক ও সম্পূর্ণ তথ্য দিতে হবে।</p><h4>Required Information</h4><ul><li>Full Name</li><li>Email Address</li><li>Mobile Number</li><li>WhatsApp Number</li><li>Telegram ID</li><li>Payment Gateway / Account or Wallet Information</li><li>NID Card / Passport / Driving License</li><li>Document Number</li><li>Front ও Back document JPG/PNG</li></ul><div class="info-box"><strong>Important:</strong> Application submit করলেই approval নিশ্চিত নয়; account review-এর পর approval হবে।</div>`,
-                m5: `<h3>Terms &amp; Conditions</h3><ol><li>সব তথ্য সঠিক ও আপডেটেড হতে হবে।</li><li>False, misleading বা unauthorized information দেওয়া যাবে না।</li><li>প্রয়োজনে অতিরিক্ত documents/information চাওয়া হতে পারে।</li><li>Fraudulent বা suspicious activity হলে review, restriction বা termination হতে পারে।</li><li>Payment activity applicable laws এবং PayGaid requirements মেনে চলতে হবে।</li><li>Authorized payment methods/accounts/wallets ব্যবহার করতে হবে।</li><li>High-risk transactions additional review-এর আওতায় পড়তে পারে।</li><li>API integration technical ও security requirements অনুযায়ী করতে হবে।</li></ol>`,
-                m6: `<h3>Frequently Asked Questions</h3><h4>PayGaid কী?</h4><p>PayGaid একটি specialized high-risk payment gateway।</p><h4>কতগুলো currency support করে?</h4><p>Supplied information অনুযায়ী up to 200 currencies.</p><h4>কতগুলো payment method?</h4><p>Supplied program information-এ 200+ payment methods উল্লেখ আছে।</p><h4>কী কী document লাগবে?</h4><p>NID Card, Passport অথবা Driving License, document number এবং clear front/back image.</p><h4>Application process কী?</h4><p>Apply Online → Account Review → Integration → Start Processing.</p><h4>Support আছে?</h4><p>হ্যাঁ, 24/7 support.</p>`,
-                m7: `<h3>Contact Support</h3><div class="step-box"><strong>Email:</strong><br>support@paygaid.com</div><ul><li>Application ID দিন।</li><li>সমস্যাটি পরিষ্কারভাবে লিখুন।</li><li>Password বা OTP কখনো পাঠাবেন না।</li></ul>`
+                m3: `<h3>PayGaid Agent Program Overview</h3><p>PayGaid একটি specialized high-risk payment gateway।</p>`,
+                m4: `<h3>Eligibility Criteria</h3><p>সঠিক ও সম্পূর্ণ তথ্য দিতে হবে।</p>`,
+                m5: `<h3>Terms &amp; Conditions</h3><ol><li>সব তথ্য সঠিক হতে হবে।</li></ol>`,
+                m6: `<h3>Frequently Asked Questions</h3><h4>PayGaid কী?</h4><p>PayGaid একটি specialized high-risk payment gateway।</p>`,
+                m7: `<h3>Contact Support</h3><div class="step-box"><strong>Email:</strong><br>support@paygaid.com</div>`
             }
         };
 

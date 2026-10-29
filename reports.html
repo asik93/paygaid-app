@@ -102,6 +102,59 @@
             color: #38bdf8;
         }
 
+        /* Minimalist Profit Card */
+        .profit-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .profit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .profit-header span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .profit-badge {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .profit-badge i {
+            font-size: 8px;
+        }
+        .profit-amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .profit-footer {
+            font-size: 11px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         /* Summary Cards Grid */
         .summary-grid {
             display: grid;
@@ -130,45 +183,6 @@
         }
         .summary-value.profit {
             color: #34d399;
-        }
-
-        /* Main Profit Card */
-        .profit-card {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 20px;
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
-        }
-        .profit-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .profit-header span {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-        .profit-badge {
-            background: rgba(255, 255, 255, 0.2);
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-        .profit-amount {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        .profit-footer {
-            font-size: 11px;
-            opacity: 0.85;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         /* Section Title */
@@ -265,13 +279,13 @@
             </div>
         </div>
 
-        <!-- Main Net Profit Card -->
+        <!-- Main Net Profit Card (Clean & Minimalist) -->
         <div class="profit-card">
             <div class="profit-header">
                 <span>Total Net Profit</span>
-                <span class="profit-badge"><i class="fa-solid fa-arrow-trend-up"></i> +14.2%</span>
+                <span class="profit-badge"><i class="fa-solid fa-circle"></i> Live</span>
             </div>
-            <div class="profit-amount" id="profitAmount">৳ 15,500.00</div>
+            <div class="profit-amount" id="profitAmount">৳ 0.00</div>
             <div class="profit-footer">
                 <i class="fa-solid fa-circle-info"></i> Calculated from all commissions & bonuses
             </div>
@@ -281,70 +295,92 @@
         <div class="summary-grid">
             <div class="summary-card">
                 <div class="summary-title">Today Commission</div>
-                <div class="summary-value profit">৳ 1,250</div>
+                <div class="summary-value profit" id="todayCommissionVal">৳ 0</div>
             </div>
             <div class="summary-card">
                 <div class="summary-title">Total Commission</div>
-                <div class="summary-value">৳ 14,250</div>
+                <div class="summary-value" id="totalCommissionVal">৳ 0</div>
             </div>
             <div class="summary-card">
                 <div class="summary-title">Total Deposit Vol</div>
-                <div class="summary-value">৳ 250,000</div>
+                <div class="summary-value" id="totalDepositVol">৳ 0</div>
             </div>
             <div class="summary-card">
                 <div class="summary-title">Total Withdraw Vol</div>
-                <div class="summary-value">৳ 120,000</div>
+                <div class="summary-value" id="totalWithdrawVol">৳ 0</div>
             </div>
         </div>
 
         <!-- Breakdown Section -->
         <div class="section-title">Category Wise Breakdown</div>
-        <div class="report-list">
+        <div class="report-list" id="categoryBreakdownList">
             <div class="report-item">
                 <div class="report-item-left">
                     <div class="report-icon"><i class="fa-solid fa-wallet"></i></div>
                     <div class="report-info">
-                        <div class="report-name">bKash Transactions</div>
-                        <div class="report-date">142 Successful Trx</div>
+                        <div class="report-name">Total Commission Earned</div>
+                        <div class="report-date">From Approved Requests</div>
                     </div>
                 </div>
                 <div class="report-item-right">
-                    <div class="report-earnings">+ ৳ 7,850</div>
+                    <div class="report-earnings" id="breakdownCommission">+ ৳ 0</div>
                     <div class="report-count">Commission</div>
-                </div>
-            </div>
-
-            <div class="report-item">
-                <div class="report-item-left">
-                    <div class="report-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                    <div class="report-info">
-                        <div class="report-name">Nagad Transactions</div>
-                        <div class="report-date">98 Successful Trx</div>
-                    </div>
-                </div>
-                <div class="report-item-right">
-                    <div class="report-earnings">+ ৳ 5,200</div>
-                    <div class="report-count">Commission</div>
-                </div>
-            </div>
-
-            <div class="report-item">
-                <div class="report-item-left">
-                    <div class="report-icon"><i class="fa-solid fa-award"></i></div>
-                    <div class="report-info">
-                        <div class="report-name">System Bonuses</div>
-                        <div class="report-date">Weekly Target Achieved</div>
-                    </div>
-                </div>
-                <div class="report-item-right">
-                    <div class="report-earnings">+ ৳ 2,450</div>
-                    <div class="report-count">Bonus</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        async function fetchReportsData() {
+            const username = localStorage.getItem('logged_agent_username') || localStorage.getItem('agent_id') || 'raz50';
+            try {
+                const profileRes = await fetch(`/api/agent/profile/${username}`);
+                const profileData = await profileRes.json();
+
+                let currencySymbol = '৳'; // Default fallback
+
+                if (profileRes.ok) {
+                    if (profileData.currency_symbol) {
+                        currencySymbol = profileData.currency_symbol;
+                    }
+
+                    const todayComm = profileData.today_commission || 0;
+                    const totalComm = profileData.total_commission || 0;
+
+                    document.getElementById('todayCommissionVal').innerText = `${currencySymbol} ${todayComm.toLocaleString()}`;
+                    document.getElementById('totalCommissionVal').innerText = `${currencySymbol} ${totalComm.toLocaleString()}`;
+                    document.getElementById('profitAmount').innerText = `${currencySymbol} ${totalComm.toLocaleString()}.00`;
+                    document.getElementById('breakdownCommission').innerText = `+ ${currencySymbol} ${totalComm.toLocaleString()}`;
+                }
+
+                const actRes = await fetch(`/api/agent/recent-activities/${username}`);
+                const actData = await actRes.json();
+
+                if (actRes.ok) {
+                    let totalDeposit = 0;
+                    let totalWithdraw = 0;
+
+                    actData.forEach(item => {
+                        const status = (item.status || "").toLowerCase();
+                        const amount = Number(item.amount || 0);
+
+                        if (item.type === 'deposit' && status === 'approved') {
+                            totalDeposit += amount;
+                        } 
+                        else if ((item.type === 'withdraw' || item.type === 'user_withdraw') && status === 'approved') {
+                            totalWithdraw += amount;
+                        }
+                    });
+
+                    document.getElementById('totalDepositVol').innerText = `${currencySymbol} ${totalDeposit.toLocaleString()}`;
+                    document.getElementById('totalWithdrawVol').innerText = `${currencySymbol} ${totalWithdraw.toLocaleString()}`;
+                }
+
+            } catch (err) {
+                console.error("Failed to load reports data:", err);
+            }
+        }
+
         function toggleDropdown() {
             let dropdown = document.getElementById('filterDropdown');
             dropdown.classList.toggle('active');
@@ -353,21 +389,8 @@
         function selectFilter(filterName) {
             document.getElementById('selectedFilterText').innerText = filterName;
             document.getElementById('filterDropdown').classList.remove('active');
-
-            // ডেমো হিসেবে ফিল্টার পরিবর্তনের সাথে প্রফিট অ্যামাউন্ট আপডেট করার লজিক
-            let profitEl = document.getElementById('profitAmount');
-            if(filterName === 'Today') {
-                profitEl.innerText = '৳ 1,250.00';
-            } else if(filterName === 'This Week') {
-                profitEl.innerText = '৳ 4,800.00';
-            } else if(filterName === 'This Month') {
-                profitEl.innerText = '৳ 15,500.00';
-            } else if(filterName === 'This Year') {
-                profitEl.innerText = '৳ 128,400.00';
-            }
         }
 
-        // উইন্ডোতে ক্লিক করলে ড্রপডাউন বন্ধ হয়ে যাবে
         window.onclick = function(event) {
             if (!event.target.closest('.filter-dropdown-wrapper')) {
                 let dropdown = document.getElementById('filterDropdown');
@@ -376,6 +399,10 @@
                 }
             }
         }
+
+        window.onload = function() {
+            fetchReportsData();
+        };
     </script>
 </body>
 </html>

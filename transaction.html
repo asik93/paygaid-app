@@ -142,6 +142,11 @@
             padding: 14px;
             margin-bottom: 12px;
             display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .trx-card-main {
+            display: flex;
             align-items: center;
             justify-content: space-between;
         }
@@ -166,6 +171,10 @@
         .trx-icon.withdraw {
             background: rgba(239, 68, 68, 0.15);
             color: #f87171;
+        }
+        .trx-icon.commission {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
         }
         .trx-details {
             display: flex;
@@ -197,6 +206,9 @@
         .trx-amount.withdraw {
             color: #f87171;
         }
+        .trx-amount.commission {
+            color: #38bdf8;
+        }
         .trx-status {
             font-size: 10px;
             font-weight: 600;
@@ -204,7 +216,7 @@
             border-radius: 10px;
             display: inline-block;
         }
-        .trx-status.success {
+        .trx-status.success, .trx-status.approved {
             background: rgba(16, 185, 129, 0.15);
             color: #34d399;
         }
@@ -212,9 +224,20 @@
             background: rgba(234, 179, 8, 0.15);
             color: #facc15;
         }
-        .trx-status.failed {
+        .trx-status.failed, .trx-status.rejected {
             background: rgba(239, 68, 68, 0.15);
             color: #f87171;
+        }
+
+        /* Rejection Reason Style */
+        .trx-reason {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #f87171;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #fca5a5;
+            margin-top: 4px;
         }
 
         /* Empty State */
@@ -271,7 +294,7 @@
         <div class="search-container" id="searchContainer">
             <div class="search-box">
                 <i class="fa-solid fa-search"></i>
-                <input type="text" id="searchInput" class="search-input" placeholder="Search by title, user, or status..." oninput="renderTransactions()">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by title, subtitle, or status..." oninput="renderTransactions()">
             </div>
         </div>
 
@@ -297,46 +320,44 @@
     </div>
 
     <script>
-        let transactions = [
-            {
-                id: 1,
-                type: 'deposit',
-                title: 'bKash Deposit Accepted',
-                user: '@kamal',
-                time: '06 Oct 2026, 01:10 AM',
-                amount: '+ ৳ 5,000',
-                status: 'success'
-            },
-            {
-                id: 2,
-                type: 'withdraw',
-                title: 'Nagad Withdraw Sent',
-                user: '@rahim',
-                time: '06 Oct 2026, 12:45 AM',
-                amount: '- ৳ 2,500',
-                status: 'success'
-            },
-            {
-                id: 3,
-                type: 'commission',
-                title: 'Agent Commission',
-                user: 'System Bonus',
-                time: '05 Oct 2026, 11:30 PM',
-                amount: '+ ৳ 150',
-                status: 'success'
-            },
-            {
-                id: 4,
-                type: 'deposit',
-                title: 'Rocket Deposit Pending',
-                user: '@tanvir',
-                time: '05 Oct 2026, 10:15 PM',
-                amount: '+ ৳ 10,000',
-                status: 'pending'
-            }
-        ];
-
+        let transactions = [];
         let activeFilter = 'all';
+
+        function getLoggedInAgentId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlAgentId = urlParams.get('agent_id') || urlParams.get('username');
+            if (urlAgentId) return urlAgentId;
+
+            return localStorage.getItem("logged_agent_username") || 
+                   sessionStorage.getItem("logged_agent_username") || 
+                   localStorage.getItem("agent_id") || 
+                   sessionStorage.getItem("agent_id") || 
+                   localStorage.getItem("username") || 
+                   sessionStorage.getItem("username") || "raz50";
+        }
+
+        async function fetchTransactions() {
+            const username = getLoggedInAgentId();
+            try {
+                const response = await fetch(`/api/agent/recent-activities/${username}`);
+                const data = await response.json();
+                
+                transactions = data.map(item => ({
+                    id: item.id || Math.random(),
+                    type: item.type, // 'deposit', 'withdraw', 'commission'
+                    title: item.title,
+                    subtitle: item.subtitle,
+                    time: item.created_at ? new Date(item.created_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : '',
+                    amount: item.amount,
+                    status: (item.status || 'pending').toLowerCase(),
+                    reason: item.reason || item.rejection_reason || '' // অ্যাডমিনের দেওয়া রিজেক্টের কারণ ক্যাপচার করা হলো
+                }));
+
+                renderTransactions();
+            } catch (err) {
+                console.error("Failed to load transactions:", err);
+            }
+        }
 
         function toggleSearch() {
             let searchContainer = document.getElementById('searchContainer');
@@ -359,8 +380,9 @@
             let filtered = transactions.filter(item => {
                 let matchesTab = (activeFilter === 'all') || (item.type === activeFilter);
                 let matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
-                                    item.user.toLowerCase().includes(searchQuery) || 
-                                    item.status.toLowerCase().includes(searchQuery);
+                                    item.subtitle.toLowerCase().includes(searchQuery) || 
+                                    item.status.toLowerCase().includes(searchQuery) ||
+                                    (item.reason && item.reason.toLowerCase().includes(searchQuery));
                 return matchesTab && matchesSearch;
             });
 
@@ -372,25 +394,47 @@
             }
 
             filtered.forEach(item => {
-                let iconClass = item.type === 'deposit' ? 'fa-arrow-down-left-and-arrow-up-right-to-center deposit' : (item.type === 'withdraw' ? 'fa-arrow-up-right-dots withdraw' : 'fa-wallet deposit');
-                let amountClass = item.type === 'withdraw' ? 'withdraw' : 'deposit';
-                let iconBgType = item.type === 'withdraw' ? 'withdraw' : 'deposit';
+                let iconClass = 'fa-arrow-down-left-and-arrow-up-right-to-center';
+                let iconBgType = 'deposit';
+                let amountClass = 'deposit';
+                let sign = '+';
+
+                if (item.type === 'withdraw') {
+                    iconClass = 'fa-arrow-up-right-dots';
+                    iconBgType = 'withdraw';
+                    amountClass = 'withdraw';
+                    sign = '-';
+                } else if (item.type === 'commission') {
+                    iconClass = 'fa-wallet';
+                    iconBgType = 'commission';
+                    amountClass = 'commission';
+                    sign = '+';
+                }
+
+                // যদি স্ট্যাটাস রিজেক্টেড হয় এবং রিজেক্টের কারণ থাকে, তবে নিচে বক্স আকারে দেখাবে
+                let reasonHtml = '';
+                if ((item.status === 'rejected' || item.status === 'failed') && item.reason) {
+                    reasonHtml = `<div class="trx-reason"><i class="fa-solid fa-triangle-exclamation"></i> Reason: ${item.reason}</div>`;
+                }
 
                 container.innerHTML += `
                     <div class="trx-card">
-                        <div class="trx-left">
-                            <div class="trx-icon ${iconBgType}">
-                                <i class="fa-solid ${iconClass}"></i>
+                        <div class="trx-card-main">
+                            <div class="trx-left">
+                                <div class="trx-icon ${iconBgType}">
+                                    <i class="fa-solid ${iconClass}"></i>
+                                </div>
+                                <div class="trx-details">
+                                    <div class="trx-title">${item.title}</div>
+                                    <div class="trx-user-time">${item.subtitle} • ${item.time}</div>
+                                </div>
                             </div>
-                            <div class="trx-details">
-                                <div class="trx-title">${item.title}</div>
-                                <div class="trx-user-time">User: ${item.user} • ${item.time}</div>
+                            <div class="trx-right">
+                                <div class="trx-amount ${amountClass}">${sign} ৳ ${item.amount.toLocaleString()}</div>
+                                <span class="trx-status ${item.status}">${item.status.toUpperCase()}</span>
                             </div>
                         </div>
-                        <div class="trx-right">
-                            <div class="trx-amount ${amountClass}">${item.amount}</div>
-                            <span class="trx-status ${item.status}">${item.status.toUpperCase()}</span>
-                        </div>
+                        ${reasonHtml}
                     </div>
                 `;
             });
@@ -404,7 +448,7 @@
         }
 
         window.onload = function() {
-            renderTransactions();
+            fetchTransactions();
         };
     </script>
 </body>
