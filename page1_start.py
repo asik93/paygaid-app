@@ -1,8 +1,8 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ContextTypes
 
-# আপনার নিজস্ব সার্ভারের লাইভ ডোমেন লিংক
-WEB_APP_URL = "https://bot.paygaid.online"
+# Apnar VPS IP address diye live domain link update kora holo
+WEB_APP_URL = "https://66.29.134.253"
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
