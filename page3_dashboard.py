@@ -1,16 +1,16 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ContextTypes
 
-# আপনার GitHub Pages-এর লাইভ URL
-WEB_APP_URL = "https://asik93.github.io/paygaid-app/"
+# Apnar VPS server-er live WEB_APP_URL update kora holo
+WEB_APP_URL = "https://66.29.134.253"
 
 async def show_dashboard_page(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     
-    # স্ক্রিনশটের মতো বাটনের তালিকা
+    # Screen-er moto button-er talika
     keyboard = [
         [InlineKeyboardButton("👤 Become an Agent", callback_data="menu_become_agent")],
-        [InlineKeyboardButton("🔑 Agent Login", web_app=WebAppInfo(url=WEB_APP_URL))],  # ২ নম্বর অপশনে মিনি অ্যাপ
+        [InlineKeyboardButton("🔑 Agent Login", web_app=WebAppInfo(url=WEB_APP_URL))],  # Mini App URL updated to VPS IP
         [InlineKeyboardButton("📋 Program Overview", callback_data="menu_overview")],
         [InlineKeyboardButton("🛡️ Eligibility Criteria", callback_data="menu_eligibility")],
         [InlineKeyboardButton("📜 Terms & Conditions", callback_data="menu_terms")],
@@ -21,7 +21,7 @@ async def show_dashboard_page(update: Update, context: ContextTypes.DEFAULT_TYPE
     
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    # স্ক্রিনশটের মতো ওয়েলকাম মেসেজ
+    # Welcome message
     dashboard_text = (
         "**Welcome to PayGaid**\n\n"
         "Your trusted Payment Gateway & E-Wallet Agent Platform.\n\n"
@@ -44,16 +44,16 @@ async def handle_dashboard_action(update: Update, context: ContextTypes.DEFAULT_
         from page2_language import show_language_page
         await show_language_page(update, context)
     elif data == "menu_become_agent":
-        await query.message.reply_text("📝 **Become an Agent**\n\nঅ্যাপ্লিকেশন জমা দিতে রেজিস্টার বাটনে ক্লিক করুন।")
+        await query.message.reply_text("📝 **Become an Agent**\n\nApplication joma dite register button-e click korun.")
     elif data == "menu_overview":
-        await query.message.reply_text("📋 **Program Overview**\n\nPayGaid এজেন্ট প্রোগ্রাম সম্পর্কে বিস্তারিত তথ্য এখানে থাকবে।")
+        await query.message.reply_text("📋 **Program Overview**\n\nPayGaid agent program somporke bistarito tothyo ekhane thakbe.")
     elif data == "menu_eligibility":
-        await query.message.reply_text("🛡️ **Eligibility Criteria**\n\nএজেন্ট হওয়ার যোগ্যতা ও প্রয়োজনীয় তথ্যাবলী।")
+        await query.message.reply_text("🛡️ **Eligibility Criteria**\n\nAgent howar jogota o proyojonio tothya boli.")
     elif data == "menu_terms":
-        await query.message.reply_text("📜 **Terms & Conditions**\n\nশর্তাবলী পড়ুন।")
+        await query.message.reply_text("📜 **Terms & Conditions**\n\nSorthaboli porun.")
     elif data == "menu_faq":
-        await query.message.reply_text("❓ **Frequently Asked Questions**\n\nসাধারণ প্রশ্নোত্তর।")
+        await query.message.reply_text("❓ **Frequently Asked Questions**\n\nSadharon prosnottor.")
     elif data == "menu_support":
-        await query.message.reply_text("🎧 **Contact Support**\n\nআমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন: @support_username")
+        await query.message.reply_text("🎧 **Contact Support**\n\nAmader support team-er sathe jogajog korun: @support_username")
     else:
-        await query.message.reply_text("🚧 কাজ চলছে...")
+        await query.message.reply_text("🚧 Kaj cholche...")
