@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppI
 from telegram.ext import ContextTypes
 
 # Apnar VPS IP address diye live domain link update kora holo
-WEB_APP_URL = "https://66.29.134.253"
+WEB_APP_URL = "https://bot.paygaid.online"
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [

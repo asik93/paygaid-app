@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppI
 from telegram.ext import ContextTypes
 
 # Apnar VPS server-er live WEB_APP_URL update kora holo
-WEB_APP_URL = "https://66.29.134.253"
+WEB_APP_URL = "https://bot.paygaid.online"
 
 async def show_dashboard_page(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query

@@ -104,3 +104,11 @@ class PasswordResetOTP(Base):
     otp_code = Column(String, nullable=False)
     is_used = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+# Manager Model (Natun add kora holo jate admin panel theke manager control kora jay)
+class Manager(Base):
+    __tablename__ = "managers"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    username = Column(String, unique=True, index=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
