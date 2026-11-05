@@ -1651,3 +1651,49 @@ def catch_all_html_files(file_name: str):
         return FileResponse(alt_path)
         
     raise HTTPException(status_code=404, detail="Page not found")
+from fastapi import Request
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+
+
+
+from fastapi import Request
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, Bot
+import os
+
+TELEGRAM_BOT_TOKEN = "8661674837:AAEoV7JSVWumM2ozCPdOYgBkj2omDEpBZfg"
+bot = Bot(token=TELEGRAM_BOT_TOKEN)
+WEB_APP_URL = "https://bot.paygaid.online"
+
+
+
+from fastapi import Request
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, Bot
+import os
+
+TELEGRAM_BOT_TOKEN = "8661674837:AAEoV7JSVWumM2ozCPdOYgBkj2omDEpBZfg"
+bot = Bot(token=TELEGRAM_BOT_TOKEN)
+WEB_APP_URL = "https://bot.paygaid.online"
+
+@app.post("/webhook")
+async def telegram_webhook(request: Request):
+    try:
+        data = await request.json()
+        print("Received update:", data)
+        if "message" in data:
+            msg = data["message"]
+            chat_id = msg["chat"]["id"]
+            text = msg.get("text", "")
+            
+            # /start বা অন্য যেকোনো কমান্ডে ওয়েলকাম মেসেজ ও মিনি অ্যাপ বাটন পাঠানো
+            keyboard = [[InlineKeyboardButton("Open Portal", web_app=WebAppInfo(url=WEB_APP_URL))]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            
+            await bot.send_message(
+                chat_id=chat_id,
+                text="Welcome to PayGaid Agent Portal! Please click the 'Open Portal' button below to launch the application.",
+                reply_markup=reply_markup
+            )
+        return {"status": "ok"}
+    except Exception as e:
+        print("Webhook error:", e)
+        return {"status": "error", "message": str(e)}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PayGaid Admin Panel</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2 { color: #333; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #007bff; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Panel - Online Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>App ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Country</th>
+                    <th>Gateway</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="agentTable">
+                <tr><td colspan="6" style="text-align:center;">Loading applications...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        async function loadAgents() {
+            try {
+                const res = await fetch('/api/agents/all');
+                const data = await res.json();
+                const tbody = document.getElementById('agentTable');
+                tbody.innerHTML = '';
+                if(data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No applications found</td></tr>';
+                    return;
+                }
+                data.forEach(agent => {
+                    tbody.innerHTML += `<tr>
+                        <td>${agent.application_id}</td>
+                        <td>${agent.full_name}</td>
+                        <td>${agent.mobile}</td>
+                        <td>${agent.country}</td>
+                        <td>${agent.payment_gateway}</td>
+                        <td>${agent.status}</td>
+                    </tr>`;
+                });
+            } catch(err) {
+                console.error(err);
+            }
+        }
+        loadAgents();
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[0;1;32m●[0m paygaid_bot.service - PayGaid Telegram Bot FastAPI Application
+     Loaded: loaded (]8;;file://server1.paygaid.online/etc/systemd/system/paygaid_bot.service/etc/systemd/system/paygaid_bot.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Tue 2026-11-03 18:54:08 UTC; 242ms ago
+   Main PID: 64142 (gunicorn)
+      Tasks: 1 (limit: 1055)
+     Memory: 9.9M (peak: 10.1M)
+        CPU: 105ms
+     CGroup: /system.slice/paygaid_bot.service
+             └─[0;38;5;245m64142 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 127.0.0.1:8000 --timeout 120[0m
+
+Nov 03 18:54:08 server1.paygaid.online systemd[1]: Started paygaid_bot.service - PayGaid Telegram Bot FastAPI Application.

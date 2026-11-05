@@ -1,0 +1,21 @@
+[0;1;32m●[0m paygaid_bot.service - PayGaid Telegram Bot FastAPI Application
+     Loaded: loaded (]8;;file://server1.paygaid.online/etc/systemd/system/paygaid_bot.service/etc/systemd/system/paygaid_bot.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Tue 2026-11-03 17:59:40 UTC; 1s ago
+   Main PID: 61687 (gunicorn)
+      Tasks: 4 (limit: 1055)
+     Memory: 74.1M (peak: 74.3M)
+        CPU: 1.125s
+     CGroup: /system.slice/paygaid_bot.service
+             ├─[0;38;5;245m61687 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app --bind 127.0.0.1:8000[0m
+             ├─[0;38;5;245m61688 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app --bind 127.0.0.1:8000[0m
+             └─[0;38;5;245m61689 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app --bind 127.0.0.1:8000[0m
+
+Nov 03 17:59:40 server1.paygaid.online systemd[1]: paygaid_bot.service: Consumed 2.346s CPU time.
+Nov 03 17:59:40 server1.paygaid.online systemd[1]: paygaid_bot.service: Scheduled restart job, restart counter is at 43.
+Nov 03 17:59:40 server1.paygaid.online systemd[1]: Started paygaid_bot.service - PayGaid Telegram Bot FastAPI Application.
+Nov 03 17:59:40 server1.paygaid.online gunicorn[61687]: [2026-11-03 17:59:40 +0000] [61687] [INFO] Starting gunicorn 26.2.0
+Nov 03 17:59:41 server1.paygaid.online gunicorn[61687]: [2026-11-03 17:59:41 +0000] [61687] [INFO] Listening at: http://127.0.0.1:8000 (61687)
+Nov 03 17:59:41 server1.paygaid.online gunicorn[61687]: [2026-11-03 17:59:41 +0000] [61687] [INFO] Using worker: uvicorn.workers.UvicornWorker
+Nov 03 17:59:41 server1.paygaid.online gunicorn[61688]: [2026-11-03 17:59:41 +0000] [61688] [INFO] Booting worker with pid: 61688
+Nov 03 17:59:41 server1.paygaid.online gunicorn[61689]: [2026-11-03 17:59:41 +0000] [61689] [INFO] Booting worker with pid: 61689
+Nov 03 17:59:41 server1.paygaid.online gunicorn[61687]: [2026-11-03 17:59:41 +0000] [61687] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl

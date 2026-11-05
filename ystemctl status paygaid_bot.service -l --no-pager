@@ -1,0 +1,24 @@
+[0;1;32m●[0m paygaid_bot.service - FastAPI Telegram Bot Service
+     Loaded: loaded (]8;;file://server1.paygaid.online/etc/systemd/system/paygaid_bot.service/etc/systemd/system/paygaid_bot.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Fri 2026-10-30 11:22:18 UTC; 5min ago
+   Main PID: 39064 (gunicorn)
+      Tasks: 7 (limit: 1060)
+     Memory: 220.6M (peak: 220.8M)
+        CPU: 7.869s
+     CGroup: /system.slice/paygaid_bot.service
+             ├─[0;38;5;245m39064 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000[0m
+             ├─[0;38;5;245m39065 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000[0m
+             ├─[0;38;5;245m39066 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000[0m
+             ├─[0;38;5;245m39067 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000[0m
+             └─[0;38;5;245m39068 /var/www/app/venv/bin/python3 /var/www/app/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000[0m
+
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39066]: [2026-10-30 11:22:23 +0000] [39066] [INFO] Started server process [39066]
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39066]: [2026-10-30 11:22:23 +0000] [39066] [INFO] Waiting for application startup.
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39067]: [2026-10-30 11:22:23 +0000] [39067] [INFO] Started server process [39067]
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39067]: [2026-10-30 11:22:23 +0000] [39067] [INFO] Waiting for application startup.
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39065]: [2026-10-30 11:22:23 +0000] [39065] [INFO] Application startup complete.
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39068]: [2026-10-30 11:22:23 +0000] [39068] [INFO] Started server process [39068]
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39068]: [2026-10-30 11:22:23 +0000] [39068] [INFO] Waiting for application startup.
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39067]: [2026-10-30 11:22:23 +0000] [39067] [INFO] Application startup complete.
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39066]: [2026-10-30 11:22:23 +0000] [39066] [INFO] Application startup complete.
+Oct 30 11:22:23 server1.paygaid.online gunicorn[39068]: [2026-10-30 11:22:23 +0000] [39068] [INFO] Application startup complete.
