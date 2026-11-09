@@ -211,15 +211,25 @@
 
         async function fetchSupportSettings() {
             try {
-                const res = await fetch('/api/support-settings');
+                const res = await fetch('/api/support-settings?t=' + new Date().getTime());
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.telegram_link) {
-                        document.getElementById('telegramSupportLink').href = data.telegram_link;
+                    
+                    const telegramLinkEl = document.getElementById('telegramSupportLink');
+                    const emailLinkEl = document.getElementById('emailSupportLink');
+                    const emailSubEl = document.getElementById('emailSupportSub');
+
+                    if (data.telegram_link && telegramLinkEl) {
+                        let tLink = data.telegram_link.trim();
+                        if (!tLink.startsWith('http://') && !tLink.startsWith('https://')) {
+                            tLink = 'https://t.me/' + tLink.replace('@', '');
+                        }
+                        telegramLinkEl.href = tLink;
                     }
-                    if (data.support_email) {
-                        document.getElementById('emailSupportLink').href = 'mailto:' + data.support_email;
-                        document.getElementById('emailSupportSub').innerText = data.support_email;
+
+                    if (data.support_email && emailLinkEl && emailSubEl) {
+                        emailLinkEl.href = 'mailto:' + data.support_email.trim();
+                        emailSubEl.innerText = data.support_email.trim();
                     }
                 }
             } catch (err) {
